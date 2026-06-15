@@ -58,7 +58,7 @@ const GET_POSTS = gql`
   }
 `;
 
-function toPlainText(value: string | null) {
+function toPlainText(value: string | null | undefined) {
   if (!value) {
     return '';
   }
