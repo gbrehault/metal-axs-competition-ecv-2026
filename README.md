@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Front Next.js connecte a WordPress via WPGraphQL
 
-## Getting Started
+Ce projet charge les derniers articles publies dans WordPress depuis l'endpoint WPGraphQL, directement dans l'App Router Next.js.
 
-First, run the development server:
+## Prerequis WordPress
+
+1. Installer et activer le plugin `WPGraphQL` sur votre site WordPress.
+2. Verifier que l'endpoint GraphQL repond bien, en general sur `https://votre-site.fr/graphql`.
+3. Si l'endpoint est protege, preparer un token Bearer pour l'acces serveur.
+
+## Configuration du front
+
+Renseignez les variables d'environnement dans `.env.local` a partir de `.env.example` :
+
+```bash
+npm ci
+npm run dev
+```
+
+```env
+WORDPRESS_SITE_URL=https://votre-site.fr
+WORDPRESS_GRAPHQL_ENDPOINT=https://votre-site.fr/graphql
+WORDPRESS_GRAPHQL_AUTH_TOKEN=
+```
+
+`WORDPRESS_GRAPHQL_ENDPOINT` est prioritaire. Si vous renseignez seulement `WORDPRESS_SITE_URL`, le front derive automatiquement l'endpoint `.../graphql`.
+
+## Demarrage
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrez [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+La page d'accueil :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- lit WordPress cote serveur
+- interroge WPGraphQL
+- affiche les derniers articles publies
+- remonte un message de configuration si l'endpoint n'est pas renseigne
+- remonte un message d'erreur detaille si WordPress ne repond pas correctement
 
-## Learn More
+## Structure utile
 
-To learn more about Next.js, take a look at the following resources:
+- `app/page.tsx` : page d'accueil branchee sur WordPress
+- `lib/wpgraphql.ts` : utilitaires de connexion WPGraphQL
+- `.env.example` : variables d'environnement attendues
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Verification
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+npm run build
+```
