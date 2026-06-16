@@ -4,18 +4,20 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { connection } from 'next/server';
 import { getApolloClient } from '@/app/lib/apolloClient';
+import AnimatedBackground from '@/app/components/AnimatedBackground';
 
 type Post = {
   id: string;
-  title: string;
   slug: string;
-  date: string;
-  content: string | null;
+  title: string;
   uri: string;
+  excerpt: string | null;
+  date: string;
   article?: {
-    titre?: string | null;
-    copier?: string | null;
-    image?: {
+    fieldGroupName?: string;
+    titreArticle?: string | null;
+    contenuArticle?: string | null;
+    imageArticle?: {
       node?: {
         altText?: string | null;
         sourceUrl?: string | null;
@@ -36,11 +38,10 @@ const GET_POST_BY_SLUG = gql`
       slug
       date
       content
-      uri
       article {
-        titre
-        copier
-        image {
+        titreArticle
+        contenuArticle
+        imageArticle {
           node {
             altText
             sourceUrl
@@ -55,46 +56,112 @@ const GET_POST_BY_SLUG = gql`
   }
 `;
 
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   await connection();
 
-  const { slug: slug } = await params;
+  const { slug } = await params;
   const client = getApolloClient();
-  const result = await client.query<{
-    post: Post | null;
-  }>({
+  const result = await client.query<{ post: Post | null }>({
     query: GET_POST_BY_SLUG,
     variables: { slug },
   });
   const post = result.data?.post ?? null;
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
+
+  const imgSrc = post.article?.imageArticle?.node?.sourceUrl;
+  const imgAlt = post.article?.imageArticle?.node?.altText ?? post.title;
+  const title = post.article?.titreArticle ?? post.title;
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-6 py-12">
-      <Link href="/articles" className="text-sm font-medium text-blue-600">
-        Retour aux articles
-      </Link>
+    <>
+      <AnimatedBackground />
 
-      <article className="rounded-2xl border border-zinc-200 p-8 shadow-sm">
-        {post.article?.image?.node?.sourceUrl ? (
-          <Image
-            src={post.article.image.node.sourceUrl}
-            alt={post.article.image.node.altText || post.title}
-            width={post.article.image.node.mediaDetails?.width || 600}
-            height={post.article.image.node.mediaDetails?.height || 400}
-            className="mb-6 rounded-lg object-cover"
-          />
-        ) : null}
-        <p className="text-sm text-zinc-500">{post.date}</p>
-        <h1 className="mt-2 text-4xl font-semibold">{post.title}</h1>
-        <div
-          className="prose mt-8 max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content ?? '' }}
-        />
-      </article>
-    </main>
+      <main className="relative z-10 min-h-screen">
+
+        {/* Hero image pleine largeur avec overlay */}
+        {imgSrc ? (
+          <div className="relative h-[55vh] w-full overflow-hidden">
+            <Image
+              src={imgSrc}
+              alt={imgAlt}
+              fill
+              className="object-cover"
+              priority
+            />
+            {/* Gradient overlay bas */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/40 to-transparent" />
+
+            {/* Titre sur l'image */}
+            <div className="absolute bottom-0 left-0 right-0 px-6 pb-10 md:px-16">
+              <div className="mx-auto max-w-4xl">
+                <time className="text-xs font-medium uppercase tracking-widest text-white/50">
+                  {formatDate(post.date)}
+                </time>
+                <h1
+                  className="mt-2 text-4xl font-bold leading-tight text-white sm:text-6xl"
+                  style={{ fontFamily: 'var(--font-primary)' }}
+                >
+                  {title}
+                </h1>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* Pas d'image : header texte seul */
+          <div className="border-b border-white/10 px-6 py-16 md:px-16">
+            <div className="mx-auto max-w-4xl">
+              <time className="text-xs font-medium uppercase tracking-widest text-white/50">
+                {formatDate(post.date)}
+              </time>
+              <h1
+                className="mt-2 text-4xl font-bold leading-tight text-white sm:text-6xl"
+                style={{ fontFamily: 'var(--font-primary)' }}
+              >
+                {title}
+              </h1>
+            </div>
+          </div>
+        )}
+
+        {/* Contenu */}
+        <div className="px-6 py-12 md:px-16">
+          <div className="mx-auto max-w-4xl">
+
+            <Link
+              href="/articles"
+              className="mb-10 inline-flex text-xs font-medium uppercase tracking-widest text-white/40 transition-colors hover:text-primary"
+            >
+              ← Retour aux articles
+            </Link>
+
+            {/* Ligne déco */}
+            <div className="mb-10 h-px w-16 bg-primary" />
+
+            <div
+              className="gutenberg-content prose prose-invert max-w-none
+                prose-headings:font-bold prose-headings:text-white prose-headings:uppercase
+                prose-p:text-white/70 prose-p:leading-relaxed
+                prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-white
+                prose-blockquote:border-l-primary prose-blockquote:text-white/60 prose-blockquote:not-italic
+                prose-li:text-white/70
+                prose-hr:border-white/10
+                prose-img:rounded-xl"
+              dangerouslySetInnerHTML={{ __html: post.article?.contenuArticle ?? '' }}
+            />
+          </div>
+        </div>
+
+      </main>
+    </>
   );
 }
