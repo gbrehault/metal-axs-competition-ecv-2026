@@ -104,10 +104,10 @@ export default async function Home() {
             </p>
           )}
           <Link
-            href={`/${post.slug}`}
+            href={`/articles/${post.slug}`}
             className="mt-4 inline-flex text-sm font-medium text-blue-600"
           >
-            Lire l&apos;article
+            Lire l'article
           </Link>
         </article>
       ))}

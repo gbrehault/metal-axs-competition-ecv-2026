@@ -1,9 +1,9 @@
-import Image from "next/image";
-import { gql } from "@apollo/client";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { connection } from "next/server";
-import { getApolloClient } from "@/app/lib/apolloClient";
+import Image from 'next/image';
+import { gql } from '@apollo/client';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { connection } from 'next/server';
+import { getApolloClient } from '@/app/lib/apolloClient';
 
 type Post = {
   id: string;
@@ -55,14 +55,10 @@ const GET_POST_BY_SLUG = gql`
   }
 `;
 
-export default async function PostPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   await connection();
 
-  const { slug } = await params;
+  const { slug: slug } = await params;
   const client = getApolloClient();
   const result = await client.query<{
     post: Post | null;
@@ -78,7 +74,7 @@ export default async function PostPage({
 
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-6 py-12">
-      <Link href="/" className="text-sm font-medium text-blue-600">
+      <Link href="/articles" className="text-sm font-medium text-blue-600">
         Retour aux articles
       </Link>
 
@@ -96,7 +92,7 @@ export default async function PostPage({
         <h1 className="mt-2 text-4xl font-semibold">{post.title}</h1>
         <div
           className="prose mt-8 max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content ?? "" }}
+          dangerouslySetInnerHTML={{ __html: post.content ?? '' }}
         />
       </article>
     </main>
