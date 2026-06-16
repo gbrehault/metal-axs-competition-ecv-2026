@@ -99,7 +99,7 @@ export default function HomeLoader() {
       />
       <div
         ref={glowRef}
-        className="absolute left-1/2 top-1/2 h-[22rem] w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+        className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
         style={{
           background:
             'radial-gradient(circle, rgba(238, 75, 0, 0.55) 0%, rgba(238, 75, 0, 0.16) 48%, rgba(238, 75, 0, 0) 72%)',
