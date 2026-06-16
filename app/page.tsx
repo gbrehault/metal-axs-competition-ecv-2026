@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import AnimatedBackground from '@/app/components/AnimatedBackground';
+import HomeLoader from '@/app/components/HomeLoader';
 import Logo from '@/app/assets/logo_metal_axs_2026.png';
 import StrongCircleRigth from '@/app/assets/strong-circle-rigth.png';
 import SmallCircleRigth from '@/app/assets/circle-small-rigth.png';
@@ -9,6 +10,7 @@ import ShapeCircleLeft from '@/app/assets/shape-left.png';
 export default function Home() {
   return (
     <>
+      <HomeLoader />
       <section className="relative flex h-screen w-screen flex-col items-center justify-center overflow-hidden bg-secondary">
         <AnimatedBackground />
         <Image src={Logo} alt="Logo Metal AXS" width={200} height={200} className="mx-auto z-10" />
