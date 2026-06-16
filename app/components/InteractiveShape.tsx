@@ -720,7 +720,7 @@ export default function InteractiveShape() {
           />
         ))}
         <Suspense fallback={null}>
-          <Environment files="/BG_CHROME_METAL.exr" environmentIntensity={1.55} />
+          <Environment files="/CHROME_BG.exr" environmentIntensity={1.55} />
           <AnimatedModel
             isPointerUnlocked={isPointerUnlocked}
             scrollProgressRef={scrollProgressRef}
