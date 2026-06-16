@@ -1,11 +1,23 @@
 import Image from 'next/image';
 import AnimatedBackground from '@/app/components/AnimatedBackground';
 import HomeLoader from '@/app/components/HomeLoader';
+import PartnerSlider from '@/app/components/PartnerSlider';
+import type { Partner } from '@/app/components/PartnerSlider';
 import Logo from '@/app/assets/logo_metal_axs_2026.png';
 import StrongCircleRigth from '@/app/assets/strong-circle-rigth.png';
 import SmallCircleRigth from '@/app/assets/circle-small-rigth.png';
 import TriangleRigth from '@/app/assets/triangle-rigth.png';
 import ShapeCircleLeft from '@/app/assets/shape-left.png';
+
+const partners: Partner[] = [
+  { name: 'Association', italic: true },
+  { name: 'Test' },
+  { name: 'Test' },
+  { name: 'organism' },
+  { name: 'Test' },
+  { name: 'Association', italic: true },
+  { name: 'Test' },
+];
 
 export default function Home() {
   return (
@@ -32,7 +44,9 @@ export default function Home() {
         <div className="absolute bottom-0 right-1/2 ">
           <Image src={ShapeCircleLeft} alt="Shape Circle Left" width={1000} height={1000} className="z-10 blur-3xl" />
         </div>
+              <PartnerSlider partners={partners} label="Collaborateur Exemple" speed={25} />
       </section>
+
     </>
   );
 }

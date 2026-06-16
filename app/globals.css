@@ -49,6 +49,11 @@
   --font-secondary: "Gilroy", Arial, sans-serif;
 }
 
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 html {
   min-height: 100%;
 }

@@ -9,8 +9,6 @@ export default function HomeLoader() {
   const [isVisible, setIsVisible] = useState(true);
   const overlayRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-  const eyebrowRef = useRef<HTMLParagraphElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
 
@@ -65,11 +63,10 @@ export default function HomeLoader() {
         )
         .to(trackRef.current, { scaleX: 1, duration: 1.05, ease: 'power2.inOut' }, '-=0.3')
         .to(
-          [logoRef.current, titleRef.current, trackRef.current],
-          { autoAlpha: 0, y: -16, duration: 0.35, stagger: 0.04 },
-          '+=0.2',
-        )
-        .to(overlayRef.current, { yPercent: -100, duration: 0.8, ease: 'power4.inOut' }, '-=0.05');
+          overlayRef.current,
+          { autoAlpha: 0, filter: 'blur(18px)', duration: 0.75, ease: 'power2.inOut' },
+          '+=0.3',
+        );
     }, overlayRef);
 
     return () => {
