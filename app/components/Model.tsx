@@ -20,7 +20,7 @@ export default function Model({ materialRef }: Props) {
       clearcoat: 0.9,
       clearcoatRoughness: 0.12,
       envMapIntensity: 2,
-      reflectivity: 1,
+      reflectivity: 1.1,
       transparent: true,
       opacity: 1,
     });
