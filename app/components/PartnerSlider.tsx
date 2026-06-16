@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 
 export type Partner = {
   name: string;
@@ -22,7 +22,7 @@ export default function PartnerSlider({ partners, label, speed = 30 }: Props) {
     <div className="relative w-full overflow-hidden">
       <div className="relative z-10 py-4">
         {label && (
-          <p className="text-center text-white/80 text-sm tracking-widest uppercase mb-3 font-primary">
+          <p className="text-center text-secondary text-sm tracking-widest uppercase mb-3 font-primary">
             {label}
           </p>
         )}
@@ -31,7 +31,7 @@ export default function PartnerSlider({ partners, label, speed = 30 }: Props) {
           <div
             className="flex items-center will-change-transform"
             style={{
-              width: "max-content",
+              width: 'max-content',
               animation: `marquee ${speed}s linear infinite`,
             }}
           >
@@ -49,11 +49,11 @@ export default function PartnerSlider({ partners, label, speed = 30 }: Props) {
                   </span>
                 ) : (
                   <span
-                    className="px-6 text-2xl text-white"
+                    className="px-6 text-2xl text-secondary"
                     style={
                       partner.italic
-                        ? { fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic" }
-                        : { fontFamily: "var(--font-primary)", fontWeight: 400 }
+                        ? { fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: 'italic' }
+                        : { fontFamily: 'var(--font-primary)', fontWeight: 400 }
                     }
                   >
                     {partner.name}
