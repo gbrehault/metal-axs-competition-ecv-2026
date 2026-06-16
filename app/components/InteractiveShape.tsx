@@ -18,7 +18,7 @@ const SCROLL_START_ROTATION_Y = 0;
 const SCROLL_END_ROTATION_Y = -0;
 const SCROLL_START_ROTATION_Z = -0.42;
 const SCROLL_END_ROTATION_Z = 0;
-const ENABLE_POINTER_INTERACTION = false;
+const ENABLE_POINTER_INTERACTION = true;
 const SHOW_SHAPE_BLUR = true;
 const SHAPE_BLUR_FILTER = 'url(#shape-discreet-blur)';
 const SCROLL_PROGRESS_DAMPING = 1.75;
@@ -26,9 +26,11 @@ const SCROLL_ROTATION_DAMPING = 2.35;
 const SCROLL_POSITION_X_DAMPING = 1.95;
 const SCROLL_POSITION_Y_DAMPING = 1.8;
 const SCROLL_SCALE_DAMPING = 2.6;
-const SCROLL_LIGHT_DAMPING = 2.75;
+const SCROLL_LIGHT_DAMPING = 1.5;
+const POINTER_INTERACTION_UNLOCK_PROGRESS = 0.99;
 
 type AnimatedModelProps = {
+  isPointerUnlocked: boolean;
   scrollProgressRef: MutableRefObject<number>;
   layoutMetricsRef: MutableRefObject<LayoutMetrics>;
 };
@@ -339,7 +341,11 @@ function getScrollLightPosition(
   ];
 }
 
-function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelProps) {
+function AnimatedModel({
+  isPointerUnlocked,
+  scrollProgressRef,
+  layoutMetricsRef,
+}: AnimatedModelProps) {
   const groupRef = useRef<THREE.Group>(null);
   const glintLightRef = useRef<THREE.PointLight>(null);
   const materialRef = useRef<THREE.MeshPhysicalMaterial | null>(null);
@@ -350,11 +356,13 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
   const shineRef = useRef(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const interactionsEnabled = ENABLE_POINTER_INTERACTION;
+  const interactionsEnabled = ENABLE_POINTER_INTERACTION && isPointerUnlocked;
+  const hovered = interactionsEnabled && isHovered;
+  const dragging = interactionsEnabled && isDragging;
 
   useCursor(
-    interactionsEnabled && (isHovered || isDragging),
-    isDragging ? 'grabbing' : 'grab',
+    hovered || dragging,
+    dragging ? 'grabbing' : 'grab',
     'auto',
   );
 
@@ -416,7 +424,7 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
 
     event.stopPropagation();
 
-    if (!isDragging) {
+    if (!dragging) {
       return;
     }
 
@@ -448,15 +456,9 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
     const scrollProgress = smoothScrollRef.current;
     const scrollState = getScrollState(scrollProgress);
     const layoutMetrics = layoutMetricsRef.current;
-    const hoverY =
-      interactionsEnabled && isHovered
-        ? state.pointer.x * (layoutMetrics.isMobile ? 0.12 : 0.18)
-        : 0;
-    const hoverX =
-      interactionsEnabled && isHovered
-        ? state.pointer.y * (layoutMetrics.isMobile ? 0.08 : 0.12)
-        : 0;
-    const hoverZ = interactionsEnabled && isHovered ? state.pointer.x * -0.03 : 0;
+    const hoverY = hovered && !dragging ? state.pointer.x * (layoutMetrics.isMobile ? 0.12 : 0.18) : 0;
+    const hoverX = hovered && !dragging ? state.pointer.y * (layoutMetrics.isMobile ? 0.08 : 0.12) : 0;
+    const hoverZ = hovered && !dragging ? state.pointer.x * -0.03 : 0;
     const idleLift = 0;
     const basePositionY = scrollState.positionY * layoutMetrics.verticalFactor;
     const basePositionX = scrollState.positionX * layoutMetrics.horizontalFactor;
@@ -465,7 +467,7 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
     const baseRotationY = scrollState.rotationY;
     const baseRotationZ = scrollState.rotationZ;
 
-    if (!interactionsEnabled || !isDragging) {
+    if (!dragging) {
       dragOffsetRef.current.x = THREE.MathUtils.damp(dragOffsetRef.current.x, 0, 3, delta);
       dragOffsetRef.current.y = THREE.MathUtils.damp(dragOffsetRef.current.y, 0, 3, delta);
     }
@@ -473,13 +475,13 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
     groupRef.current.rotation.x = THREE.MathUtils.damp(
       groupRef.current.rotation.x,
       baseRotationX + dragOffsetRef.current.x + hoverX,
-      isDragging ? 10 : SCROLL_ROTATION_DAMPING,
+      dragging ? 10 : SCROLL_ROTATION_DAMPING,
       delta,
     );
     groupRef.current.rotation.y = THREE.MathUtils.damp(
       groupRef.current.rotation.y,
       baseRotationY + dragOffsetRef.current.y + hoverY,
-      isDragging ? 10 : SCROLL_ROTATION_DAMPING,
+      dragging ? 10 : SCROLL_ROTATION_DAMPING,
       delta,
     );
     groupRef.current.rotation.z = THREE.MathUtils.damp(
@@ -503,7 +505,7 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
     groupRef.current.scale.setScalar(
       THREE.MathUtils.damp(
         groupRef.current.scale.x,
-        baseScale * (interactionsEnabled ? (isDragging ? 1.08 : isHovered ? 1.04 : 1) : 1),
+        baseScale * (dragging ? 1.08 : hovered ? 1.04 : 1),
         SCROLL_SCALE_DAMPING,
         delta,
       ),
@@ -512,13 +514,7 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
     const chrome = materialRef.current;
     if (chrome) {
       const scrollShine = THREE.MathUtils.lerp(0.15, 1.35, scrollProgress);
-      const interactionShine = interactionsEnabled
-        ? isDragging
-          ? 1.3 + shineRef.current
-          : isHovered
-            ? 0.75 + shineRef.current * 0.15
-            : 0
-        : 0;
+      const interactionShine = dragging ? 1.3 + shineRef.current : hovered ? 0.75 + shineRef.current * 0.15 : 0;
 
       chrome.envMapIntensity = THREE.MathUtils.damp(
         chrome.envMapIntensity,
@@ -528,19 +524,19 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
       );
       chrome.roughness = THREE.MathUtils.damp(
         chrome.roughness,
-        isDragging ? 0.06 : isHovered ? 0.085 : THREE.MathUtils.lerp(0.2, 0.09, scrollProgress),
+        dragging ? 0.06 : hovered ? 0.085 : THREE.MathUtils.lerp(0.2, 0.09, scrollProgress),
         4.5,
         delta,
       );
       chrome.clearcoat = THREE.MathUtils.damp(
         chrome.clearcoat,
-        isDragging ? 0.98 : isHovered ? 0.94 : THREE.MathUtils.lerp(0.82, 0.96, scrollProgress),
+        dragging ? 0.98 : hovered ? 0.94 : THREE.MathUtils.lerp(0.82, 0.96, scrollProgress),
         4.5,
         delta,
       );
       chrome.clearcoatRoughness = THREE.MathUtils.damp(
         chrome.clearcoatRoughness,
-        isDragging ? 0.065 : isHovered ? 0.085 : THREE.MathUtils.lerp(0.16, 0.09, scrollProgress),
+        dragging ? 0.065 : hovered ? 0.085 : THREE.MathUtils.lerp(0.16, 0.09, scrollProgress),
         4.5,
         delta,
       );
@@ -549,13 +545,13 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
     if (glintLightRef.current) {
       glintLightRef.current.position.x = THREE.MathUtils.damp(
         glintLightRef.current.position.x,
-        interactionsEnabled ? state.pointer.x * 2.4 : 0,
+        hovered || dragging ? state.pointer.x * 2.4 : 0,
         SCROLL_LIGHT_DAMPING,
         delta,
       );
       glintLightRef.current.position.y = THREE.MathUtils.damp(
         glintLightRef.current.position.y,
-        (interactionsEnabled ? state.pointer.y * 1.8 : 0) +
+        ((hovered || dragging) ? state.pointer.y * 1.8 : 0) +
           THREE.MathUtils.lerp(1.9, -0.1, scrollProgress),
         SCROLL_LIGHT_DAMPING,
         delta,
@@ -568,8 +564,7 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
       );
       glintLightRef.current.intensity = THREE.MathUtils.damp(
         glintLightRef.current.intensity,
-        THREE.MathUtils.lerp(5, 14, scrollProgress) +
-          (interactionsEnabled ? (isDragging ? 8 + shineRef.current * 6 : isHovered ? 4 : 0) : 0),
+        THREE.MathUtils.lerp(5, 14, scrollProgress) + (dragging ? 8 + shineRef.current * 6 : hovered ? 4 : 0),
         SCROLL_LIGHT_DAMPING,
         delta,
       );
@@ -607,6 +602,7 @@ export default function InteractiveShape() {
   const scrollProgressRef = useRef(0);
   const layoutMetricsRef = useRef<LayoutMetrics>(DEFAULT_LAYOUT_METRICS);
   const [layoutMetrics, setLayoutMetrics] = useState(DEFAULT_LAYOUT_METRICS);
+  const [isPointerUnlocked, setIsPointerUnlocked] = useState(false);
 
   useEffect(() => {
     const section = containerRef.current?.closest('section');
@@ -653,7 +649,10 @@ export default function InteractiveShape() {
       const rect = section.getBoundingClientRect();
       const scrollRange = Math.max(section.clientHeight - window.innerHeight, 1);
 
-      scrollProgressRef.current = THREE.MathUtils.clamp(-rect.top / scrollRange, 0, 1);
+      const nextScrollProgress = THREE.MathUtils.clamp(-rect.top / scrollRange, 0, 1);
+
+      scrollProgressRef.current = nextScrollProgress;
+      setIsPointerUnlocked(nextScrollProgress >= POINTER_INTERACTION_UNLOCK_PROGRESS);
     };
 
     updateLayoutMetrics();
@@ -723,6 +722,7 @@ export default function InteractiveShape() {
         <Suspense fallback={null}>
           <Environment files="/BG_CHROME_METAL.exr" environmentIntensity={1.55} />
           <AnimatedModel
+            isPointerUnlocked={isPointerUnlocked}
             scrollProgressRef={scrollProgressRef}
             layoutMetricsRef={layoutMetricsRef}
           />

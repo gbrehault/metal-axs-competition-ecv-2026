@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function Model({ materialRef }: Props) {
-  const { scene } = useGLTF('/Untitled.glb');
+  const { scene } = useGLTF('/METAL_LOGO_3D.glb');
   const [modelScene] = useState(() => scene.clone());
 
   useEffect(() => {
@@ -20,16 +20,18 @@ export default function Model({ materialRef }: Props) {
       clearcoat: 0.9,
       clearcoatRoughness: 0.12,
       envMapIntensity: 2,
-      reflectivity: 1,
+      reflectivity: 1.1,
       transparent: true,
       opacity: 1,
     });
 
     const originalMaterials = new Map<THREE.Mesh, THREE.Material | THREE.Material[]>();
-    const originalChildPositions = new Map<THREE.Object3D, THREE.Vector3>();
+    const originalScenePosition = modelScene.position.clone();
+    const originalSceneScale = modelScene.scale.clone();
 
     modelScene.position.set(0, 0, 0);
     modelScene.scale.setScalar(1);
+    modelScene.updateMatrixWorld(true);
 
     if (materialRef) {
       materialRef.current = chromeMaterial;
@@ -53,21 +55,18 @@ export default function Model({ materialRef }: Props) {
 
     const maxDimension = Math.max(size.x, size.y, size.z) || 1;
 
-    modelScene.children.forEach((child) => {
-      originalChildPositions.set(child, child.position.clone());
-      child.position.sub(center);
-    });
-
-    modelScene.scale.setScalar(1.7 / maxDimension);
+    modelScene.position.copy(center).multiplyScalar(-1);
+    modelScene.scale.copy(originalSceneScale).multiplyScalar(1.7 / maxDimension);
+    modelScene.updateMatrixWorld(true);
 
     return () => {
       originalMaterials.forEach((material, mesh) => {
         mesh.material = material;
       });
 
-      originalChildPositions.forEach((position, child) => {
-        child.position.copy(position);
-      });
+      modelScene.position.copy(originalScenePosition);
+      modelScene.scale.copy(originalSceneScale);
+      modelScene.updateMatrixWorld(true);
 
       if (materialRef) {
         materialRef.current = null;
@@ -80,4 +79,4 @@ export default function Model({ materialRef }: Props) {
   return <primitive object={modelScene} />;
 }
 
-useGLTF.preload('/Untitled.glb');
+useGLTF.preload('/METAL_LOGO_3D.glb');
