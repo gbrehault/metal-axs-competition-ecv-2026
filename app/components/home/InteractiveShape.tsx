@@ -4,7 +4,7 @@ import { Suspense, useEffect, useRef, useState, type MutableRefObject } from 're
 import { Canvas, type ThreeEvent, useFrame } from '@react-three/fiber';
 import { ContactShadows, Environment, useCursor } from '@react-three/drei';
 import * as THREE from 'three';
-import Model from '@/app/components/Model';
+import Model from '@/app/components/home/Model';
 
 const SCROLL_START_Y = 0.8;
 const SCROLL_END_Y = -0.85;
@@ -670,7 +670,7 @@ export default function InteractiveShape() {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-10 touch-none">
+    <div ref={containerRef} className="absolute inset-0 z-1 touch-none">
       {SHOW_SHAPE_BLUR ? (
         <svg aria-hidden="true" className="pointer-events-none absolute h-0 w-0 overflow-hidden">
           <defs>
