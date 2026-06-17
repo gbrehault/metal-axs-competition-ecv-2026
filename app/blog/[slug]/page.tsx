@@ -5,24 +5,77 @@ import { notFound } from 'next/navigation';
 import { connection } from 'next/server';
 import { getApolloClient } from '@/app/lib/apolloClient';
 import { formatDate } from '@/app/lib/utils';
-import AnimatedBackground from '@/app/components/ui/AnimatedBackground';
-import type { Post } from '@/app/types/post';
+
+type ArticleImage = {
+  node?: {
+    sourceUrl?: string | null;
+    altText?: string | null;
+    mediaDetails?: {
+      width?: number | null;
+      height?: number | null;
+    } | null;
+  } | null;
+} | null;
+
+type PostDetail = {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  article?: {
+    texteSection1?: string | null;
+    texteSection2?: string | null;
+    texteSection3?: string | null;
+    titreSection1?: string | null;
+    titreSection2?: string | null;
+    titreSection3?: string | null;
+    imageDeMiseEnAvant?: ArticleImage;
+    imagesSection1?: ArticleImage;
+    imagesSection2?: ArticleImage;
+    imagesSection3?: ArticleImage;
+  } | null;
+};
 
 const GET_POST_BY_SLUG = gql`
   query GetPostBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {
       id
-      title
       slug
+      title
       date
-      content
-      featuredImage {
-        node {
-          altText
-          sourceUrl
-          mediaDetails {
-            width
-            height
+      article {
+        texteSection1
+        texteSection2
+        texteSection3
+        titreSection1
+        titreSection2
+        titreSection3
+        imageDeMiseEnAvant {
+          node {
+            sourceUrl
+            altText
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+        imagesSection1 {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        imagesSection2 {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        imagesSection3 {
+          node {
+            altText
+            sourceUrl
           }
         }
       }
@@ -35,7 +88,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const { slug } = await params;
   const client = getApolloClient();
-  const result = await client.query<{ post: Post | null }>({
+  const result = await client.query<{ post: PostDetail | null }>({
     query: GET_POST_BY_SLUG,
     variables: { slug },
   });
@@ -43,99 +96,38 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   if (!post) notFound();
 
-  const imgSrc = post.featuredImage?.node?.sourceUrl;
-  const imgAlt = post.featuredImage?.node?.altText ?? post.title;
   const title = post.title;
+  const date = post.date;
+  const imgSrc = post.article?.imageDeMiseEnAvant?.node?.sourceUrl;
 
   return (
-    <>
-      <AnimatedBackground />
-
-      <main className="relative z-10 min-h-screen">
-
-        {imgSrc ? (
-          <div className="relative h-[55vh] w-full overflow-hidden">
-            <Image
-              src={imgSrc}
-              alt={imgAlt}
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/40 to-transparent" />
-
-            <div className="absolute bottom-0 left-0 right-0 px-6 pb-10 md:px-16">
-              <div className="mx-auto max-w-4xl">
-                <time className="text-xs font-medium uppercase text-white/50">
-                  {formatDate(post.date)}
-                </time>
-                <h1 className="mt-2 text-4xl font-bold leading-tight text-white sm:text-6xl font-primary">
-                  {title}
-                </h1>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="border-b border-white/10 px-6 py-16 md:px-16">
-            <div className="mx-auto max-w-4xl">
-              <time className="text-xs font-medium uppercase text-white/50">
-                {formatDate(post.date)}
-              </time>
-              <h1 className="mt-2 text-4xl font-bold leading-tight text-white sm:text-6xl font-primary">
-                {title}
-              </h1>
-            </div>
-          </div>
-        )}
-
-        <div className="px-6 py-12 md:px-16">
-          <div className="mx-auto max-w-4xl">
-
-            <Link
-              href="/blog"
-              className="mb-10 inline-flex text-xs font-medium uppercase text-white/40 transition-colors hover:text-primary"
-            >
-              ← Retour aux articles
+    <section className="z-10 h-full w-full flex flex-col items-center justify-start gap-6 px-8 pt-30 md:px-16">
+      <div className="w-full h-80 flex items-start justify-center gap-4 bg-amber-200">
+        <div className="h-auto w-1/2 flex flex-col items-stretch justify-between pt-10 gap-8">
+          <div className="mb-3 flex items-center gap-2 text-sm">
+            <Link href="/blog" className="text-secondary/60 transition-colors hover:text-primary">
+              Blog
             </Link>
-
-            <div className="mb-10 h-px w-16 bg-primary" />
-
-            <div
-              className="gutenberg-content prose prose-invert max-w-none
-                prose-headings:font-bold prose-headings:text-white prose-headings:uppercase
-                prose-p:text-white/70 prose-p:leading-relaxed
-                prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                prose-strong:text-white
-                prose-blockquote:border-l-primary prose-blockquote:text-white/60 prose-blockquote:not-italic
-                prose-li:text-white/70
-                prose-hr:border-white/10
-                prose-img:rounded-xl"
-              dangerouslySetInnerHTML={{ __html: post.content ?? '' }}
-            />
+            <span className="text-secondary/30">/</span>
+            <span className="text-secondary/60">{title}</span>
+          </div>
+          <div>
+            <p className="text-sm text-secondary/60 pb-2">{formatDate(date)}</p>
+            <h1 className="mb-4 text-4xl font-regular font-primary text-secondary leading-snug">
+              {title}
+            </h1>
           </div>
         </div>
-
-        {imgSrc && (
-          <section className="relative h-screen w-full overflow-hidden">
-            <Image
-              src={imgSrc}
-              alt={imgAlt}
-              fill
-              className="object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-black/50" />
-            <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-              <time className="mb-4 text-xs font-medium uppercase tracking-widest text-white/50">
-                {formatDate(post.date)}
-              </time>
-              <h2 className="max-w-4xl text-5xl font-bold leading-tight text-white sm:text-7xl font-primary">
-                {title}
-              </h2>
-            </div>
-          </section>
-        )}
-
-      </main>
-    </>
+        <div className="w-1/2 h-full flex flex-col items-center justify-center">
+          <Image
+            src={post.article?.imageDeMiseEnAvant?.node?.sourceUrl ?? ''}
+            alt={post.article?.imageDeMiseEnAvant?.node?.altText ?? title}
+            width={800}
+            height={500}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+    </section>
   );
 }

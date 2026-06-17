@@ -31,19 +31,19 @@ const GET_POSTS = gql`
             }
           }
         }
-          article {
-            bioAuteur
-            fieldGroupName
-            nomAuteur
-            posteAuteur
-            texteIntroduction
-            texteSection1
-            texteSection2
-            texteSection3
-            titreSection1
-            titreSection2
-            titreSection3
- }
+        article {
+          bioAuteur
+          fieldGroupName
+          nomAuteur
+          posteAuteur
+          texteIntroduction
+          texteSection1
+          texteSection2
+          texteSection3
+          titreSection1
+          titreSection2
+          titreSection3
+        }
       }
     }
   }
@@ -77,15 +77,13 @@ export default async function ArticlesPage({
     filter === 'all'
       ? allPosts
       : allPosts.filter((p) =>
-        p.categories?.nodes.some(
-          (c) => c.slug === filter || c.name.toLowerCase() === filter
-        )
-      );
+          p.categories?.nodes.some((c) => c.slug === filter || c.name.toLowerCase() === filter),
+        );
 
   const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
   const paginated = filtered.slice(
     (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE
+    currentPage * POSTS_PER_PAGE,
   );
 
   return (

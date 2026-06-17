@@ -13,18 +13,18 @@ type PostWithCategories = Post & {
 };
 
 export default function ArticleCard({ post }: { post: PostWithCategories }) {
-  const img = post.featuredImage?.node;
+  const image = post.featuredImage?.node;
   const title = post.title;
   const texteIntroduction = toPlainText(post.article?.texteIntroduction ?? '');
   const category = post.categories?.nodes[0]?.name?.toUpperCase() ?? 'ARTICLE';
 
   return (
     <Link href={`/blog/${post.slug}`} className="group flex flex-col gap-3">
-      <div className="relative w-full aspect-[4/3] overflow-hidden  bg-secondary/10">
-        {img?.sourceUrl ? (
+      <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-secondary/10">
+        {image?.sourceUrl ? (
           <Image
-            src={img.sourceUrl}
-            alt={img.altText ?? title}
+            src={image.sourceUrl}
+            alt={image.altText ?? title}
             fill
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
