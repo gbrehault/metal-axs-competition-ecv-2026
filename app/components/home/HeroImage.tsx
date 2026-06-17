@@ -8,7 +8,7 @@ type Props = {
 
 export default function HeroImage({ src }: Props) {
   return (
-    <div className="mt-6 w-[85vw] md:w-[55vw] h-[40vh] md:h-[55vh] overflow-hidden relative z-[2]">
+    <div data-hero-image className="w-[85vw] md:w-[55vw] h-[40vh] md:h-[55vh] overflow-hidden relative z-[2]">
       {src ? (
         <Image
           src={src}
