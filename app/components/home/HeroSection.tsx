@@ -90,17 +90,15 @@ export default function HeroSection() {
         });
 
         timeline
-          .set(image, { zIndex: 30 }, 0)
-
           .to(
             image,
 
             {
-              scale: 1.8,
+              scale: 2.5,
 
               xPercent: 0,
 
-              yPercent: -30,
+              yPercent: -72,
 
               bottom: 10,
 
@@ -180,7 +178,7 @@ export default function HeroSection() {
           ref={imageRef}
           id="section2"
           data-hero-image
-          className="sticky top-0 z-10 h-[60%] w-[60%] overflow-hidden bg-neutral-900"
+          className="sticky top-0 z-10000 h-[40%] w-[40%] overflow-hidden bg-neutral-900"
         >
           {src ? (
             <Image
