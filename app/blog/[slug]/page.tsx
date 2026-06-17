@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { connection } from 'next/server';
 import { getApolloClient } from '@/app/lib/apolloClient';
 import { formatDate } from '@/app/lib/utils';
-import ArticleCard from '@/app/components/blog/ArticleCard';
+import ArticleCard, { type PostWithCategories } from '@/app/components/blog/ArticleCard';
 
 type ArticleImage = {
   node?: {
@@ -36,6 +36,10 @@ type PostDetail = {
     imagesSection2?: ArticleImage;
     imagesSection3?: ArticleImage;
   } | null;
+};
+
+type RelatedPost = PostWithCategories & {
+  date?: string | null;
 };
 
 const GET_POST_BY_SLUG = gql`
@@ -83,6 +87,35 @@ const GET_POST_BY_SLUG = gql`
         }
       }
     }
+    posts(first: 6) {
+      nodes {
+        id
+        slug
+        title
+        date
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
+        featuredImage {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        article {
+          texteIntroduction
+          imageDeMiseEnAvant {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -91,13 +124,26 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const { slug } = await params;
   const client = getApolloClient();
-  const result = await client.query<{ post: PostDetail | null }>({
+  const result = await client.query<{
+    post: PostDetail | null;
+    posts: { nodes: RelatedPost[] };
+  }>({
     query: GET_POST_BY_SLUG,
     variables: { slug },
   });
   const post = result.data?.post ?? null;
 
   if (!post) notFound();
+
+  const POSTS_CARD = 3;
+  const postsCards = (result.data?.posts.nodes ?? [])
+    .filter((candidate) => candidate.slug !== slug)
+    .sort((a, b) => {
+      const aDate = a.date ? new Date(a.date).getTime() : 0;
+      const bDate = b.date ? new Date(b.date).getTime() : 0;
+      return aDate - bDate;
+    })
+    .slice(0, POSTS_CARD);
 
   const title = post.title;
   const title1 = 'title1';
@@ -252,9 +298,19 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </div>
       {/* Articles Grid all */}
 
-      <div className="w-full h-auto flex items-start justify-center bg-tertiary gap-24 p-8">
-        <ArticleCard key={post.id} post={post} />
-      </div>
+      {postsCards.length ? (
+        <div className="w-full bg-tertiary px-8 pb-12 pt-4">
+          <div className="mb-8 flex flex-col gap-3 pt-8">
+            <h2 className="text-2xl font-regular text-secondary">Nos autres articles</h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {postsCards.map((cardPost) => (
+              <ArticleCard key={cardPost.id} post={cardPost} />
+            ))}
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

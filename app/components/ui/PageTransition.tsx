@@ -78,10 +78,9 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
       <div
         ref={overlayRef}
         aria-hidden="true"
-        className="fixed inset-0 z-[9998] pointer-events-none"
+        className="fixed inset-0 z-10000 pointer-events-none"
         style={{
           backgroundColor: 'var(--color-secondary)',
-          borderRight: '2px solid var(--color-primary)',
           willChange: 'transform',
         }}
       />
