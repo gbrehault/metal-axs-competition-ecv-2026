@@ -98,11 +98,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const title = post.title;
   const date = post.date;
-  const imgSrc = post.article?.imageDeMiseEnAvant?.node?.sourceUrl;
 
   return (
-    <section className="z-10 h-full w-full flex flex-col items-center justify-start gap-6 px-8 pt-30 md:px-16">
-      <div className="w-full h-80 flex items-start justify-center gap-4 bg-amber-200">
+    <section className="z-10 h-full w-full flex flex-col items-center justify-start gap-6 px-3 pt-30 md:px-6">
+      <div className="w-full h-80 flex items-start justify-center bg-tertiary pl-8">
         <div className="h-auto w-1/2 flex flex-col items-stretch justify-between pt-10 gap-8">
           <div className="mb-3 flex items-center gap-2 text-sm">
             <Link href="/blog" className="text-secondary/60 transition-colors hover:text-primary">

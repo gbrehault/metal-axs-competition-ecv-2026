@@ -1,53 +1,50 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 @font-face {
-  font-family: "Alte Haas Grotesk";
-  src: url("/fonts/alte_haas_grotesk/AlteHaasGroteskRegular.ttf")
-    format("truetype");
+  font-family: 'Alte Haas Grotesk';
+  src: url('/fonts/alte_haas_grotesk/AlteHaasGroteskRegular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Alte Haas Grotesk";
-  src: url("/fonts/alte_haas_grotesk/AlteHaasGroteskBold.ttf")
-    format("truetype");
+  font-family: 'Alte Haas Grotesk';
+  src: url('/fonts/alte_haas_grotesk/AlteHaasGroteskBold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Gilroy";
-  src: url("/fonts/gilroy-font/Gilroy-FREE/Gilroy-Light.otf")
-    format("opentype");
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy-font/Gilroy-FREE/Gilroy-Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Gilroy";
-  src: url("/fonts/gilroy-font/Gilroy-FREE/Gilroy-ExtraBold.otf")
-    format("opentype");
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy-font/Gilroy-FREE/Gilroy-ExtraBold.otf') format('opentype');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  --color-primary: #FF6200;
+  --color-primary: #ff6200;
   --color-secondary: #161717;
   --color-tertiary: #f3f6f7;
+  --color-bg: #ededed;
 }
 
 :root {
   --background: var(--color-tertiary);
   --foreground: var(--color-secondary);
-  --font-primary: "Alte Haas Grotesk", Arial, sans-serif;
-  --font-secondary: "Gilroy", Arial, sans-serif;
+  --font-primary: 'Alte Haas Grotesk', Arial, sans-serif;
+  --font-secondary: 'Gilroy', Arial, sans-serif;
 }
 
 /* Prose brand overrides */
@@ -149,8 +146,12 @@
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-25%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
 }
 
 .noise {
@@ -183,7 +184,7 @@ html {
 
 body {
   min-height: 100%;
-  background: var(--background);
+  background: var(--color-bg);
   color: var(--foreground);
   font-family: var(--font-primary);
 }
