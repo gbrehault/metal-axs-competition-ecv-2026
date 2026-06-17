@@ -1,36 +1,13 @@
 import { gql } from '@apollo/client';
-import Link from 'next/link';
 import { connection } from 'next/server';
 import { getApolloClient } from '@/app/lib/apolloClient';
-import Image from 'next/image';
-
-type Post = {
-  id: string;
-  slug: string;
-  title: string;
-  uri: string;
-  excerpt: string | null;
-  date: string;
-  article?: {
-    fieldGroupName?: string;
-    titre?: string | null;
-    copier?: string | null;
-    image?: {
-      node?: {
-        altText?: string | null;
-        sourceUrl?: string | null;
-        mediaDetails?: {
-          width?: number | null;
-          height?: number | null;
-        } | null;
-      } | null;
-    } | null;
-  } | null;
-};
+import ArticleCard, { type PostWithCategories } from '@/app/components/articles/ArticleCard';
+import FilterTabs from '@/app/components/ui/FilterTabs';
+import Pagination from '@/app/components/ui/Pagination';
 
 const GET_POSTS = gql`
   query GetPosts {
-    posts {
+    posts(first: 100) {
       nodes {
         id
         slug
@@ -38,11 +15,17 @@ const GET_POSTS = gql`
         uri
         excerpt
         date
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
         article {
           fieldGroupName
-          titre
-          copier
-          image {
+          titreArticle
+          contenuArticle
+          imageArticle {
             node {
               altText
               sourceUrl
@@ -58,59 +41,66 @@ const GET_POSTS = gql`
   }
 `;
 
-function toPlainText(value: string | null | undefined) {
-  if (!value) {
-    return '';
-  }
+const POSTS_PER_PAGE = 6;
 
-  return value
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
+const FILTERS = [
+  { label: 'All', value: 'all' },
+  { label: 'Articles', value: 'articles' },
+  { label: 'Reports', value: 'reports' },
+];
 
-export default async function Home() {
+export default async function ArticlesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ filter?: string; page?: string }>;
+}) {
   await connection();
 
+  const { filter = 'all', page = '1' } = await searchParams;
+  const currentPage = Math.max(1, parseInt(page, 10) || 1);
+
   const client = getApolloClient();
-  const result = await client.query<{
-    posts: {
-      nodes: Post[];
-    };
-  }>({
+  const result = await client.query<{ posts: { nodes: PostWithCategories[] } }>({
     query: GET_POSTS,
   });
-  const posts = result.data?.posts.nodes ?? [];
+  const allPosts = result.data?.posts.nodes ?? [];
+
+  const filtered =
+    filter === 'all'
+      ? allPosts
+      : allPosts.filter((p) =>
+          p.categories?.nodes.some(
+            (c) => c.slug === filter || c.name.toLowerCase() === filter
+          )
+        );
+
+  const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
+  const paginated = filtered.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  );
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-12">
-      {posts.map((post) => (
-        <article key={post.id} className="rounded-2xl border border-zinc-200 p-6 shadow-sm">
-          {post.article?.image?.node?.sourceUrl ? (
-            <Image
-              src={post.article.image.node.sourceUrl}
-              alt={post.article.image.node.altText || post.title}
-              width={post.article.image.node.mediaDetails?.width || 600}
-              height={post.article.image.node.mediaDetails?.height || 400}
-              className="rounded-lg object-cover"
-            />
-          ) : null}
-          <p className="text-sm text-zinc-500">{post.date}</p>
-          <h2 className="mt-2 text-2xl font-semibold">{post.title}</h2>
-          <p className="mt-3 text-zinc-600">{toPlainText(post.article?.copier)}</p>
-          {post.article?.fieldGroupName && (
-            <p className="mt-3 rounded-lg bg-zinc-100 px-3 py-2 text-sm text-zinc-700">
-              Groupe ACF récupéré : {post.article.fieldGroupName}
-            </p>
-          )}
-          <Link
-            href={`/articles/${post.slug}`}
-            className="mt-4 inline-flex text-sm font-medium text-blue-600"
-          >
-            Lire l&apos;article
-          </Link>
-        </article>
-      ))}
+    <main className="mx-auto w-full max-w-6xl px-6 pt-28 pb-10">
+      <FilterTabs
+        tabs={FILTERS}
+        active={filter}
+        buildHref={(value) => `/articles?filter=${value}&page=1`}
+      />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mt-10">
+        {paginated.map((post) => (
+          <ArticleCard key={post.id} post={post} />
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          buildHref={(p) => `/articles?filter=${filter}&page=${p}`}
+        />
+      )}
     </main>
   );
 }

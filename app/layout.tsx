@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/app/components/layout/Navbar";
+import { PageTransitionProvider } from "@/app/components/ui/PageTransition";
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Metal AXS x WordPress",
@@ -12,8 +21,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="fr" className={`h-full antialiased ${geistMono.variable}`}>
+      <body className="min-h-full flex flex-col noisebg-black/[0.16] ">
+        <PageTransitionProvider>
+          <Navbar />
+          {children}
+        </PageTransitionProvider>
+      </body>
     </html>
   );
 }
