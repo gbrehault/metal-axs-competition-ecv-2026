@@ -607,7 +607,6 @@ export default function InteractiveShape() {
   const scrollProgressRef = useRef(0);
   const layoutMetricsRef = useRef<LayoutMetrics>(DEFAULT_LAYOUT_METRICS);
   const [layoutMetrics, setLayoutMetrics] = useState(DEFAULT_LAYOUT_METRICS);
-
   useEffect(() => {
     const section = containerRef.current?.closest('section');
 
@@ -721,7 +720,7 @@ export default function InteractiveShape() {
           />
         ))}
         <Suspense fallback={null}>
-          <Environment files="/BG_CHROME_METAL.exr" environmentIntensity={1.55} />
+          <Environment files="/CHROME_BG.exr" environmentIntensity={1.55} />
           <AnimatedModel
             scrollProgressRef={scrollProgressRef}
             layoutMetricsRef={layoutMetricsRef}
