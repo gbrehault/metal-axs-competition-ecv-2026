@@ -2,9 +2,10 @@ import Link from 'next/link';
 
 type ButtonBaseProps = {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'disabled';
-  size?: 'sm' | 'lg';
+  variant?: 'primary' | 'secondary' | 'outline' | 'disabled';
+  size?: 'sm' | 'md' | 'lg';
   className?: string;
+  'aria-disabled'?: boolean | 'true' | 'false';
 };
 
 type ButtonAsButton = ButtonBaseProps & {
@@ -21,18 +22,44 @@ type ButtonAsLink = ButtonBaseProps & {
 
 type ButtonProps = ButtonAsButton | ButtonAsLink;
 
-const baseClass = 'inline-flex items-center gap-2 font-medium uppercase transition-colors font-mono';
+const wrapperBase =
+  'group inline-flex items-stretch font-medium uppercase font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed';
 
-const variants: Record<string, string> = {
-  primary:   'bg-primary text-black hover:bg-primary/90',
-  secondary: 'bg-secondary text-white hover:bg-secondary/80',
-  disabled:  'bg-secondary/40 text-white cursor-not-allowed',
+const textVariants: Record<string, string> = {
+  primary:   'bg-black text-tertiary px-5 py-3',
+  secondary: 'bg-white text-secondary px-5 py-3',
+  outline:   'bg-white border border-r-0 border-[#ccc] text-secondary px-5 py-3',
+  disabled:  ' bg-black/60 text-tertiary/40 px-5 py-3 cursor-not-allowed',
 };
 
-const sizes: Record<string, string> = {
-  sm: 'text-[14px] px-3 py-2',
-  lg: 'text-[20px] px-3 py-2',
+const arrowVariants: Record<string, string> = {
+  primary:   'bg-primary text-black flex items-center justify-center px-4',
+  secondary: 'bg-primary text-black flex items-center justify-center px-4',
+  outline:   'bg-[#e8e8e8] text-secondary border border-l-0 border-[#ccc] flex items-center justify-center px-4',
+  disabled:  'bg-primary/40 text-black flex items-center justify-center px-4 cursor-not-allowed',
 };
+
+const sizeText: Record<string, string> = {
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg',
+};
+
+const sizeArrow: Record<string, string> = {
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-xl',
+};
+
+function Arrow({ size = 'sm', variant = 'primary' }: { size?: string; variant?: string }) {
+  return (
+    <span className={`${arrowVariants[variant]} ${sizeArrow[size]}`}>
+      <span className="block transition-transform duration-200 group-hover:translate-x-1">
+        →
+      </span>
+    </span>
+  );
+}
 
 export default function Button({
   children,
@@ -41,25 +68,32 @@ export default function Button({
   className = '',
   href,
   disabled,
+  'aria-disabled': ariaDisabled,
   onClick,
 }: ButtonProps) {
-  const classes = `${baseClass} ${sizes[size]} ${variants[variant]} ${className}`;
+  const inner = (
+    <>
+      <span className={`${textVariants[variant]} ${sizeText[size]}`}>{children}</span>
+      <Arrow size={size} variant={variant} />
+    </>
+  );
 
   if (href) {
     return (
-      <Link href={href} className={classes} onClick={onClick}>
-        {children}
+      <Link href={href} className={`${wrapperBase} ${className}`} onClick={onClick}>
+        {inner}
       </Link>
     );
   }
 
   return (
     <button
-      className={classes}
-           disabled={disabled}
+      className={`${wrapperBase} ${className}`}
+      disabled={disabled}
+      aria-disabled={ariaDisabled ?? disabled}
       onClick={onClick}
     >
-      {children}
+      {inner}
     </button>
   );
 }

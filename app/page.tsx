@@ -1,6 +1,7 @@
 import HomeLoader from '@/app/components/home/HomeLoader';
 import HeroSection from '@/app/components/home/HeroSection';
 import InteractiveShape from '@/app/components/home/InteractiveShape';
+import HandicapSection from '@/app/components/home/HandicapSection';
 import Image from 'next/image';
 import src from '@/app/assets/photo_festival.webp';
 
@@ -36,6 +37,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <HandicapSection />
     </>
   );
 }

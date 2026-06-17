@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function Model({ materialRef }: Props) {
-  const { scene } = useGLTF('/METAL_LOGO_3D.glb');
+  const { scene } = useGLTF('/NEW_MODEL_METAL.glb');
   const [modelScene] = useState(() => scene.clone());
 
   useEffect(() => {

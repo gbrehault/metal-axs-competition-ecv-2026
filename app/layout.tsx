@@ -26,7 +26,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col noisebg-black/[0.16] ">
         <PageTransitionProvider>
           <Header />
-          {children}
+          <div className="">
+            {children}
+          </div>
         </PageTransitionProvider>
       </body>
     </html>
