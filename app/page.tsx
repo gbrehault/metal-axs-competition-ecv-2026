@@ -29,11 +29,11 @@ export default function Home() {
               l&apos;expérience pleinement.
             </p>
           </div>
-        </div>   
-           <HandicapSection />
-             <InteractiveShape />
+        </div>
+        <HandicapSection />
+        <div className="relative flex h-screen w-full items-center justify-center overflow-hidden px-6 py-20 md:px-16"></div>
+        <InteractiveShape />
       </section>
-   
     </>
   );
 }

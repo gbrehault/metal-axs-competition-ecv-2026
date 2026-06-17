@@ -23,7 +23,7 @@ const PROFILES = [
     nav: 'Handicap visuel',
     title: 'Handicap Visuel',
     description:
-      'Une perte partielle ou totale de la vision, qu\'il s\'agisse de malvoyance légère ou de cécité complète, impactant la lecture, l\'orientation et la navigation.',
+      "Une perte partielle ou totale de la vision, qu'il s'agisse de malvoyance légère ou de cécité complète, impactant la lecture, l'orientation et la navigation.",
     image: '/handicaps/visuel.svg',
   },
   {
@@ -31,7 +31,7 @@ const PROFILES = [
     nav: 'Handicap auditif',
     title: 'Handicap Auditif',
     description:
-      'Une perte d\'audition partielle ou totale, de la surdité légère à profonde, nécessitant des adaptations pour l\'accès à l\'information sonore.',
+      "Une perte d'audition partielle ou totale, de la surdité légère à profonde, nécessitant des adaptations pour l'accès à l'information sonore.",
     image: '/handicaps/auditif.svg',
   },
   {
@@ -88,12 +88,11 @@ export default function HandicapSection() {
         end: `+=${PROFILES.length * window.innerHeight * 0.1}`,
         pin: true,
         pinSpacing: true,
-        onRefresh: (self) => { pinStartRef.current = self.start; },
+        onRefresh: (self) => {
+          pinStartRef.current = self.start;
+        },
         onUpdate: (self) => {
-          const idx = Math.min(
-            Math.floor(self.progress * PROFILES.length),
-            PROFILES.length - 1
-          );
+          const idx = Math.min(Math.floor(self.progress * PROFILES.length), PROFILES.length - 1);
           if (idx !== activeIndexRef.current) {
             activeIndexRef.current = idx;
             setActiveIndex(idx);
@@ -159,7 +158,10 @@ export default function HandicapSection() {
         className="bg-secondary noise relative min-h-screen flex flex-col px-6 py-12 gap-8"
         aria-labelledby="handicap-title-mobile"
       >
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          aria-hidden="true"
+        >
           <Image src={LogoHero} alt="" className="w-auto h-auto scale-150" />
         </div>
 
@@ -188,7 +190,11 @@ export default function HandicapSection() {
           </div>
 
           {/* Navigation dots */}
-          <div role="tablist" aria-label="Profils de handicap" className="flex justify-center gap-2 my-6">
+          <div
+            role="tablist"
+            aria-label="Profils de handicap"
+            className="flex justify-center gap-2 my-6"
+          >
             {PROFILES.map((p, i) => (
               <button
                 key={p.id}
@@ -197,7 +203,10 @@ export default function HandicapSection() {
                 aria-label={p.nav}
                 onClick={() => setActiveIndex(i)}
                 className="w-4 h-4 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary"
-                style={{ backgroundColor: i === activeIndex ? 'var(--color-primary)' : 'rgba(255,255,255,0.3)' }}
+                style={{
+                  backgroundColor:
+                    i === activeIndex ? 'var(--color-primary)' : 'rgba(255,255,255,0.3)',
+                }}
               />
             ))}
           </div>
@@ -211,7 +220,13 @@ export default function HandicapSection() {
               className="text-white transition-opacity disabled:opacity-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
-                <path d="M20 6L10 16L20 26" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M20 6L10 16L20 26"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
             <button
@@ -221,7 +236,13 @@ export default function HandicapSection() {
               className="text-white transition-opacity disabled:opacity-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
-                <path d="M12 6L22 16L12 26" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M12 6L22 16L12 26"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
@@ -229,7 +250,7 @@ export default function HandicapSection() {
           {/* CTAs */}
           <div className="flex flex-col gap-3 items-start">
             <Button variant="outline" href={`/handicaps/${profile.id}`}>
-            CONSULTER L&apos;HANDICAP {profile.id.toUpperCase()}
+              CONSULTER L&apos;HANDICAP {profile.id.toUpperCase()}
             </Button>
             <Button variant="outline" href="/handicaps">
               CONSULTER LES 5 HANDICAPS
@@ -242,13 +263,15 @@ export default function HandicapSection() {
 
   // ─── Desktop pinned scroll ─────────────────────────────────────────────────
   return (
-    <div ref={outerRef} className="w-full" style={{ height: `${(PROFILES.length + 1) * 100}vh` }}>
-      
+    <div ref={outerRef} className="w-full min-h-screen -mt-4">
       <div
         ref={innerRef}
         className="sticky top-0 h-screen w-full bg-secondary  overflow-hidden flex flex-col"
       >
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          aria-hidden="true"
+        >
           <Image src={LogoHero} alt="" className="w-auto h-auto scale-150  opacity-20" />
         </div>
         {/* Section title */}
@@ -264,13 +287,14 @@ export default function HandicapSection() {
           aria-live="polite"
           aria-atomic="true"
         >
-
           {/* Left: profile content layers */}
           <div className="relative">
             {PROFILES.map((p, i) => (
               <div
                 key={p.id}
-                ref={(el) => { leftRefs.current[i] = el; }}
+                ref={(el) => {
+                  leftRefs.current[i] = el;
+                }}
                 className="absolute bottom-0 left-0 right-0"
                 style={{ opacity: i === 0 ? 1 : 0 }}
                 aria-hidden={i !== activeIndex}
@@ -293,11 +317,16 @@ export default function HandicapSection() {
 
           {/* Center: fixed frame + crossfading images */}
           <div className="flex items-center justify-center" aria-hidden="true">
-            <div className="border border-white flex items-center justify-center relative" style={{ width: 300, height: 300 }}>
+            <div
+              className="border border-white flex items-center justify-center relative"
+              style={{ width: 300, height: 300 }}
+            >
               {PROFILES.map((p, i) => (
                 <div
                   key={p.id}
-                  ref={(el) => { iconRefs.current[i] = el; }}
+                  ref={(el) => {
+                    iconRefs.current[i] = el;
+                  }}
                   className="absolute inset-0 flex items-center justify-center p-6"
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
@@ -333,14 +362,18 @@ export default function HandicapSection() {
                       {p.nav}
                     </span>
                     {i === activeIndex && (
-                      <span aria-hidden="true" style={{ color: 'var(--color-primary)', fontSize: '10px' }}>■</span>
+                      <span
+                        aria-hidden="true"
+                        style={{ color: 'var(--color-primary)', fontSize: '10px' }}
+                      >
+                        ■
+                      </span>
                     )}
                   </button>
                 </li>
               ))}
             </ul>
           </nav>
-
         </div>
       </div>
     </div>
