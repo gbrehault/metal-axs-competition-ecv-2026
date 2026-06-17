@@ -31,13 +31,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="section4" className="w-full h-200 bg-tertiary z-100000">
-          <div className="top-0 overflow-hidden">
+        
             <InteractiveShape />
-          </div>
-        </div>
+       
+
+           <HandicapSection />
       </section>
-      <HandicapSection />
+   
     </>
   );
 }
