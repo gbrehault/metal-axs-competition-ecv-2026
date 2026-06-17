@@ -94,11 +94,11 @@ export default function HeroSection() {
             image,
 
             {
-              scale: 2.5,
+              scale: 1.45,
 
               xPercent: 0,
 
-              yPercent: -72,
+              yPercent: -120,
 
               bottom: 10,
 
@@ -178,14 +178,14 @@ export default function HeroSection() {
           ref={imageRef}
           id="section2"
           data-hero-image
-          className="sticky top-0 z-10000 h-[40%] w-[40%] overflow-hidden bg-neutral-900"
+          className="sticky top-0 z-10000 h-[70%] w-[70%]"
         >
           {src ? (
             <Image
               src={src}
               alt="Concert festival Metal AXS"
               fill
-              className="object-cover object-center grayscale"
+              className="object-cover mt-100 object-center grayscale"
               sizes="60vw"
               priority
             />
