@@ -1,9 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Post } from '@/app/types/post';
 import { toPlainText } from '@/app/lib/utils';
 
-type PostWithCategories = Post & {
+type PostWithCategories = {
+  id: string;
+  slug: string;
+  title: string;
+  featuredImage?: {
+    node?: {
+      altText?: string | null;
+      sourceUrl?: string | null;
+    } | null;
+  } | null;
   categories?: {
     nodes: { name: string; slug: string }[];
   };
