@@ -671,7 +671,7 @@ export default function InteractiveShape() {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-1 touch-none">
+    <div ref={containerRef} className="absolute inset-0 z-0 touch-none">
       {SHOW_SHAPE_BLUR ? (
         <svg aria-hidden="true" className="pointer-events-none absolute h-0 w-0 overflow-hidden">
           <defs>
@@ -704,7 +704,7 @@ export default function InteractiveShape() {
         camera={{ position: [0, 0, 4.5], fov: 32 }}
         dpr={[1, 1.2]}
         gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
-        className="h-full w-full"
+        className="absolute w-full z-1000"
         style={SHOW_SHAPE_BLUR ? { filter: SHAPE_BLUR_FILTER } : undefined}
       >
         <ambientLight intensity={0.1} />
