@@ -344,8 +344,8 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
   const glintLightRef = useRef<THREE.PointLight>(null);
   const materialRef = useRef<THREE.MeshPhysicalMaterial | null>(null);
   const dragStartRef = useRef({ x: 0, y: 0 });
-  const dragOffsetStartRef = useRef({ x: 0, y: 0 });
-  const dragOffsetRef = useRef({ x: 0, y: 0 });
+  const dragOffsetStartRef = useRef({ x: 0, y: 0, z: 0 });
+  const dragOffsetRef = useRef({ x: 0, y: 0, z: 0 });
   const smoothScrollRef = useRef(0);
   const shineRef = useRef(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -369,6 +369,7 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
     dragOffsetStartRef.current = {
       x: dragOffsetRef.current.x,
       y: dragOffsetRef.current.y,
+      z: dragOffsetRef.current.z,
     };
 
     const target = event.target as EventTarget & {

@@ -31,19 +31,25 @@ const GET_POSTS = gql`
             }
           }
         }
-          article {
-            bioAuteur
-            fieldGroupName
-            nomAuteur
-            posteAuteur
-            texteIntroduction
-            texteSection1
-            texteSection2
-            texteSection3
-            titreSection1
-            titreSection2
-            titreSection3
- }
+        article {
+          bioAuteur
+          fieldGroupName
+          nomAuteur
+          posteAuteur
+          texteIntroduction
+          texteSection1
+          texteSection2
+          texteSection3
+          titreSection1
+          titreSection2
+          titreSection3
+          imageDeMiseEnAvant {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
       }
     }
   }
@@ -68,24 +74,26 @@ export default async function ArticlesPage({
   const currentPage = Math.max(1, parseInt(page, 10) || 1);
 
   const client = getApolloClient();
-  const result = await client.query<{ posts: { nodes: PostWithCategories[] } }>({
+  const postsResult = await client.query<{
+    posts: {
+      nodes: PostWithCategories[];
+    };
+  }>({
     query: GET_POSTS,
   });
-  const allPosts = result.data?.posts.nodes ?? [];
+  const allPosts = postsResult.data?.posts.nodes ?? [];
 
   const filtered =
     filter === 'all'
       ? allPosts
       : allPosts.filter((p) =>
-        p.categories?.nodes.some(
-          (c) => c.slug === filter || c.name.toLowerCase() === filter
-        )
-      );
+          p.categories?.nodes.some((c) => c.slug === filter || c.name.toLowerCase() === filter),
+        );
 
   const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
   const paginated = filtered.slice(
     (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE
+    currentPage * POSTS_PER_PAGE,
   );
 
   return (

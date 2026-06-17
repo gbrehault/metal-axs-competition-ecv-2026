@@ -29,8 +29,24 @@ function BurgerIcon() {
 function CloseIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="15" y1="1" x2="1" y2="15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line
+        x1="1"
+        y1="1"
+        x2="15"
+        y2="15"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <line
+        x1="15"
+        y1="1"
+        x2="1"
+        y2="15"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -38,7 +54,13 @@ function CloseIcon() {
 function ChevronRight() {
   return (
     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" aria-hidden>
-      <path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M1 1l5 5-5 5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -87,9 +109,7 @@ export default function HeaderV2() {
       />
 
       {/* Wrapper fixe — toujours visible */}
-      <header
-        className="fixed top-8 left-8 z-50 flex flex-col w-1/4"
-      >
+      <header className="fixed top-8 left-6 z-50 flex flex-col w-1/4">
         {/* Tuile logo + toggle — toujours visible */}
         <div className="bg-tertiary flex items-center justify-between px-6 py-3">
           <Link
@@ -98,12 +118,7 @@ export default function HeaderV2() {
             onClick={() => setOpen(false)}
             className="flex-1 flex justify-center"
           >
-            <Image
-              src={LogoNav}
-              alt="Metal AXS"
-              className="object-contain"
-              width={120}
-            />
+            <Image src={LogoNav} alt="Metal AXS" className="object-contain" width={120} />
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}

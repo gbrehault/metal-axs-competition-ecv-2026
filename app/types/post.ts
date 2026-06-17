@@ -5,7 +5,6 @@ export type Post = {
   uri: string;
   excerpt: string | null;
   date: string;
-  content: string | null;
   featuredImage?: {
     node?: {
       altText?: string | null;
