@@ -7,17 +7,20 @@ type PostWithCategories = Post & {
   categories?: {
     nodes: { name: string; slug: string }[];
   };
+  article?: {
+    texteIntroduction?: string | null;
+  } | null;
 };
 
 export default function ArticleCard({ post }: { post: PostWithCategories }) {
   const img = post.featuredImage?.node;
   const title = post.title;
-  const excerpt = toPlainText(post.excerpt ?? '');
+  const texteIntroduction = toPlainText(post.article?.texteIntroduction ?? '');
   const category = post.categories?.nodes[0]?.name?.toUpperCase() ?? 'ARTICLE';
 
   return (
     <Link href={`/blog/${post.slug}`} className="group flex flex-col gap-3">
-      <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-secondary/10">
+      <div className="relative w-full aspect-[4/3] overflow-hidden  bg-secondary/10">
         {img?.sourceUrl ? (
           <Image
             src={img.sourceUrl}
@@ -38,9 +41,9 @@ export default function ArticleCard({ post }: { post: PostWithCategories }) {
         <h2 className="text-xl font-bold font-primary text-secondary leading-snug group-hover:text-primary transition-colors">
           {title}
         </h2>
-        {excerpt && (
-          <p className="text-sm text-secondary/60 line-clamp-3 leading-relaxed">
-            {excerpt}
+        {texteIntroduction && (
+          <p className="text-md text-secondary/40 line-clamp-2 leading-relaxed tracking-wide mt-1">
+            {texteIntroduction}
           </p>
         )}
       </div>
