@@ -8,7 +8,7 @@ import Model from '@/app/components/home/Model';
 
 const SCROLL_START_Y = 0.8;
 const SCROLL_END_Y = -0.85;
-const SCROLL_START_X = 0.18;
+const SCROLL_START_X = -0.18;
 const SCROLL_END_X = 0;
 const SCROLL_START_SCALE = 0.2;
 const SCROLL_END_SCALE = 0.32;
@@ -18,7 +18,7 @@ const SCROLL_START_ROTATION_Y = 0;
 const SCROLL_END_ROTATION_Y = -0;
 const SCROLL_START_ROTATION_Z = -0.42;
 const SCROLL_END_ROTATION_Z = 0;
-const ENABLE_POINTER_INTERACTION = false;
+const ENABLE_POINTER_INTERACTION = true;
 const SHOW_SHAPE_BLUR = true;
 const SHAPE_BLUR_FILTER = 'url(#shape-discreet-blur)';
 const SCROLL_PROGRESS_DAMPING = 1.75;
@@ -250,7 +250,7 @@ const SCROLL_KEYFRAMES: ScrollKeyframe[] = [
     rotationZ: SCROLL_START_ROTATION_Z,
   },
   {
-    positionX: -0.4,
+    positionX: 0.4,
     positionY: 0.38,
     scale: 0.124,
     rotationX: 0.8,
@@ -258,7 +258,7 @@ const SCROLL_KEYFRAMES: ScrollKeyframe[] = [
     rotationZ: -0.18,
   },
   {
-    positionX: 0.5,
+    positionX: -0.5,
     positionY: -0.1,
     scale: 0.134,
     rotationX: 1,
@@ -266,7 +266,7 @@ const SCROLL_KEYFRAMES: ScrollKeyframe[] = [
     rotationZ: 0.22,
   },
   {
-    positionX: -0.6,
+    positionX: 0.6,
     positionY: -0.55,
     scale: 0.146,
     rotationX: 1.4,
@@ -468,6 +468,7 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
     if (!interactionsEnabled || !isDragging) {
       dragOffsetRef.current.x = THREE.MathUtils.damp(dragOffsetRef.current.x, 0, 3, delta);
       dragOffsetRef.current.y = THREE.MathUtils.damp(dragOffsetRef.current.y, 0, 3, delta);
+      dragOffsetRef.current.z = THREE.MathUtils.damp(dragOffsetRef.current.z, 0, 3, delta);
     }
 
     groupRef.current.rotation.x = THREE.MathUtils.damp(
