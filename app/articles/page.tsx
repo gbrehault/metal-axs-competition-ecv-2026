@@ -1,14 +1,13 @@
 import { gql } from '@apollo/client';
 import { connection } from 'next/server';
-import Image from 'next/image';
 import { getApolloClient } from '@/app/lib/apolloClient';
-import { formatDate, toPlainText } from '@/app/lib/utils';
-import Button from '@/app/components/ui/Button';
-import type { Post } from '@/app/types/post';
+import ArticleCard, { type PostWithCategories } from '@/app/components/articles/ArticleCard';
+import FilterTabs from '@/app/components/ui/FilterTabs';
+import Pagination from '@/app/components/ui/Pagination';
 
 const GET_POSTS = gql`
   query GetPosts {
-    posts {
+    posts(first: 100) {
       nodes {
         id
         slug
@@ -16,6 +15,12 @@ const GET_POSTS = gql`
         uri
         excerpt
         date
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
         article {
           fieldGroupName
           titreArticle
@@ -36,46 +41,66 @@ const GET_POSTS = gql`
   }
 `;
 
-export default async function Home() {
+const POSTS_PER_PAGE = 6;
+
+const FILTERS = [
+  { label: 'All', value: 'all' },
+  { label: 'Articles', value: 'articles' },
+  { label: 'Reports', value: 'reports' },
+];
+
+export default async function ArticlesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ filter?: string; page?: string }>;
+}) {
   await connection();
 
+  const { filter = 'all', page = '1' } = await searchParams;
+  const currentPage = Math.max(1, parseInt(page, 10) || 1);
+
   const client = getApolloClient();
-  const result = await client.query<{ posts: { nodes: Post[] } }>({
+  const result = await client.query<{ posts: { nodes: PostWithCategories[] } }>({
     query: GET_POSTS,
   });
-  const posts = result.data?.posts.nodes ?? [];
+  const allPosts = result.data?.posts.nodes ?? [];
+
+  const filtered =
+    filter === 'all'
+      ? allPosts
+      : allPosts.filter((p) =>
+          p.categories?.nodes.some(
+            (c) => c.slug === filter || c.name.toLowerCase() === filter
+          )
+        );
+
+  const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
+  const paginated = filtered.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  );
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-12">
-      {posts.map((post) => {
-        const img = post.article?.imageArticle?.node;
-        return (
-          <article key={post.id} className="rounded-2xl border border-zinc-200 p-6 shadow-sm">
-            {img?.sourceUrl ? (
-              <Image
-                src={img.sourceUrl}
-                alt={img.altText ?? post.title}
-                width={img.mediaDetails?.width ?? 600}
-                height={img.mediaDetails?.height ?? 400}
-                className="rounded-lg object-cover"
-              />
-            ) : null}
-            <p className="text-sm text-secondary/50 mt-4">{formatDate(post.date)}</p>
-            <h2 className="mt-2 text-2xl font-semibold font-primary">{post.article?.titreArticle ?? post.title}</h2>
-            <p className="mt-3 text-secondary/70">{toPlainText(post.article?.contenuArticle)}</p>
-            {post.article?.fieldGroupName && (
-              <p className="mt-3 rounded-lg bg-zinc-100 px-3 py-2 text-sm text-secondary/60">
-                Groupe ACF récupéré : {post.article.fieldGroupName}
-              </p>
-            )}
-            <div className="mt-4">
-              <Button href={`/articles/${post.slug}`} variant="secondary" size="sm">
-                Lire l&apos;article →
-              </Button>
-            </div>
-          </article>
-        );
-      })}
+    <main className="mx-auto w-full max-w-6xl px-6 pt-28 pb-10">
+      <FilterTabs
+        tabs={FILTERS}
+        active={filter}
+        buildHref={(value) => `/articles?filter=${value}&page=1`}
+      />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mt-10">
+        {paginated.map((post) => (
+          <ArticleCard key={post.id} post={post} />
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          buildHref={(p) => `/articles?filter=${filter}&page=${p}`}
+        />
+      )}
     </main>
   );
 }
