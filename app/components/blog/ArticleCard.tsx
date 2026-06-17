@@ -9,28 +9,36 @@ type PostWithCategories = Post & {
   };
   article?: {
     texteIntroduction?: string | null;
+    imageDeMiseEnAvant?: {
+      node?: {
+        sourceUrl?: string | null;
+        altText?: string | null;
+      } | null;
+    } | null;
   } | null;
 };
 
 export default function ArticleCard({ post }: { post: PostWithCategories }) {
-  const image = post.featuredImage?.node;
+  const image = post.article?.imageDeMiseEnAvant?.node ?? post.featuredImage?.node;
+  const img = image?.sourceUrl ?? '';
+  const alt = image?.altText ?? post.title;
   const title = post.title;
   const texteIntroduction = toPlainText(post.article?.texteIntroduction ?? '');
   const category = post.categories?.nodes[0]?.name?.toUpperCase() ?? 'ARTICLE';
 
   return (
-    <Link href={`/blog/${post.slug}`} className="group flex flex-col gap-3">
-      <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-secondary/10">
-        {image?.sourceUrl ? (
+    <Link href={`/blog/${post.slug}`} aria-label={title} className="group flex flex-col gap-3">
+      <div className="relative w-full aspect-[4/3] overflow-hidden bg-secondary/10 rounded-2xl">
+        {img ? (
           <Image
-            src={image.sourceUrl}
-            alt={image.altText ?? title}
+            src={img}
+            alt={alt}
             fill
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
-          <div className="w-full h-full bg-secondary/20" />
+          <div className="h-full w-full bg-secondary/20" />
         )}
       </div>
 
@@ -42,7 +50,7 @@ export default function ArticleCard({ post }: { post: PostWithCategories }) {
           {title}
         </h2>
         {texteIntroduction && (
-          <p className="text-md text-secondary/40 line-clamp-2 leading-relaxed tracking-wide mt-1">
+          <p className="text-sm text-secondary/40 line-clamp-2 leading-relaxed tracking-wide mt-1">
             {texteIntroduction}
           </p>
         )}

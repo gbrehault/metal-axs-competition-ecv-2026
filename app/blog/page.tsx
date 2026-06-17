@@ -43,6 +43,12 @@ const GET_POSTS = gql`
           titreSection1
           titreSection2
           titreSection3
+          imageDeMiseEnAvant {
+            node {
+              altText
+              sourceUrl
+            }
+          }
         }
       }
     }
@@ -68,10 +74,14 @@ export default async function ArticlesPage({
   const currentPage = Math.max(1, parseInt(page, 10) || 1);
 
   const client = getApolloClient();
-  const result = await client.query<{ posts: { nodes: PostWithCategories[] } }>({
+  const postsResult = await client.query<{
+    posts: {
+      nodes: PostWithCategories[];
+    };
+  }>({
     query: GET_POSTS,
   });
-  const allPosts = result.data?.posts.nodes ?? [];
+  const allPosts = postsResult.data?.posts.nodes ?? [];
 
   const filtered =
     filter === 'all'

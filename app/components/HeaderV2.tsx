@@ -109,7 +109,7 @@ export default function HeaderV2() {
       />
 
       {/* Wrapper fixe — toujours visible */}
-      <header className="fixed top-8 left-8 z-50 flex flex-col w-1/4">
+      <header className="fixed top-8 left-6 z-50 flex flex-col w-1/4">
         {/* Tuile logo + toggle — toujours visible */}
         <div className="bg-tertiary flex items-center justify-between px-6 py-3">
           <Link
