@@ -42,8 +42,10 @@ export default function PhotoSection() {
         scrollTrigger: {
           trigger: heroSection ?? section,
           start: 'top top',
-          end: 'bottom top',
+          end: '+=100%',
           scrub: 1,
+          pin: heroSection ?? false,
+          anticipatePin: 1,
         },
       });
 
