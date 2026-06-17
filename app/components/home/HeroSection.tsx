@@ -90,16 +90,23 @@ export default function HeroSection() {
         });
 
         timeline
+          .set(image, { zIndex: 30 }, 0)
+
           .to(
             image,
+
             {
-              transformOrigin: 'left center',
               scale: 1.8,
+
               xPercent: 0,
+
               yPercent: -30,
+
               bottom: 10,
+
               borderRadius: 0,
             },
+
             0,
           )
           .to(
@@ -142,7 +149,7 @@ export default function HeroSection() {
 
         <div
           ref={contentRef}
-          className="absolute z-100 flex w-full flex-col items-start px-6 pt-28 md:ml-auto md:max-w-screen-2xl md:w-fit md:px-24 md:pt-56"
+          className="relative z-100 flex w-full flex-col items-start px-6 pt-28 md:ml-auto md:max-w-screen-2xl md:w-fit md:px-24 md:pt-56"
         >
           <h1 className="font-primary text-[clamp(2.5rem,8vw,6rem)] text-secondary flex flex-col gap-2 leading-none">
             <span className="block leading-none">
@@ -173,7 +180,7 @@ export default function HeroSection() {
           ref={imageRef}
           id="section2"
           data-hero-image
-          className="absolute bottom-0 z-10 h-[60%] w-[60%] overflow-hidden bg-neutral-900"
+          className="sticky top-0 z-10 h-[60%] w-[60%] overflow-hidden bg-neutral-900"
         >
           {src ? (
             <Image
