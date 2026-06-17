@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <HomeLoader />
-      <section className="relative flex h-1000 w-screen flex-col items-center justify-start overflow-hidden bg-tertiary">
+      <section className="relative flex h-1000 w-screen flex-col items-center justify-start bg-tertiary">
         <InteractiveShape />
         <HeroSection />
         <PhotoSection />
