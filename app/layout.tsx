@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/app/components/layout/Navbar";
+import Header from "@/app/components/Header";
 import { PageTransitionProvider } from "@/app/components/ui/PageTransition";
 
 const geistMono = Geist_Mono({
@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="fr" className={`h-full antialiased ${geistMono.variable}`}>
       <body className="min-h-full flex flex-col noisebg-black/[0.16] ">
         <PageTransitionProvider>
-          <Navbar />
+          <Header />
           {children}
         </PageTransitionProvider>
       </body>

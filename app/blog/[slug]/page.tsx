@@ -16,17 +16,13 @@ const GET_POST_BY_SLUG = gql`
       slug
       date
       content
-      article {
-        titreArticle
-        contenuArticle
-        imageArticle {
-          node {
-            altText
-            sourceUrl
-            mediaDetails {
-              width
-              height
-            }
+      featuredImage {
+        node {
+          altText
+          sourceUrl
+          mediaDetails {
+            width
+            height
           }
         }
       }
@@ -47,9 +43,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   if (!post) notFound();
 
-  const imgSrc = post.article?.imageArticle?.node?.sourceUrl;
-  const imgAlt = post.article?.imageArticle?.node?.altText ?? post.title;
-  const title = post.article?.titreArticle ?? post.title;
+  const imgSrc = post.featuredImage?.node?.sourceUrl;
+  const imgAlt = post.featuredImage?.node?.altText ?? post.title;
+  const title = post.title;
 
   return (
     <>
@@ -96,7 +92,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <div className="mx-auto max-w-4xl">
 
             <Link
-              href="/articles"
+              href="/blog"
               className="mb-10 inline-flex text-xs font-medium uppercase text-white/40 transition-colors hover:text-primary"
             >
               ← Retour aux articles
@@ -114,7 +110,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 prose-li:text-white/70
                 prose-hr:border-white/10
                 prose-img:rounded-xl"
-              dangerouslySetInnerHTML={{ __html: post.article?.contenuArticle ?? '' }}
+              dangerouslySetInnerHTML={{ __html: post.content ?? '' }}
             />
           </div>
         </div>

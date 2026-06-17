@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { connection } from 'next/server';
 import { getApolloClient } from '@/app/lib/apolloClient';
-import ArticleCard, { type PostWithCategories } from '@/app/components/articles/ArticleCard';
+import ArticleCard, { type PostWithCategories } from '@/app/components/blog/ArticleCard';
 import FilterTabs from '@/app/components/ui/FilterTabs';
 import Pagination from '@/app/components/ui/Pagination';
 
@@ -15,24 +15,20 @@ const GET_POSTS = gql`
         uri
         excerpt
         date
+        content
         categories {
           nodes {
             name
             slug
           }
         }
-        article {
-          fieldGroupName
-          titreArticle
-          contenuArticle
-          imageArticle {
-            node {
-              altText
-              sourceUrl
-              mediaDetails {
-                width
-                height
-              }
+        featuredImage {
+          node {
+            altText
+            sourceUrl
+            mediaDetails {
+              width
+              height
             }
           }
         }
@@ -85,7 +81,7 @@ export default async function ArticlesPage({
       <FilterTabs
         tabs={FILTERS}
         active={filter}
-        buildHref={(value) => `/articles?filter=${value}&page=1`}
+        buildHref={(value) => `/blog?filter=${value}&page=1`}
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mt-10">
@@ -98,7 +94,7 @@ export default async function ArticlesPage({
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          buildHref={(p) => `/articles?filter=${filter}&page=${p}`}
+          buildHref={(p) => `/blog?filter=${filter}&page=${p}`}
         />
       )}
     </main>

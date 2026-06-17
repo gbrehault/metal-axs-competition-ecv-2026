@@ -10,13 +10,13 @@ type PostWithCategories = Post & {
 };
 
 export default function ArticleCard({ post }: { post: PostWithCategories }) {
-  const img = post.article?.imageArticle?.node;
-  const title = post.article?.titreArticle ?? post.title;
-  const excerpt = toPlainText(post.article?.contenuArticle ?? post.excerpt);
+  const img = post.featuredImage?.node;
+  const title = post.title;
+  const excerpt = toPlainText(post.excerpt ?? '');
   const category = post.categories?.nodes[0]?.name?.toUpperCase() ?? 'ARTICLE';
 
   return (
-    <Link href={`/articles/${post.slug}`} className="group flex flex-col gap-3">
+    <Link href={`/blog/${post.slug}`} className="group flex flex-col gap-3">
       <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-secondary/10">
         {img?.sourceUrl ? (
           <Image
