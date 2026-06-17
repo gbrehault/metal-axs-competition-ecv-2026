@@ -51,6 +51,7 @@ export default function PhotoSection() {
 
       // Cache l'image fixe une fois que PhotoSection sort du viewport
       ScrollTrigger.create({
+      
         trigger: section,
         start: 'bottom top',
         onEnter: () => gsap.set(floating, { autoAlpha: 0 }),
@@ -99,8 +100,8 @@ export default function PhotoSection() {
         ref={textRef}
         className="relative z-[21] h-full flex flex-col items-center justify-center px-6 text-center"
       >
-        <p className="text-white text-4xl md:text-6xl font-primary uppercase leading-tight">
-          L&apos;accessibilité,<br />ça commence ici.
+        <p className=" w-2/3 text-white text-sm  md:text-lg font-primary  leading-tight">
+        De plus en plus de festivals voient le jour chaque année, mais l'accessibilité pour les personnes en situation de handicap reste encore trop souvent oubliée. [Metal Axs] accompagne les organisateurs qui veulent vraiment changer ça, du site internet jusqu'au jour de l'événement, pour que chacun puisse vivre l'expérience pleinement.
         </p>
       </div>
     </section>
