@@ -105,7 +105,7 @@ export default function HomeLoader() {
 
       <div className="relative z-10 flex w-full max-w-xl flex-col items-center gap-5 px-6 text-center text-tertiary">
         <div ref={logoRef}>
-          <Image src={Logo} alt="Logo Metal AXS" width={140} height={140} priority />
+          <Image src={Logo} alt="Logo Metal AXS" width={140} height={140} priority style={{ width: '140px', height: 'auto' }} />
         </div>
         <div className="mt-2 w-full max-w-xs overflow-hidden rounded-full">
           <div className="h-2 rounded-full">

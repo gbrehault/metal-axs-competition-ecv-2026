@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import TransitionLink from '@/app/components/ui/TransitionLink';
 
 type Props = {
   label: string;
@@ -13,13 +13,13 @@ export default function NavLink({ label, href, active, onClick }: Props) {
       {active && (
         <span className="block w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden />
       )}
-      <Link
+      <TransitionLink
         href={href}
         onClick={onClick}
         className="text-sm font-medium uppercase text-secondary hover:text-primary transition-colors font-mono"
       >
         {label}
-      </Link>
+      </TransitionLink>
     </li>
   );
 }

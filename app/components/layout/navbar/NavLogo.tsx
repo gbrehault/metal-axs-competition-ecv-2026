@@ -10,7 +10,8 @@ export default function NavLogo() {
         alt="Metal AXS"
         height={32}
         width={120}
-        className="h-8 w-auto object-contain"
+        className="object-contain"
+        style={{ height: '32px', width: 'auto' }}
       />
     </Link>
   );
