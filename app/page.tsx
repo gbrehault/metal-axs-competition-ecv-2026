@@ -29,13 +29,9 @@ export default function Home() {
               l&apos;expérience pleinement.
             </p>
           </div>
-        </div>
-
-        
-            <InteractiveShape />
-       
-
+        </div>   
            <HandicapSection />
+             <InteractiveShape />
       </section>
    
     </>
