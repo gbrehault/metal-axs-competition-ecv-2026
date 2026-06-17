@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LogoNav from '@/app/assets/logo_metal-axs_vertical.svg';
 import Button from '@/app/components/ui/Button';
 import TransitionLink from '@/app/components/ui/TransitionLink';
@@ -45,7 +45,35 @@ function ChevronRight() {
 
 export default function HeaderV2() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(pathname === '/');
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let accumulated = 0;
+    const THRESHOLD = 200;
+    const THRESHOLD_DOWN = 60;
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastY;
+      lastY = currentY;
+
+      if (delta < 0) {
+        accumulated = Math.min(0, accumulated + delta);
+        if (accumulated <= -THRESHOLD) {
+          setOpen(true);
+          accumulated = 0;
+        }
+      } else {
+        accumulated = Math.max(0, accumulated + delta);
+        if (accumulated >= THRESHOLD_DOWN) {
+          setOpen(false);
+          accumulated = 0;
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
@@ -59,12 +87,11 @@ export default function HeaderV2() {
       />
 
       {/* Wrapper fixe — toujours visible */}
-      <div
-        className="fixed top-8 left-8 z-50 flex flex-col"
-        style={{ width: '440px', maxWidth: 'calc(100vw - 4rem)', backgroundColor: '#e8e8e8' }}
+      <header
+        className="fixed top-8 left-8 z-50 flex flex-col w-1/4"
       >
         {/* Tuile logo + toggle — toujours visible */}
-        <div className="bg-white flex items-center justify-between px-6" style={{ height: '72px' }}>
+        <div className="bg-tertiary flex items-center justify-between px-6 py-3">
           <Link
             href="/"
             aria-label="Metal AXS — accueil"
@@ -74,39 +101,37 @@ export default function HeaderV2() {
             <Image
               src={LogoNav}
               alt="Metal AXS"
-              height={28}
-              width={140}
               className="object-contain"
-              style={{ height: '28px', width: 'auto' }}
+              width={120}
             />
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
             aria-expanded={open}
-            className="text-secondary hover:text-primary transition-colors ml-4 flex-shrink-0"
+            className="text-secondary hover:text-primary transition-colors ml-4 flex-shrink-0 w-9 h-9 flex items-center justify-center"
           >
             {open ? <CloseIcon /> : <BurgerIcon />}
           </button>
         </div>
 
         {/* Panneau nav — animé */}
-        <div
-          className={`flex flex-col gap-[3px] overflow-hidden transition-all duration-300 ease-in-out ${
-            open ? 'max-h-[600px] opacity-100 mt-[3px]' : 'max-h-0 opacity-0 mt-0'
+        <nav
+          aria-label="Navigation principale"
+          className={`flex flex-col gap-1 overflow-hidden transition-all duration-300 ease-in-out ${
+            open ? 'max-h-[600px] opacity-100 mt-1' : 'max-h-0 opacity-0 mt-0'
           }`}
         >
           {NAV_LINKS.map(({ label, href }) => {
             const active = pathname === href;
             return (
-              <div key={href} className="bg-white">
+              <div key={href} className="bg-tertiary">
                 <TransitionLink
                   href={href}
                   onClick={() => setOpen(false)}
-                  className={`flex items-center justify-between px-6 text-base transition-colors ${
+                  className={`flex items-center justify-between px-6 py-3 text-base transition-colors ${
                     active ? 'text-primary' : 'text-secondary hover:text-primary'
                   }`}
-                  style={{ height: '68px' }}
                 >
                   <span>{label}</span>
                   <ChevronRight />
@@ -115,7 +140,7 @@ export default function HeaderV2() {
             );
           })}
 
-          <div className="bg-white px-6 py-4">
+          <div className="bg-tertiary  px-6 py-3">
             <Button
               href="/faire-un-audit"
               variant="primary"
@@ -125,8 +150,8 @@ export default function HeaderV2() {
               → Réaliser une mise à niveau
             </Button>
           </div>
-        </div>
-      </div>
+        </nav>
+      </header>
     </>
   );
 }
