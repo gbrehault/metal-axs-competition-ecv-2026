@@ -115,6 +115,26 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
         </div>
 
+        {imgSrc && (
+          <section className="relative h-screen w-full overflow-hidden">
+            <Image
+              src={imgSrc}
+              alt={imgAlt}
+              fill
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+              <time className="mb-4 text-xs font-medium uppercase tracking-widest text-white/50">
+                {formatDate(post.date)}
+              </time>
+              <h2 className="max-w-4xl text-5xl font-bold leading-tight text-white sm:text-7xl font-primary">
+                {title}
+              </h2>
+            </div>
+          </section>
+        )}
+
       </main>
     </>
   );
