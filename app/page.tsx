@@ -1,6 +1,7 @@
 import HomeLoader from '@/app/components/home/HomeLoader';
 import HeroSection from '@/app/components/home/HeroSection';
 import InteractiveShape from '@/app/components/home/InteractiveShape';
+import HandicapSection from '@/app/components/home/HandicapSection';
 import Image from 'next/image';
 import src from '@/app/assets/photo_festival.webp';
 
@@ -29,12 +30,9 @@ export default function Home() {
             </p>
           </div>
         </div>
-
-        <div id="section4" className="w-full h-200 bg-tertiary z-100000">
-          <div className="top-0 overflow-hidden">
-            <InteractiveShape />
-          </div>
-        </div>
+        <HandicapSection />
+        <div className="relative flex h-screen w-full items-center justify-center overflow-hidden px-6 py-20 md:px-16"></div>
+        <InteractiveShape />
       </section>
     </>
   );

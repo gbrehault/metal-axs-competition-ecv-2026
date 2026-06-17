@@ -29,7 +29,6 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
     gsap.set(overlayRef.current, { x: '-100%' });
   }, []);
 
-  // Fires on pathname change → slide overlay off to reveal new page
   useEffect(() => {
     if (prevPathRef.current === pathname) return;
     const isRealNavigation = prevPathRef.current !== null;
@@ -49,7 +48,6 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
     });
   }, [pathname]);
 
-  // Called by TransitionLink → slide overlay in to cover page, then navigate
   const navigate = useCallback(
     (href: string) => {
       if (isAnimatingRef.current || href === pathname) return;

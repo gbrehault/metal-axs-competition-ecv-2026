@@ -72,8 +72,9 @@ export default function HeaderV2() {
   useEffect(() => {
     let lastY = window.scrollY;
     let accumulated = 0;
-    const THRESHOLD = 200;
+    const THRESHOLD = 1200;
     const THRESHOLD_DOWN = 60;
+
     const handleScroll = () => {
       const currentY = window.scrollY;
       const delta = currentY - lastY;
@@ -81,92 +82,75 @@ export default function HeaderV2() {
 
       if (delta < 0) {
         accumulated = Math.min(0, accumulated + delta);
-        if (accumulated <= -THRESHOLD) {
-          setOpen(true);
-          accumulated = 0;
-        }
+        if (accumulated <= -THRESHOLD) { setOpen(true); accumulated = 0; }
       } else {
         accumulated = Math.max(0, accumulated + delta);
-        if (accumulated >= THRESHOLD_DOWN) {
-          setOpen(false);
-          accumulated = 0;
-        }
+        if (accumulated >= THRESHOLD_DOWN) { setOpen(false); accumulated = 0; }
       }
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <>
-      {/* Overlay */}
-      <div
-        onClick={() => setOpen(false)}
-        aria-hidden
-        className={`fixed inset-0 z-40 transition-opacity duration-300 ${
-          open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      />
-
-      {/* Wrapper fixe — toujours visible */}
-      <header className="fixed top-8 left-6 z-50 flex flex-col w-1/4">
-        {/* Tuile logo + toggle — toujours visible */}
-        <div className="bg-tertiary flex items-center justify-between px-6 py-3">
-          <Link
-            href="/"
-            aria-label="Metal AXS — accueil"
-            onClick={() => setOpen(false)}
-            className="flex-1 flex justify-center"
-          >
-            <Image src={LogoNav} alt="Metal AXS" className="object-contain" width={120} />
-          </Link>
-          <button
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
-            aria-expanded={open}
-            className="text-secondary hover:text-primary transition-colors ml-4 flex-shrink-0 w-9 h-9 flex items-center justify-center"
-          >
-            {open ? <CloseIcon /> : <BurgerIcon />}
-          </button>
-        </div>
-
-        {/* Panneau nav — animé */}
-        <nav
-          aria-label="Navigation principale"
-          className={`flex flex-col gap-1 overflow-hidden transition-all duration-300 ease-in-out ${
-            open ? 'max-h-[600px] opacity-100 mt-1' : 'max-h-0 opacity-0 mt-0'
-          }`}
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 md:top-8 md:left-16 md:translate-x-0 z-50 flex flex-col w-4/5 md:w-1/4">
+      {/* Tuile logo + toggle */}
+      <div className="bg-tertiary flex items-center justify-between px-6 py-3">
+        <Link
+          href="/"
+          aria-label="Metal AXS — accueil"
+          onClick={() => setOpen(false)}
+          className="flex-1 flex justify-center"
         >
-          {NAV_LINKS.map(({ label, href }) => {
-            const active = pathname === href;
-            return (
-              <div key={href} className="bg-tertiary">
-                <TransitionLink
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className={`flex items-center justify-between px-6 py-3 text-base transition-colors ${
-                    active ? 'text-primary' : 'text-secondary hover:text-primary'
-                  }`}
-                >
-                  <span>{label}</span>
-                  <ChevronRight />
-                </TransitionLink>
-              </div>
-            );
-          })}
+          <Image src={LogoNav} alt="Metal AXS" className="object-contain" width={120} />
+        </Link>
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={open}
+          className="text-secondary hover:text-primary transition-colors ml-4 flex-shrink-0 w-9 h-9 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          {open ? <CloseIcon /> : <BurgerIcon />}
+        </button>
+      </div>
 
-          <div className="bg-tertiary  px-6 py-3">
-            <Button
-              href="/faire-un-audit"
-              variant="primary"
-              className="w-full justify-center"
-              onClick={() => setOpen(false)}
-            >
-              → Réaliser une mise à niveau
-            </Button>
-          </div>
-        </nav>
-      </header>
-    </>
+      {/* Panneau nav animé */}
+      <nav
+        aria-label="Navigation principale"
+        className={`flex flex-col gap-1 overflow-hidden transition-all duration-300 ease-in-out ${
+          open ? 'max-h-[600px] opacity-100 mt-1' : 'max-h-0 opacity-0 mt-0'
+        }`}
+      >
+        {NAV_LINKS.map(({ label, href }) => {
+          const active = pathname === href;
+          return (
+            <div key={href} className="bg-tertiary">
+              <TransitionLink
+                href={href}
+                onClick={() => setOpen(false)}
+                className={`flex items-center justify-between px-6 py-3 text-base transition-colors ${
+                  active ? 'text-primary' : 'text-secondary hover:text-primary'
+                }`}
+              >
+                <span>{label}</span>
+                <ChevronRight />
+              </TransitionLink>
+            </div>
+          );
+        })}
+
+        <div className="bg-tertiary px-6 py-3">
+          <Button
+            href="/faire-un-audit"
+            variant="primary"
+            className="w-full justify-center"
+            onClick={() => setOpen(false)}
+          >
+            Réaliser une mise à niveau
+          </Button>
+        </div>
+      </nav>
+    </header>
   );
 }

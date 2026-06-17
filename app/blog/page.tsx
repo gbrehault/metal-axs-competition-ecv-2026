@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import { connection } from 'next/server';
 import { getApolloClient } from '@/app/lib/apolloClient';
 import ArticleCard, { type PostWithCategories } from '@/app/components/blog/ArticleCard';
-import FilterTabs from '@/app/components/ui/FilterTabs';
-import Pagination from '@/app/components/ui/Pagination';
+import FilterTabs from '@/app/components/blog/FilterTabs';
+import Pagination from '@/app/components/blog/Pagination';
 
 const GET_POSTS = gql`
   query GetPosts {

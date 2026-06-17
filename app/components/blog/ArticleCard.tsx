@@ -27,9 +27,10 @@ type PostWithCategories = {
 };
 
 export default function ArticleCard({ post }: { post: PostWithCategories }) {
-  const image = post.article?.imageDeMiseEnAvant?.node ?? post.featuredImage?.node;
-  const img = image?.sourceUrl ?? '';
-  const alt = image?.altText ?? post.title;
+  const img =
+    post.article?.imageDeMiseEnAvant?.node?.sourceUrl || post.featuredImage?.node?.sourceUrl || '';
+  const alt =
+    post.article?.imageDeMiseEnAvant?.node?.altText || post.featuredImage?.node?.altText || '';
   const title = post.title;
   const texteIntroduction = toPlainText(post.article?.texteIntroduction ?? '');
   const category = post.categories?.nodes[0]?.name?.toUpperCase() ?? 'ARTICLE';
@@ -37,17 +38,14 @@ export default function ArticleCard({ post }: { post: PostWithCategories }) {
   return (
     <Link href={`/blog/${post.slug}`} aria-label={title} className="group flex flex-col gap-3">
       <div className="relative w-full aspect-[4/3] overflow-hidden bg-secondary/10 rounded-2xl">
-        {img ? (
-          <Image
-            src={img}
-            alt={alt}
-            fill
-            className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        ) : (
-          <div className="h-full w-full bg-secondary/20" />
-        )}
+        <Image
+          src={img}
+          alt={alt}
+          fill
+          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+        <div className="w-full h-full bg-secondary/20" aria-hidden="true" />
       </div>
 
       <div className="flex flex-col gap-1">

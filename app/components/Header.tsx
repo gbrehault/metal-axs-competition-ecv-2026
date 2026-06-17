@@ -78,7 +78,7 @@ function MobileDrawer({ open, pathname, onClose }: { open: boolean; pathname: st
         ))}
         <li className="mt-2">
           <Button href="/faire-un-audit" variant="primary" onClick={onClose}>
-            → RÉALISER UN AUDIT
+            RÉALISER UN AUDIT
           </Button>
         </li>
       </ul>
@@ -114,7 +114,7 @@ export default function Header() {
           </div>
 
           <Button href="/faire-un-audit" variant="primary" className="hidden md:inline-flex shrink-0">
-            → RÉALISER UN AUDIT
+            RÉALISER UN AUDIT
           </Button>
 
           <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />

@@ -266,7 +266,7 @@ const SCROLL_KEYFRAMES: ScrollKeyframe[] = [
     rotationZ: 0.22,
   },
   {
-    positionX: 0.6,
+    positionX: 0.4,
     positionY: -0.55,
     scale: 0.146,
     rotationX: 1.4,
@@ -704,7 +704,7 @@ export default function InteractiveShape() {
         camera={{ position: [0, 0, 4.5], fov: 32 }}
         dpr={[1, 1.2]}
         gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
-        className="absolute w-full z-1000"
+        className="absolute w-full h-full z-1000"
         style={SHOW_SHAPE_BLUR ? { filter: SHAPE_BLUR_FILTER } : undefined}
       >
         <ambientLight intensity={0.1} />

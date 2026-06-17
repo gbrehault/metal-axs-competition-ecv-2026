@@ -135,7 +135,7 @@ export default function HeroSection() {
   return (
     <section ref={sectionRef} data-hero className="relative h-screen w-full">
       <div className="noise relative h-screen overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-black/[0.16]" />
+        <div className="pointer-events-none absolute inset-0 z-10 bg-black/10" />
 
         <div
           ref={logoRef}
