@@ -234,9 +234,9 @@ export default function Header() {
             </div>
 
             <div className="relative p-8">
-              <h2 className="mb-4 font-primary text-center text-3xl font-regular">
+              <h3 className="mb-4 font-primary text-center text-3xl font-regular">
                 Commencez vos premiers pas <br /> dans l’accessibilité ?
-              </h2>
+              </h3>
               <h5 className="mb-6 text-center text-xl leading-relaxed text-secondary/70">
                 Cette mise à niveau vous permettra de respecter au maximum l’accessibilité de vos
                 futurs festivaliers au sein de votre évènement.
