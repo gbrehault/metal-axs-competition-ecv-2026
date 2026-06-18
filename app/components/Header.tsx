@@ -183,9 +183,9 @@ export default function Header() {
               href="/faire-un-audit"
               variant="primary"
               className="justify-center"
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
                 setOpen(false);
+
                 setIsPopupOpen(true);
               }}
             >
