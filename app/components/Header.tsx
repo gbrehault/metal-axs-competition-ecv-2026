@@ -65,8 +65,9 @@ function Hamburger({ open, onToggle }: { open: boolean; onToggle: () => void }) 
   return (
     <button
       onClick={onToggle}
-      className="md:hidden flex flex-col justify-center gap-[5px] w-8 h-8"
+      className="md:hidden flex flex-col justify-center items-center gap-[5px] w-8 h-8"
       aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+
       aria-expanded={open}
     >
       <span
@@ -105,11 +106,6 @@ function MobileDrawer({
             onClick={onClose}
           />
         ))}
-        <li className="mt-2">
-          <Button href="/mise-a-niveau" variant="primary" onClick={onClose}>
-            RÉALISER UNE MISE À NIVEAU
-          </Button>
-        </li>
       </ul>
     </div>
   );
@@ -161,24 +157,20 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-200 transition-transform duration-300 ease-in-out mt-8 w-full${
+        className={`fixed top-0 left-1/2 -translate-x-1/2 z-200 transition-transform duration-300 ease-in-out mt-8 w-4/5 md:left-8 md:right-8 md:translate-x-0 md:w-3/4 mx-auto ${
           hidden ? '-translate-y-[calc(100%+2rem)]' : 'translate-y-0'
         }`}
       >
-        <div className="flex items-center gap-2 justify-center">
-          <div className="flex items-center bg-white p-4 h-[stretch]">
-            <NavLogo />
-          </div>
+        <nav aria-label="Navigation principale" className="flex items-center bg-white px-6 py-4 gap-6">
+          <NavLogo />
 
-          <nav className="flex items-center bg-white p-4 gap-8">
-            <div className="hidden md:flex flex-1 items-center">
-              <ul className="flex items-center gap-6">
-                {NAV_LINKS.map(({ label, href }) => (
-                  <NavLink key={href} label={label} href={href} active={pathname === href} />
-                ))}
-              </ul>
-            </div>
+          <ul className="hidden md:flex items-center gap-6 flex-1">
+            {NAV_LINKS.map(({ label, href }) => (
+              <NavLink key={href} label={label} href={href} active={pathname === href} />
+            ))}
+          </ul>
 
+          <div className="hidden md:block ml-auto">
             <Button
               href="/mise-a-niveau"
               variant="primary"
@@ -190,10 +182,10 @@ export default function Header() {
             >
               Réaliser une mise à niveau
             </Button>
+          </div>
 
-            <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />
-          </nav>
-        </div>
+          <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />
+        </nav>
 
         <MobileDrawer open={open} pathname={pathname} onClose={() => setOpen(false)} />
       </header>

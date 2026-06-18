@@ -82,7 +82,7 @@
   overflow: hidden;
   position: relative;
   width: auto;
-  font-size: 104px;
+  font-size: clamp(2.5rem, 7vw, 6.5rem);
 }
 
 .noise {
@@ -111,6 +111,10 @@
 
 .font-primary {
   font-family: var(--font-primary);
+}
+
+.font-secondary {
+  font-family: var(--font-secondary);
 }
 
 html {
@@ -142,4 +146,11 @@ h4 {
 
 h5 {
   font-size: var(--font-size-h5);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }

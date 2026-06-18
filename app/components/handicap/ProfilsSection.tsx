@@ -32,6 +32,11 @@ export default function ProfilsSection() {
     });
   }, []);
 
+  const getCardScrollWidth = () => {
+    const firstChild = carouselRef.current?.children[0] as HTMLElement | undefined;
+    return firstChild ? firstChild.offsetWidth + 16 : CARD_W + 16;
+  };
+
   const handleMouseEnter = (hoveredIdx: number) => {
     CARDS.forEach((card, i) => {
       const outer = outerRefs.current[i];
@@ -86,24 +91,24 @@ export default function ProfilsSection() {
   };
 
   return (
-    <section className="noise relative w-full min-h-screen bg-[#F5F5F5] flex flex-col overflow-hidden px-10 md:px-16 py-20 pt-36 z-10">
-
-      {/* Logo Metal en fond */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center z-0">
+    <section
+      aria-labelledby="profils-titre"
+      className="noise relative w-full min-h-screen bg-tertiary flex flex-col overflow-hidden px-4 md:px-16 py-20 pt-36 z-10"
+    >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center z-0">
         <Image
           src={LogoMetal}
           alt=""
           width={900}
           height={500}
-          className=" object-cover  "
+          className="object-cover"
         />
       </div>
 
-      {/* Header centré */}
       <div className="flex flex-col items-center text-center gap-6 mb-4">
-           <h2 className="title-home font-primary text-10 text-secondary leading-none">
-            <span className="bg-white px-6 py-3">Les 5 profils handicaps</span>
-          </h2>
+        <h2 id="profils-titre" className="title-home font-primary text-secondary leading-none">
+          <span className="bg-white px-3 py-1.5 md:px-6 md:py-3">Les 5 profils handicaps</span>
+        </h2>
         <p className="text-secondary/70 text-base leading-relaxed max-w-xl">
           Découvrez les différents profils de handicap pris en compte dans notre démarche,
           les obstacles du quotidien auxquels ces personnes font face
@@ -114,20 +119,23 @@ export default function ProfilsSection() {
       <div className="md:hidden flex flex-col gap-4">
         <div
           ref={carouselRef}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 scrollbar-hide"
+          role="region"
+          aria-label="Carrousel des profils handicaps"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2"
           style={{ scrollbarWidth: 'none' }}
           onScroll={(e) => {
             const el = e.currentTarget;
-            const idx = Math.round(el.scrollLeft / (CARD_W + 16));
-            setActiveIdx(idx);
+            const cardW = getCardScrollWidth();
+            setActiveIdx(Math.round(el.scrollLeft / cardW));
           }}
         >
           {CARDS.map((card) => (
             <TransitionLink
               key={card.id}
               href={`/handicaps/${card.id}`}
+              aria-label={`Découvrir le profil ${card.title.replace('\n', ' ')}`}
               className="snap-center shrink-0 mx-auto block"
-              style={{ width: CARD_W, height: CARD_H }}
+              style={{ width: 'min(300px, 82vw)', height: CARD_H }}
             >
               <div
                 className="w-full h-full overflow-hidden flex flex-col bg-secondary border-2 border-white"
@@ -147,7 +155,7 @@ export default function ProfilsSection() {
                     className="w-full max-h-full object-contain object-right-bottom mix-blend-luminosity opacity-90"
                   />
                 </div>
-                <span className="bg-secondary/90 text-white text-xs font-secondary font-semibold uppercase tracking-wide px-3 py-3 hover:bg-primary transition-colors duration-200 text-center">
+                <span aria-hidden="true" className="bg-secondary/90 text-white text-xs font-secondary font-semibold uppercase tracking-wide px-3 py-3 hover:bg-primary transition-colors duration-200 text-center">
                   Découvrir les pré-requis
                 </span>
               </div>
@@ -155,24 +163,29 @@ export default function ProfilsSection() {
           ))}
         </div>
 
-        {/* Dots */}
-        <div className="flex justify-center gap-2">
+        <div role="tablist" aria-label="Navigation carrousel" className="flex justify-center gap-2">
           {CARDS.map((card, i) => (
             <button
               key={card.id}
-              aria-label={`Aller à la carte ${i + 1}`}
+              role="tab"
+              aria-selected={i === activeIdx}
+              aria-label={`Aller au profil ${card.title.replace('\n', ' ')}`}
               onClick={() => {
                 setActiveIdx(i);
-                carouselRef.current?.scrollTo({ left: i * (CARD_W + 16), behavior: 'smooth' });
+                carouselRef.current?.scrollTo({ left: i * getCardScrollWidth(), behavior: 'smooth' });
               }}
-              className={`w-2 h-2 rounded-full transition-colors ${i === activeIdx ? 'bg-secondary' : 'bg-secondary/30'}`}
+              className={`w-2 h-2 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${i === activeIdx ? 'bg-secondary' : 'bg-secondary/30'}`}
             />
           ))}
         </div>
       </div>
 
       {/* Fan de cartes — desktop uniquement */}
-      <div className="hidden md:block relative w-full" style={{ height: 480 }} onMouseLeave={handleMouseLeave}>
+      <div
+        className="hidden md:block relative w-full"
+        style={{ height: 480 }}
+        onMouseLeave={handleMouseLeave}
+      >
         {CARDS.map((card, i) => (
           <div
             key={card.id}
@@ -193,16 +206,17 @@ export default function ProfilsSection() {
             >
               <TransitionLink
                 href={`/handicaps/${card.id}`}
-                className="w-full h-full flex flex-col"
+                aria-label={`Découvrir le profil ${card.title.replace('\n', ' ')}`}
+                className="w-full h-full flex flex-col focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
               >
                 <div
                   className="w-full h-full overflow-hidden flex flex-col bg-secondary border-2 border-white"
                   style={{ backgroundImage: `url(${CardFond.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                 >
                   <div className="pt-3 px-3">
-                    <h4 className="text-white font-primary text-3xl leading-snug whitespace-pre-line drop-shadow">
+                    <h3 className="text-white font-primary text-3xl leading-snug whitespace-pre-line drop-shadow">
                       {card.title}
-                    </h4>
+                    </h3>
                   </div>
 
                   <div className="flex-1 flex items-end justify-end overflow-hidden">
@@ -215,7 +229,7 @@ export default function ProfilsSection() {
                     />
                   </div>
 
-                  <span className="bg-secondary/90 text-white text-xs font-secondary font-semibold uppercase tracking-wide px-3 py-3 hover:bg-primary transition-colors duration-200 text-center">
+                  <span aria-hidden="true" className="bg-secondary/90 text-white text-xs font-secondary font-semibold uppercase tracking-wide px-3 py-3 hover:bg-primary transition-colors duration-200 text-center">
                     Découvrir les pré-requis
                   </span>
                 </div>

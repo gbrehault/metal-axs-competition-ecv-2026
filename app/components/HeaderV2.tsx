@@ -156,7 +156,7 @@ export default function HeaderV2() {
             );
           })}
 
-          <div className="bg-tertiary px-6 py-3">
+          <div className="hidden md:block bg-tertiary px-6 py-3">
             <Button
               href="/mise-a-niveau"
               variant="primary"

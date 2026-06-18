@@ -15,7 +15,7 @@ export default function FilterTabs({
   buildHref: (value: string) => string;
 }) {
   return (
-    <nav aria-label="Filtrer les articles" className="flex gap-2">
+    <nav aria-label="Filtrer les articles" className="flex flex-wrap gap-2">
       {tabs.map(({ label, value }) => {
         const isActive = active === value;
         return (
@@ -23,7 +23,7 @@ export default function FilterTabs({
             key={value}
             href={buildHref(value)}
             aria-current={isActive ? 'page' : undefined}
-            className={`px-4 py-1.5 text-sm font-medium border transition-colors ${
+            className={`px-4 py-1.5 text-sm font-medium border transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
               isActive
                 ? 'bg-secondary text-white border-secondary'
                 : 'bg-transparent text-secondary border-secondary/30 hover:border-secondary'

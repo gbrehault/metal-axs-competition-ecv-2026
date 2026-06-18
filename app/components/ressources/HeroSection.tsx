@@ -4,8 +4,11 @@ import Button from '@/app/components/ui/Button';
 
 export default function RessourcesHeroSection() {
   return (
-    <section className="relative h-[90vh] w-full flex flex-col z-20">
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+    <section
+      aria-label="Toutes les ressources"
+      className="relative h-[90vh] w-full flex flex-col z-20"
+    >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
         <Image
           src={bgHero}
           alt=""
@@ -15,13 +18,13 @@ export default function RessourcesHeroSection() {
         />
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 md:px-24">
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 md:px-24">
         <h1 className="title-home font-primary leading-none tracking-tight text-secondary flex flex-col gap-2">
-          <span className="flex leading-none">
-            <span className="inline-block bg-white px-6 py-3">Toutes les</span>
+          <span className="flex flex-wrap leading-none">
+            <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3">Toutes les</span>
           </span>
-          <span className="flex leading-none">
-            <span className="inline-block bg-white px-6 py-3">ressources</span>
+          <span className="flex flex-wrap leading-none">
+            <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3">ressources</span>
           </span>
         </h1>
       </div>

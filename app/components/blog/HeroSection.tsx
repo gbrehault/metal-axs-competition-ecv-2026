@@ -1,13 +1,11 @@
-'use client';
-
 import Image from 'next/image';
 import bgHero from '@/app/assets/bg-hero-handicap.png';
 import Button from '@/app/components/ui/Button';
 
-export default function HandicapHeroSection() {
+export default function BlogHeroSection() {
   return (
     <section
-      aria-label="Mieux comprendre pour mieux agir"
+      aria-label="Le blog Metal AXS"
       className="relative h-[90vh] w-full flex flex-col z-20"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
@@ -23,12 +21,11 @@ export default function HandicapHeroSection() {
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 md:px-24">
         <h1 className="title-home font-primary leading-none tracking-tight text-secondary flex flex-col gap-2">
           <span className="flex flex-wrap leading-none">
-            <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3">Mieux</span>{' '}
-            <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">comprendre</span>
+            <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3">Le</span>{' '}
+            <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">blog</span>
           </span>
           <span className="flex flex-wrap leading-none">
-            <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3">pour mieux</span>{' '}
-            <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">agir</span>
+            <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3">Metal AXS</span>
           </span>
         </h1>
       </div>
