@@ -10,7 +10,7 @@ import TransitionLink from '@/app/components/ui/TransitionLink';
 
 const NAV_LINKS = [
   { label: 'Bonnes pratiques', href: '/bonnes-pratiques' },
-  { label: 'Handicaps', href: '/les-handicap' },
+  { label: 'Handicaps', href: '/handicaps' },
   { label: 'Ressources', href: '/ressources' },
   { label: 'Blog', href: '/blog' },
   { label: 'Fédération', href: '/federation' },
