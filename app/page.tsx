@@ -3,6 +3,7 @@ import HeroSection from '@/app/components/home/HeroSection';
 import InteractiveShape from '@/app/components/home/InteractiveShape';
 import HandicapSection from '@/app/components/home/HandicapSection';
 import BonnesPratiquesSection from '@/app/components/home/BonnesPratiquesSection';
+import Footer from './components/Footer';
 
 export default function Home() {
   return (
@@ -27,8 +28,10 @@ export default function Home() {
         </div>
         <HandicapSection />
         <BonnesPratiquesSection />
-        <div className="relative flex h-100 md:h-screen w-full items-center justify-center overflow-hidden px-6 py-20 md:px-16"></div>
+        {/* <div className="relative flex h-100 md:h-screen w-full items-center justify-center overflow-hidden px-6 py-20 md:px-16"></div> */}
+        <Footer />
         <InteractiveShape />
+
       </section>
     </>
   );
