@@ -6,14 +6,14 @@ import Image from 'next/image';
 import TransitionLink from '@/app/components/ui/TransitionLink';
 import Button from '@/app/components/ui/Button';
 import CardFond from '@/app/assets/Card-fond.png';
+import { HANDICAP_CARDS_BASE } from '@/app/data/handicaps/cardsData';
 
-const CARDS = [
-  { id: 'auditif', title: 'Handicap\nAuditif', image: '/handicaps/auditif.svg', rotate: 8, offsetX: -380, offsetY: 0 },
-  { id: 'visuel', title: 'Handicap\nVisuel', image: '/handicaps/visuel.svg', rotate: 4, offsetX: -200, offsetY: 60 },
-  { id: 'moteur', title: 'Handicap\nMoteur', image: '/handicaps/moteur.svg', rotate: -2, offsetX: -20, offsetY: 0 },
-  { id: 'cognitif', title: 'Handicap\nCognitif', image: '/handicaps/cognitif.svg', rotate: 1, offsetX: 160, offsetY: 60 },
-  { id: 'invisible', title: 'Handicap\nInvisible', image: '/handicaps/Invisible-psychique.svg', rotate: -5, offsetX: 340, offsetY: 0 },
-];
+const CARDS = HANDICAP_CARDS_BASE.map((card, i) => ({
+  ...card,
+  rotate: [8, 4, -2, 1, -5][i],
+  offsetX: [-380, -200, -20, 160, 340][i],
+  offsetY: [0, 60, 0, 60, 0][i],
+}));
 
 const CARD_W = 225;
 const CARD_H = 280;

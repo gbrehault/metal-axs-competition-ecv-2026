@@ -1,14 +1,10 @@
-'use client';
-
 import Image from 'next/image';
 import bgHero from '@/app/assets/bg-hero-handicap.png';
 import Button from '@/app/components/ui/Button';
 
-export default function HandicapHeroSection() {
+export default function RessourcesHeroSection() {
   return (
     <section className="relative h-[90vh] w-full flex flex-col z-20">
-      {/* Background image */}
-  
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
         <Image
           src={bgHero}
@@ -19,28 +15,22 @@ export default function HandicapHeroSection() {
         />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 md:px-24">
         <h1 className="title-home font-primary leading-none tracking-tight text-secondary flex flex-col gap-2">
-          <span className="flex  leading-none">
-            <span className="inline-block bg-white px-6 py-3">Mieux</span>{' '}
-            <span className="inline-block bg-white px-6 py-3 text-primary">comprendre</span>
+          <span className="flex leading-none">
+            <span className="inline-block bg-white px-6 py-3">Toutes les</span>
           </span>
-          <span className="flex  leading-none">
-            <span className="inline-block bg-white px-6 py-3">pour mieux</span>{' '}
-            <span className="inline-block bg-white px-6 py-3 text-primary">agir</span>
+          <span className="flex leading-none">
+            <span className="inline-block bg-white px-6 py-3">ressources</span>
           </span>
         </h1>
       </div>
 
-      {/* Button on the bottom line */}
       <div className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2 translate-y-1/2">
         <Button href="/mise-a-niveau" variant="primary">
           Réaliser un audit
         </Button>
       </div>
-
-   
     </section>
   );
 }
