@@ -31,6 +31,7 @@ const SCROLL_LIGHT_DAMPING = 2.75;
 type AnimatedModelProps = {
   scrollProgressRef: MutableRefObject<number>;
   layoutMetricsRef: MutableRefObject<LayoutMetrics>;
+  layoutMetrics: LayoutMetrics;
 };
 
 type ScrollKeyframe = {
@@ -47,6 +48,11 @@ type LayoutMetrics = {
   scaleFactor: number;
   verticalFactor: number;
   isMobile: boolean;
+  allowPointerInteraction: boolean;
+  cameraDistance: number;
+  cameraFov: number;
+  shadowPositionY: number;
+  shadowScale: number;
 };
 
 type ScrollLight = {
@@ -65,6 +71,11 @@ const DEFAULT_LAYOUT_METRICS: LayoutMetrics = {
   scaleFactor: 1,
   verticalFactor: 1,
   isMobile: false,
+  allowPointerInteraction: false,
+  cameraDistance: 4.5,
+  cameraFov: 32,
+  shadowPositionY: -1.45,
+  shadowScale: 6,
 };
 
 const SCROLL_LIGHTS: ScrollLight[] = [
@@ -328,9 +339,9 @@ function getScrollLightPosition(
 ): [number, number, number] {
   const keyframe = SCROLL_KEYFRAMES[Math.min(light.keyframeIndex, SCROLL_KEYFRAMES.length - 1)];
   const horizontalOffset =
-    light.offsetX * (layoutMetrics.isMobile ? 0.82 : layoutMetrics.horizontalFactor);
+    light.offsetX * (layoutMetrics.isMobile ? 0.9 : layoutMetrics.horizontalFactor);
   const verticalOffset =
-    light.offsetY * (layoutMetrics.isMobile ? 0.88 : layoutMetrics.verticalFactor);
+    light.offsetY * (layoutMetrics.isMobile ? 0.94 : layoutMetrics.verticalFactor);
 
   return [
     keyframe.positionX * layoutMetrics.horizontalFactor + horizontalOffset,
@@ -339,7 +350,7 @@ function getScrollLightPosition(
   ];
 }
 
-function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelProps) {
+function AnimatedModel({ scrollProgressRef, layoutMetricsRef, layoutMetrics }: AnimatedModelProps) {
   const groupRef = useRef<THREE.Group>(null);
   const glintLightRef = useRef<THREE.PointLight>(null);
   const materialRef = useRef<THREE.MeshPhysicalMaterial | null>(null);
@@ -350,7 +361,7 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef }: AnimatedModelPro
   const shineRef = useRef(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const interactionsEnabled = ENABLE_POINTER_INTERACTION;
+  const interactionsEnabled = layoutMetrics.allowPointerInteraction;
 
   useCursor(
     interactionsEnabled && (isHovered || isDragging),
@@ -609,6 +620,7 @@ export default function InteractiveShape() {
   const scrollProgressRef = useRef(0);
   const layoutMetricsRef = useRef<LayoutMetrics>(DEFAULT_LAYOUT_METRICS);
   const [layoutMetrics, setLayoutMetrics] = useState(DEFAULT_LAYOUT_METRICS);
+
   useEffect(() => {
     const section = containerRef.current?.closest('section');
 
@@ -621,18 +633,26 @@ export default function InteractiveShape() {
       const viewportWidth = Math.max(window.innerWidth, 1);
       const sectionHeightRatio = section.clientHeight / viewportHeight;
       const widthRatio = viewportWidth / 1440;
+      const mobileWidthRatio = viewportWidth / 430;
       const isMobile = viewportWidth < 768;
-      const nextLayoutMetrics = {
+      const allowPointerInteraction =
+        ENABLE_POINTER_INTERACTION && window.matchMedia('(pointer: fine)').matches;
+      const nextLayoutMetrics: LayoutMetrics = {
         horizontalFactor: isMobile
-          ? THREE.MathUtils.clamp(viewportWidth / 430, 0.7, 0.88)
+          ? THREE.MathUtils.clamp(mobileWidthRatio * 1.02, 0.84, 0.96)
           : THREE.MathUtils.clamp(widthRatio, 0.94, 1.05),
         scaleFactor: isMobile
-          ? THREE.MathUtils.clamp((viewportWidth / 430) * 0.92, 0.66, 0.84)
+          ? THREE.MathUtils.clamp(mobileWidthRatio * 1.08, 0.82, 0.98)
           : THREE.MathUtils.clamp(sectionHeightRatio * 0.94, 0.96, 1.06),
         verticalFactor: isMobile
-          ? THREE.MathUtils.clamp(sectionHeightRatio * 1.08, 1, 1.42)
+          ? THREE.MathUtils.clamp(sectionHeightRatio, 0.96, 1.12)
           : THREE.MathUtils.clamp(sectionHeightRatio, 0.98, 1.24),
         isMobile,
+        allowPointerInteraction,
+        cameraDistance: isMobile ? 5.25 : 4.5,
+        cameraFov: isMobile ? 40 : 32,
+        shadowPositionY: isMobile ? -1.55 : -1.45,
+        shadowScale: isMobile ? 5.2 : 6,
       };
 
       layoutMetricsRef.current = nextLayoutMetrics;
@@ -641,7 +661,13 @@ export default function InteractiveShape() {
           currentLayoutMetrics.horizontalFactor === nextLayoutMetrics.horizontalFactor &&
           currentLayoutMetrics.scaleFactor === nextLayoutMetrics.scaleFactor &&
           currentLayoutMetrics.verticalFactor === nextLayoutMetrics.verticalFactor &&
-          currentLayoutMetrics.isMobile === nextLayoutMetrics.isMobile
+          currentLayoutMetrics.isMobile === nextLayoutMetrics.isMobile &&
+          currentLayoutMetrics.allowPointerInteraction ===
+            nextLayoutMetrics.allowPointerInteraction &&
+          currentLayoutMetrics.cameraDistance === nextLayoutMetrics.cameraDistance &&
+          currentLayoutMetrics.cameraFov === nextLayoutMetrics.cameraFov &&
+          currentLayoutMetrics.shadowPositionY === nextLayoutMetrics.shadowPositionY &&
+          currentLayoutMetrics.shadowScale === nextLayoutMetrics.shadowScale
         ) {
           return currentLayoutMetrics;
         }
@@ -671,7 +697,11 @@ export default function InteractiveShape() {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0 touch-none">
+    <div
+      ref={containerRef}
+      className={`absolute inset-0 z-0 ${layoutMetrics.allowPointerInteraction ? '' : 'pointer-events-none'}`}
+      style={{ touchAction: layoutMetrics.allowPointerInteraction ? 'none' : 'pan-y' }}
+    >
       {SHOW_SHAPE_BLUR ? (
         <svg aria-hidden="true" className="pointer-events-none absolute h-0 w-0 overflow-hidden">
           <defs>
@@ -701,10 +731,10 @@ export default function InteractiveShape() {
         </svg>
       ) : null}
       <Canvas
-        camera={{ position: [0, 0, 4.5], fov: 32 }}
-        dpr={[1, 1.2]}
+        camera={{ position: [0, 0, layoutMetrics.cameraDistance], fov: layoutMetrics.cameraFov }}
+        dpr={layoutMetrics.isMobile ? [1, 1.05] : [1, 1.2]}
         gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
-        className="absolute w-full h-full z-1000"
+        className="absolute w-full h-full z-10"
         style={SHOW_SHAPE_BLUR ? { filter: SHAPE_BLUR_FILTER } : undefined}
       >
         <ambientLight intensity={0.1} />
@@ -726,13 +756,14 @@ export default function InteractiveShape() {
           <AnimatedModel
             scrollProgressRef={scrollProgressRef}
             layoutMetricsRef={layoutMetricsRef}
+            layoutMetrics={layoutMetrics}
           />
           <ContactShadows
-            position={[0, -1.45, 0]}
-            opacity={0.28}
-            scale={6}
-            blur={2.6}
-            far={3.2}
+            position={[0, layoutMetrics.shadowPositionY, 0]}
+            opacity={layoutMetrics.isMobile ? 0.22 : 0.28}
+            scale={layoutMetrics.shadowScale}
+            blur={layoutMetrics.isMobile ? 2.2 : 2.6}
+            far={layoutMetrics.isMobile ? 3 : 3.2}
             color="#050505"
           />
         </Suspense>

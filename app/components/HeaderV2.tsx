@@ -82,10 +82,16 @@ export default function HeaderV2() {
 
       if (delta < 0) {
         accumulated = Math.min(0, accumulated + delta);
-        if (accumulated <= -THRESHOLD) { setOpen(true); accumulated = 0; }
+        if (accumulated <= -THRESHOLD) {
+          setOpen(true);
+          accumulated = 0;
+        }
       } else {
         accumulated = Math.max(0, accumulated + delta);
-        if (accumulated >= THRESHOLD_DOWN) { setOpen(false); accumulated = 0; }
+        if (accumulated >= THRESHOLD_DOWN) {
+          setOpen(false);
+          accumulated = 0;
+        }
       }
     };
 
@@ -94,7 +100,7 @@ export default function HeaderV2() {
   }, []);
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 md:top-8 md:left-16 md:translate-x-0 z-50 flex flex-col w-4/5 md:w-1/4">
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 md:top-8 md:left-16 md:translate-x-0 z-10000 flex flex-col w-4/5 md:w-1/4">
       {/* Tuile logo + toggle */}
       <div className="bg-tertiary flex items-center justify-between px-6 py-3">
         <Link

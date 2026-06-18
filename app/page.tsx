@@ -13,9 +13,9 @@ export default function Home() {
         <HeroSection />
         <div
           id="section3"
-          className="relative flex min-h-screen w-full items-center justify-center overflow-hidden -mt-204 px-6 py-20 md:px-16"
+          className="relative flex min-h-screen w-full items-center justify-center overflow-hidden -mt-190 md:-mt-204 px-6 py-20 md:px-16"
         >
-          <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-8 text-center">
+          <div className="relative z-1000 mx-auto flex max-w-4xl flex-col items-center gap-8 text-center">
             <span className="bg-primary px-3 py-1 text-sm font-secondary font-bold uppercase tracking-[0.2em] text-secondary">
               Section texte
             </span>
@@ -31,7 +31,7 @@ export default function Home() {
           </div>
         </div>
         <HandicapSection />
-        <div className="relative flex h-screen w-full items-center justify-center overflow-hidden px-6 py-20 md:px-16"></div>
+        <div className="relative flex h-100 md:h-screen w-full items-center justify-center overflow-hidden px-6 py-20 md:px-16"></div>
         <InteractiveShape />
       </section>
     </>

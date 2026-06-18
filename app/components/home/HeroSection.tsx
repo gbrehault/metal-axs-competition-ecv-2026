@@ -49,9 +49,9 @@ export default function HeroSection() {
             image,
             {
               transformOrigin: 'left center',
-              scale: 1,
+              scale: 1.45,
               xPercent: 0,
-              yPercent: 0,
+              yPercent: -70,
               bottom: 10,
               borderRadius: 0,
             },
@@ -133,14 +133,14 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} data-hero className="relative h-screen w-full">
+    <section ref={sectionRef} data-hero className="relative h-screen w-full z-10">
       <div className="noise relative h-screen overflow-hidden">
         <div className="pointer-events-none absolute inset-0 z-10 bg-black/10" />
 
         <div
           ref={logoRef}
           id="section1"
-          className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
+          className="pointer-events-none absolute inset-0 z-100 flex items-center justify-center"
         >
           <Image src={LogoHero} alt="" aria-hidden className="h-auto w-auto scale-150" />
         </div>
@@ -164,7 +164,7 @@ export default function HeroSection() {
             </span>
           </h1>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex z-10000 flex-wrap items-center gap-3">
             <Button variant="disabled" size="lg" disabled>
               CTA 2
             </Button>
@@ -178,19 +178,20 @@ export default function HeroSection() {
           ref={imageRef}
           id="section2"
           data-hero-image
-          className="sticky top-0 z-10000 h-[70%] w-[70%]"
+          className="sticky top-0 z-10000 h-full md:h-[70%] w-[70%]"
         >
+          <div className="bg-secondary/50 z-100 h-full w-auto mt-120 md:mt-100 absolute inset-0" />
           {src ? (
             <Image
               src={src}
               alt="Concert festival Metal AXS"
               fill
-              className="object-cover mt-100 object-center grayscale"
+              className="object-cover mt-120 md:mt-100 object-center grayscale"
               sizes="60vw"
               priority
             />
           ) : (
-            <div className="h-full w-full bg-neutral-800" />
+            <div className="h-full w-full bg-secondary" />
           )}
         </div>
       </div>
