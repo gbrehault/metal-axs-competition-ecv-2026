@@ -6,52 +6,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '@/app/components/ui/Button';
 import Image from 'next/image';
 import LogoHero from '@/app/assets/Logo-Hero.svg';
-import srcImage from '@/app/assets/homepage/Frame 2121318157.jpg';
+import { HANDICAP_PROFILES } from '@/app/data/handicaps/profilesData';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PROFILES = [
-  {
-    id: 'moteur',
-    nav: 'Handicap moteur',
-    title: 'Moteur',
-    description:
-      'Toute difficulté à se déplacer ou à effectuer certains gestes du quotidien, que ce soit en fauteuil roulant ou pour des mouvements plus précis.',
-    image: '/handicaps/chrome/Moteur1.png',
-  },
-  {
-    id: 'visuel',
-    nav: 'Handicap visuel',
-    title: 'Visuel',
-    description:
-      "Une perte partielle ou totale de la vision, qu'il s'agisse de malvoyance légère ou de cécité complète, impactant la lecture, l'orientation et la navigation.",
-    image: '/handicaps/chrome/Visue1.png',
-  },
-  {
-    id: 'auditif',
-    nav: 'Handicap auditif',
-    title: 'Auditif',
-    description:
-      "Une perte d'audition partielle ou totale, de la surdité légère à profonde, nécessitant des adaptations pour l'accès à l'information sonore.",
-    image: '/handicaps/chrome/Auditif1.png',
-  },
-  {
-    id: 'cognitif',
-    nav: 'Handicap cognitif/mental',
-    title: 'Cognitif / Mental',
-    description:
-      'Des troubles affectant les fonctions cognitives : mémoire, concentration, compréhension, incluant les troubles DYS, TDAH, trisomie ou déficience intellectuelle.',
-    image: '/handicaps/chrome/Mental1.png',
-  },
-  {
-    id: 'invisible',
-    nav: 'Handicaps invisibles / troubles psychiques',
-    title: 'Invisibles',
-    description:
-      'Des maladies chroniques, troubles psychiques ou douleurs qui ne se voient pas mais impactent profondément le quotidien : épilepsie, troubles anxieux, fibromyalgie.',
-    image: '/handicaps/chrome/Invisible1.png',
-  },
-];
+const PROFILES = HANDICAP_PROFILES;
 
 export default function HandicapSection() {
   const outerRef = useRef<HTMLDivElement>(null);
