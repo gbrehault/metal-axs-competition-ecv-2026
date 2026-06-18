@@ -82,7 +82,7 @@
   overflow: hidden;
   position: relative;
   width: auto;
-  font-size: clamp(1.8rem, 7vw, 6.5rem);
+  font-size: clamp(2.5rem, 7vw, 6.5rem);
 }
 
 .noise {
