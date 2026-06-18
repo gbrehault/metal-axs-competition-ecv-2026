@@ -105,11 +105,6 @@ function MobileDrawer({
             onClick={onClose}
           />
         ))}
-        <li className="mt-2">
-          <Button href="/mise-a-niveau" variant="primary" onClick={onClose}>
-            RÉALISER UNE MISE À NIVEAU
-          </Button>
-        </li>
       </ul>
     </div>
   );
