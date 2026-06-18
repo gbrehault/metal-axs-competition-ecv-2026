@@ -48,7 +48,7 @@ export default function Audit() {
 
   return (
     <div className="relative flex flex-col min-h-screen w-full items-center justify-center mt-20 overflow-hidden bg-bg px-6 py-20 gap-4 md:px-16">
-      <div className="relative z-1000 mx-auto flex w-full max-w-3xl flex-col items-center gap-4 text-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-4 text-center">
         <div className="flex items-stretch justify-between w-120 z-100">
           <button
             onClick={() => {
@@ -67,7 +67,7 @@ export default function Audit() {
           <div className="w-auto"></div>
         </div>
 
-        <h2 className="text-3xl w-120">{question.question}</h2>
+        <h4 className="text-3xl w-120">{question.question}</h4>
 
         {question.options.map((option) => (
           <label
@@ -78,7 +78,7 @@ export default function Audit() {
 
     w-120
 
-    p-4
+    p-2
 
     cursor-pointer
 
@@ -154,7 +154,7 @@ export default function Audit() {
               setCurrentQuestion((prev) => prev + 1);
             }}
             disabled={!selectedAnswer[question.id]}
-            className="bg-secondary w-120 text-tertiary p-4 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="bg-secondary w-120 text-tertiary p-2 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {currentQuestion === DIAGNOSTIC_QUESTIONS.length - 1
               ? 'Voir mes résultats'
@@ -162,7 +162,7 @@ export default function Audit() {
           </button>
         </div>
       </div>
-      <main className="flex w-150 bg-tertiary p-4 mt-10 gap-4">
+      <main className="flex w-150 bg-tertiary p-4 mt-5 gap-4">
         <div className="relative  h-auto w-50 overflow-hidden">
           <Image src={question.imageSrc} alt={question.title} fill className="object-cover" />
 
@@ -175,7 +175,7 @@ export default function Audit() {
             <QuestionMarkIcon size={20} />
           </span>
           <div className="flex flex-col">
-            <h5 className="text-lg font-regular text-secondary mb-2">{question.title}</h5>
+            <p className="text-lg font-bold text-secondary mb-2">{question.title}</p>
             <p>{question.shortDescription}</p>
             <button
               type="button"
@@ -209,13 +209,13 @@ export default function Audit() {
               <X size={24} weight="bold" />
             </button>
             <div className="p-4">
-              <h4 className="mb-4 text-2xl font-regular">{question.article.title}</h4>
+              <h5 className="mb-4 text-2xl font-regular">{question.article.title}</h5>
 
               <p className="mb-6 text-lg leading-relaxed">{question.article.intro}</p>
 
               {question.article.sections.map((section, index) => (
                 <div key={index} className="mb-6">
-                  <h4 className="mb-2 text-2xl text-secondary font-regular">{section.title}</h4>
+                  <h5 className="mb-2 text-2xl text-secondary font-regular">{section.title}</h5>
 
                   <p className="text-lg leading-relaxed">{section.content}</p>
                 </div>

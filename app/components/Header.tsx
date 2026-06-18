@@ -161,7 +161,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out mt-8 w-full${
+        className={`fixed top-0 left-0 right-0 z-200 transition-transform duration-300 ease-in-out mt-8 w-full${
           hidden ? '-translate-y-[calc(100%+2rem)]' : 'translate-y-0'
         }`}
       >

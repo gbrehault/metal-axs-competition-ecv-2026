@@ -98,7 +98,7 @@ export default function HeroSection() {
 
               xPercent: 0,
 
-              yPercent: -120,
+              yPercent: -140,
 
               bottom: 10,
 
@@ -149,7 +149,7 @@ export default function HeroSection() {
           ref={contentRef}
           className="relative z-100 flex w-full flex-col items-start px-6 pt-28 md:ml-auto md:max-w-screen-2xl md:w-fit md:px-24 md:pt-36"
         >
-          <h1 className="font-primary text-[clamp(2.5rem,8vw,6rem)] text-secondary flex flex-col gap-2 leading-none">
+          <h1 className="title-home font-primary text-10 text-secondary flex flex-col gap-2 leading-none">
             <span className="block leading-none">
               <span className="inline-block bg-white px-2 py-1">
                 Metal Axs<span className="text-[clamp(20px,3vw,32px)]">©</span>
@@ -165,7 +165,6 @@ export default function HeroSection() {
           </h1>
 
           <div className="mt-8 flex z-10000 flex-wrap items-center gap-3">
-        
             <Button href="/faire-un-audit" variant="secondary" size="lg">
               → RÉALISER UN AUDIT
             </Button>
@@ -178,13 +177,13 @@ export default function HeroSection() {
           data-hero-image
           className="sticky top-0 z-10000 h-full md:h-[70%] w-[70%]"
         >
-          <div className="bg-secondary/50 z-100 h-full w-auto mt-120 md:mt-100 absolute inset-0" />
+          <div className="bg-secondary/50 z-100 h-full w-auto mt-120 md:mt-120 absolute inset-0" />
           {src ? (
             <Image
               src={src}
               alt="Concert festival Metal AXS"
               fill
-              className="object-cover mt-120 md:mt-100 object-center grayscale"
+              className="object-cover mt-120 md:mt-120 object-center grayscale"
               sizes="60vw"
               priority
             />
