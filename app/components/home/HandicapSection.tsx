@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '@/app/components/ui/Button';
 import Image from 'next/image';
 import LogoHero from '@/app/assets/Logo-Hero.svg';
+import srcImage from '@/app/assets/homepage/Frame 2121318157.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,7 +17,7 @@ const PROFILES = [
     title: 'Moteur',
     description:
       'Toute difficulté à se déplacer ou à effectuer certains gestes du quotidien, que ce soit en fauteuil roulant ou pour des mouvements plus précis.',
-    image: '/handicaps/moteur.svg',
+    image: '/handicaps/chrome/Moteur1.png',
   },
   {
     id: 'visuel',
@@ -24,7 +25,7 @@ const PROFILES = [
     title: 'Visuel',
     description:
       "Une perte partielle ou totale de la vision, qu'il s'agisse de malvoyance légère ou de cécité complète, impactant la lecture, l'orientation et la navigation.",
-    image: '/handicaps/visuel.svg',
+    image: '/handicaps/chrome/Visue1.png',
   },
   {
     id: 'auditif',
@@ -32,7 +33,7 @@ const PROFILES = [
     title: 'Auditif',
     description:
       "Une perte d'audition partielle ou totale, de la surdité légère à profonde, nécessitant des adaptations pour l'accès à l'information sonore.",
-    image: '/handicaps/auditif.svg',
+    image: '/handicaps/chrome/Auditif1.png',
   },
   {
     id: 'cognitif',
@@ -40,7 +41,7 @@ const PROFILES = [
     title: 'Cognitif / Mental',
     description:
       'Des troubles affectant les fonctions cognitives : mémoire, concentration, compréhension, incluant les troubles DYS, TDAH, trisomie ou déficience intellectuelle.',
-    image: '/handicaps/cognitif.svg',
+    image: '/handicaps/chrome/Mental1.png',
   },
   {
     id: 'invisible',
@@ -48,7 +49,7 @@ const PROFILES = [
     title: 'Invisibles',
     description:
       'Des maladies chroniques, troubles psychiques ou douleurs qui ne se voient pas mais impactent profondément le quotidien : épilepsie, troubles anxieux, fibromyalgie.',
-    image: '/handicaps/Invisible-psychique.svg',
+    image: '/handicaps/chrome/Invisible1.png',
   },
 ];
 
@@ -172,7 +173,9 @@ export default function HandicapSection() {
         {/* Content */}
         <div className="relative flex-1 flex flex-col justify-between">
           <div aria-live="polite" aria-atomic="true">
-            <h3 className="inline-block bg-white px-2 py-1 text-primary text-xl uppercase font-bold mb-3">{profile.title}</h3>
+            <h3 className="inline-block bg-white px-2 py-1 text-primary text-xl uppercase font-bold mb-3">
+              {profile.title}
+            </h3>
             <p className="text-white/60 text-base leading-relaxed">{profile.description}</p>
           </div>
 
@@ -253,7 +256,7 @@ export default function HandicapSection() {
     <div ref={outerRef} className="relative w-full min-h-screen z-80 -mt-4">
       <div
         ref={innerRef}
-        className="sticky top-0 h-screen w-full bg-secondary  overflow-hidden flex flex-col"
+        className="sticky z-100 top-0 h-screen w-full   overflow-hidden flex flex-col"
       >
         <div
           className="absolute inset-0 flex items-center justify-center pointer-events-none"
@@ -288,22 +291,12 @@ export default function HandicapSection() {
               >
                 <h3 className="font-primary  text-secondary uppercase flex flex-col gap-2 leading-none mb-3">
                   <span className="block leading-none">
-                    <span className="inline-block bg-white px-2 py-1">
-                     Handicap
-                    </span>
-                  </span>
-                  <span className="block leading-none">
-                    <span className="inline-block bg-white text-primary px-2 py-1">{p.title}</span>
+                    <span className="inline-block text-tertiary">Handicap {p.title}</span>
                   </span>
                 </h3>
-                <p className="text-white/60 text-base leading-relaxed mb-8 max-w-xs">
-                  {p.description}
-                </p>
+                <p className="text-tertiary text-base leading-6 mb-8 max-w-xs">{p.description}</p>
                 <div className="flex flex-col gap-3 items-start">
-                  <Button variant="outline" href={`/handicaps#handicap-${p.id}`}>
-                    CONSULTER L&apos;HANDICAP {p.id.toUpperCase()}
-                  </Button>
-                  <Button variant="outline" href="/handicaps">
+                  <Button variant="primary" href="/handicaps">
                     CONSULTER LES 5 HANDICAPS
                   </Button>
                 </div>
@@ -313,25 +306,22 @@ export default function HandicapSection() {
 
           {/* Center: fixed frame + crossfading images */}
           <div className="flex items-center justify-center" aria-hidden="true">
-            <div
-              className="border border-white flex items-center justify-center relative w-[220px] h-[220px] xl:w-[300px] xl:h-[300px]"
-            >
+            <div className="flex items-center justify-center relative w-full h-full">
               {PROFILES.map((p, i) => (
                 <div
                   key={p.id}
                   ref={(el) => {
                     iconRefs.current[i] = el;
                   }}
-                  className="absolute inset-0 flex items-center justify-center p-6"
+                  className="absolute inset-0 flex items-center justify-center"
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
                   <Image
                     src={p.image}
                     alt={p.title}
-                    width={300}
-                    height={300}
-                    className="w-full h-full object-contain"
-                    sizes="(max-width: 1279px) 220px, 300px"
+                    width={200}
+                    height={200}
+                    className="w-full h-full object-contain object-center"
                   />
                 </div>
               ))}
@@ -345,7 +335,10 @@ export default function HandicapSection() {
                 <li key={p.id}>
                   <button
                     type="button"
-                    onClick={() => { activeIndexRef.current = i; setActiveIndex(i); }}
+                    onClick={() => {
+                      activeIndexRef.current = i;
+                      setActiveIndex(i);
+                    }}
                     aria-label={`Profil : ${p.nav}`}
                     aria-current={i === activeIndex ? 'true' : undefined}
                     className="flex items-center gap-2 transition-opacity duration-300 text-right cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary rounded-sm"
@@ -371,6 +364,13 @@ export default function HandicapSection() {
             </ul>
           </nav>
         </div>
+      </div>
+      <div>
+        <Image
+          src={srcImage}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          alt=""
+        />
       </div>
     </div>
   );

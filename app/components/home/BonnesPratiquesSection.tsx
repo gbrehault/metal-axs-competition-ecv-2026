@@ -5,14 +5,50 @@ import gsap from 'gsap';
 import Image from 'next/image';
 import TransitionLink from '@/app/components/ui/TransitionLink';
 import Button from '@/app/components/ui/Button';
-import CardFond from '@/app/assets/Card-fond.png';
+import CardFond from '@/app/assets/homepage/Card.png';
+import statsimg from '@/app/assets/homepage/Desktop - 16.jpg';
 
 const CARDS = [
-  { id: 'auditif', title: 'Handicap\nAuditif', image: '/handicaps/auditif.svg', rotate: 8, offsetX: -380, offsetY: 0 },
-  { id: 'visuel', title: 'Handicap\nVisuel', image: '/handicaps/visuel.svg', rotate: 4, offsetX: -200, offsetY: 60 },
-  { id: 'moteur', title: 'Handicap\nMoteur', image: '/handicaps/moteur.svg', rotate: -2, offsetX: -20, offsetY: 0 },
-  { id: 'cognitif', title: 'Handicap\nCognitif', image: '/handicaps/cognitif.svg', rotate: 1, offsetX: 160, offsetY: 60 },
-  { id: 'invisible', title: 'Handicap\nInvisible', image: '/handicaps/Invisible-psychique.svg', rotate: -5, offsetX: 340, offsetY: 0 },
+  {
+    id: 'auditif',
+    title: 'Handicap\nAuditif',
+    image: '/handicaps/auditif.svg',
+    rotate: 8,
+    offsetX: -380,
+    offsetY: 0,
+  },
+  {
+    id: 'visuel',
+    title: 'Handicap\nVisuel',
+    image: '/handicaps/visuel.svg',
+    rotate: 4,
+    offsetX: -200,
+    offsetY: 60,
+  },
+  {
+    id: 'moteur',
+    title: 'Handicap\nMoteur',
+    image: '/handicaps/moteur.svg',
+    rotate: -2,
+    offsetX: -20,
+    offsetY: 0,
+  },
+  {
+    id: 'cognitif',
+    title: 'Handicap\nCognitif',
+    image: '/handicaps/cognitif.svg',
+    rotate: 1,
+    offsetX: 160,
+    offsetY: 60,
+  },
+  {
+    id: 'invisible',
+    title: 'Handicap\nInvisible',
+    image: '/handicaps/Invisible-psychique.svg',
+    rotate: -5,
+    offsetX: 340,
+    offsetY: 0,
+  },
 ];
 
 const CARD_W = 225;
@@ -86,27 +122,23 @@ export default function BonnesPratiquesSection() {
   };
 
   return (
-    <section className="relative w-full min-h-screen  noise flex flex-col overflow-hidden px-10 md:px-16 py-16 z-10 ">
-
+    <section className="relative w-full min-h-screen  noise flex flex-col -mt-4 overflow-hidden bg-secondary px-10 md:px-16 py-16 z-10 ">
       {/* Header row */}
       <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-10 md:gap-20">
-        <h2 className="font-primary text-primary flex flex-col gap-2 leading-none">
+        <h2 className="font-primary text-secondary flex flex-col gap-2 leading-none">
           <span className="block leading-none">
-            <span className="inline-block bg-white px-2 py-1">
-              Bonnes
-            </span>
+            <span className="inline-block bg-white px-2 py-1">Bonnes</span>
           </span>
           <span className="block leading-none">
             <span className="inline-block bg-white px-2 py-1">pratiques</span>
           </span>
-
         </h2>
 
         <div className="flex flex-col gap-6 max-w-lg">
-          <p className="text-secondary text-base leading-relaxed">
-            Du site web à l&apos;expérience sur site, il existe des solutions concrètes pour
-            chaque type de handicap. Nous avons réuni les bonnes pratiques essentielles pour
-            vous accompagner dans cette démarche.
+          <p className="text-tertiary text-base leading-relaxed">
+            Du site web à l&apos;expérience sur site, il existe des solutions concrètes pour chaque
+            type de handicap. Nous avons réuni les bonnes pratiques essentielles pour vous
+            accompagner dans cette démarche.
           </p>
           <Button variant="outline" href="/handicaps">
             Découvrir
@@ -120,7 +152,9 @@ export default function BonnesPratiquesSection() {
           // Outer: owns absolute position + zIndex (never touched by GSAP)
           <div
             key={card.id}
-            ref={(el) => { outerRefs.current[i] = el; }}
+            ref={(el) => {
+              outerRefs.current[i] = el;
+            }}
             style={{
               position: 'absolute',
               left: `calc(50% + ${card.offsetX - CARD_W / 2}px)`,
@@ -132,13 +166,19 @@ export default function BonnesPratiquesSection() {
           >
             {/* Inner: GSAP animates rotation / x / y / scale */}
             <div
-              ref={(el) => { innerRefs.current[i] = el; }}
+              ref={(el) => {
+                innerRefs.current[i] = el;
+              }}
               onMouseEnter={() => handleMouseEnter(i)}
               className="w-full h-full cursor-pointer select-none"
             >
               <div
                 className="w-full h-full overflow-hidden flex flex-col bg-secondary border-2 border-white"
-                style={{ backgroundImage: `url(${CardFond.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                style={{
+                  backgroundImage: `url(${CardFond.src})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
               >
                 <div className="pt-3 px-3">
                   <h4 className="text-white font-primary text-3xl leading-snug whitespace-pre-line drop-shadow">
@@ -166,6 +206,33 @@ export default function BonnesPratiquesSection() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="flex justify-center items-center mt-20 w-full h-80"></div>
+      <div className="flex p-4 overflow-hidden">
+        <Image
+          src={statsimg}
+          className="h-auto w-full object-cover"
+          alt="Illustration des bonnes pratiques"
+        />
+        <div />
+        <div className=" absolute flex flex-col z-100 p-20">
+          <h3 className="text-tertiary">Pensez votre évènement pour eux</h3>
+          <div className="flex gap-10 w-150">
+            <div className="w-55 flex flex-col justify-start items-start">
+              <h2 className="text-tertiary">20%</h2>
+              <p className="text-tertiary/50">
+                Ne se rendent pas à un festival à cause de son manque d’accessibilité
+              </p>
+            </div>
+            <div className="w-60 flex flex-col justify-start items-start">
+              <h2 className="text-tertiary">52%</h2>
+              <p className="text-tertiary/50">
+                Des personnes en situations de handicap trouve l'accès à la cultutre diﬃcile
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

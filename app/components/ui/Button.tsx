@@ -29,17 +29,17 @@ const wrapperBase =
   'group inline-flex gap-1 items-stretch font-medium uppercase font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed';
 
 const textVariants: Record<string, string> = {
-  primary:   'bg-black text-tertiary px-5 py-3',
+  primary: 'bg-black text-tertiary px-5 py-3',
   secondary: 'bg-white text-secondary px-5 py-3',
-  outline:   'bg-white border border-[#ccc] text-secondary px-5 py-3',
-  disabled:  'bg-black/60 text-tertiary/40 px-5 py-3 cursor-not-allowed',
+  outline: 'bg-white border border-[#ccc] text-secondary px-5 py-3',
+  disabled: 'bg-black/60 text-tertiary/40 px-5 py-3 cursor-not-allowed',
 };
 
 const arrowVariants: Record<string, string> = {
-  primary:   'bg-primary text-black flex items-center justify-center px-4',
+  primary: 'bg-primary text-secondary flex items-center justify-center px-4',
   secondary: 'bg-primary text-black flex items-center justify-center px-4',
-  outline:   'bg-[#3d3d3d] text-white flex items-center justify-center px-4',
-  disabled:  'bg-primary/40 text-black flex items-center justify-center px-4 cursor-not-allowed',
+  outline: 'bg-[#3d3d3d] text-white flex items-center justify-center px-4',
+  disabled: 'bg-primary/40 text-black flex items-center justify-center px-4 cursor-not-allowed',
 };
 
 const sizeText: Record<string, string> = {
@@ -56,7 +56,9 @@ const sizeArrow: Record<string, string> = {
 
 function Arrow({ size = 'sm', variant = 'primary' }: { size?: string; variant?: string }) {
   return (
-    <span className={`${arrowVariants[variant]} ${sizeArrow[size]} transition-transform duration-200 group-hover:translate-x-1`}>
+    <span
+      className={`${arrowVariants[variant]} ${sizeArrow[size]} transition-transform duration-200 group-hover:translate-x-1`}
+    >
       <svg
         className=""
         width="1em"
@@ -66,7 +68,13 @@ function Arrow({ size = 'sm', variant = 'primary' }: { size?: string; variant?: 
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        <path d="M1 8h14M9 2l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path
+          d="M1 8h14M9 2l6 6-6 6"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     </span>
   );

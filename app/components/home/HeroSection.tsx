@@ -4,9 +4,9 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import LogoHero from '@/app/assets/Logo-Hero.svg';
-import src from '@/app/assets/photo_festival.webp';
+import src from '@/app/assets/homepage/section2.jpg';
 import Button from '@/app/components/ui/Button';
+import section1 from '@/app/assets/homepage/Frame_2121318156.jpg';
 
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -136,15 +136,20 @@ export default function HeroSection() {
     <section ref={sectionRef} data-hero className="relative h-screen w-full z-10">
       <div className="noise relative h-screen overflow-hidden">
         <div className="pointer-events-none absolute inset-0 z-10 bg-black/10" />
-
+        <div>
+          <Image
+            src={section1}
+            alt=""
+            aria-hidden
+            fill
+            className="absolute object-cover object-center opacity-100"
+          />
+        </div>
         <div
           ref={logoRef}
           id="section1"
           className="pointer-events-none absolute inset-0 z-100 flex items-center justify-center"
-        >
-          <Image src={LogoHero} alt="" aria-hidden className="h-auto w-auto scale-150" />
-        </div>
-
+        ></div>
         <div
           ref={contentRef}
           className="relative z-100 flex w-full flex-col items-start px-6 pt-28 md:ml-auto md:max-w-screen-2xl md:w-fit md:px-24 md:pt-36"
@@ -165,8 +170,8 @@ export default function HeroSection() {
           </h1>
 
           <div className="mt-8 flex z-10000 flex-wrap items-center gap-3">
-            <Button href="/faire-un-audit" variant="secondary" size="lg">
-              Réaliser une mise à niveau
+            <Button href="/faire-un-audit" variant="primary" size="lg">
+              Réaliser un diagnostic
             </Button>
           </div>
         </div>
@@ -177,13 +182,13 @@ export default function HeroSection() {
           data-hero-image
           className="sticky top-0 z-10000 h-full md:h-[70%] w-[70%]"
         >
-          <div className="bg-secondary/50 z-100 h-full w-auto mt-120 md:mt-120 absolute inset-0" />
+          <div className=" z-100 h-full w-auto mt-120 md:mt-120 absolute inset-0" />
           {src ? (
             <Image
               src={src}
               alt="Concert festival Metal AXS"
               fill
-              className="object-cover mt-120 md:mt-120 object-center grayscale"
+              className="object-cover mt-120 md:mt-120 object-center"
               sizes="60vw"
               priority
             />
