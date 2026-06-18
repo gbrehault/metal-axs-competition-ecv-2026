@@ -52,9 +52,9 @@ export default function ArticleCard({ post }: { post: PostWithCategories }) {
         <span className="text-xs font-medium text-secondary/50 uppercase tracking-widest">
           {category}
         </span>
-        <h2 className="text-xl font-bold font-primary text-secondary leading-snug group-hover:text-primary transition-colors">
+        <h3 className="text-xl font-bold font-primary text-secondary leading-snug group-hover:text-primary transition-colors">
           {title}
-        </h2>
+        </h3>
         {texteIntroduction && (
           <p className="text-sm text-secondary/40 line-clamp-2 leading-relaxed tracking-wide mt-1">
             {texteIntroduction}
