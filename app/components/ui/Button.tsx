@@ -6,7 +6,7 @@ import type { MouseEventHandler, ReactNode } from 'react';
 type ButtonBaseProps = {
   children: ReactNode;
   variant?: 'primary' | 'secondary' | 'outline' | 'disabled';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   className?: string;
   'aria-disabled'?: boolean | 'true' | 'false';
 };
@@ -43,6 +43,7 @@ const arrowVariants: Record<string, string> = {
 };
 
 const sizeText: Record<string, string> = {
+  xs: 'text-xs',
   sm: 'text-sm',
   md: 'text-base',
   lg: 'text-lg',

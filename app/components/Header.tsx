@@ -93,7 +93,7 @@ function MobileDrawer({
 }) {
   return (
     <div
-      className={`md:hidden overflow-hidden transition-all duration-300 bg-white ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
+      className={`md:hidden overflow-hidden flex flex-col transition-all duration-300 bg-white ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
     >
       <ul className="flex flex-col gap-5 px-6 py-6">
         {NAV_LINKS.map(({ label, href }) => (
@@ -165,12 +165,12 @@ export default function Header() {
           hidden ? '-translate-y-[calc(100%+2rem)]' : 'translate-y-0'
         }`}
       >
-        <div className="flex items-center gap-2 justify-center">
-          <div className="flex items-center bg-white p-4 h-[stretch]">
+        <div className="flex flex-col md:flex-row items-center gap-2 justify-center p-4">
+          <div className="flex items-center bg-white w-full md:w-auto p-2 md:p-4 h-[stretch]">
             <NavLogo />
           </div>
 
-          <nav className="flex items-center bg-white p-4 gap-8">
+          <nav className="flex items-center w-full md:w-auto bg-white p-2 md:p-4 gap-8">
             <div className="hidden md:flex flex-1 items-center">
               <ul className="flex items-center gap-6">
                 {NAV_LINKS.map(({ label, href }) => (
@@ -182,7 +182,20 @@ export default function Header() {
             <Button
               href="/mise-a-niveau"
               variant="primary"
-              className="justify-center"
+              className="justify-center block md:hidden"
+              size="xs"
+              onClick={() => {
+                setOpen(false);
+                setIsPopupOpen(true);
+              }}
+            >
+              Réaliser une mise <br /> à niveau
+            </Button>
+            <Button
+              href="/mise-a-niveau"
+              variant="primary"
+              className="justify-center hidden md:block"
+              size="xs"
               onClick={() => {
                 setOpen(false);
                 setIsPopupOpen(true);

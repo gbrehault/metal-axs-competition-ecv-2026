@@ -87,9 +87,15 @@ export default function HomeLoader() {
       className="fixed inset-0 z-1000 flex items-center justify-center overflow-hidden bg-[#1D1D1D]"
     >
       <div className="relative bg-[#1D1D1D]" />
-      <div className="relative z-10 flex w-full max-w-xl flex-col items-center gap-5 px-6 text-center text-tertiary">
+      <div className="relative z-10 flex w-full max-w-xl flex-col items-center justify-center gap-5 px-6 text-center text-tertiary">
         <div ref={logoRef}>
-          <video src="/METAL_AXS_LOADER_2.mp4" autoPlay muted loop className="w-50 h-auto" />
+          <video
+            src="/METAL_AXS_LOADER_2.mp4"
+            autoPlay
+            muted
+            loop
+            className="w-20 md:w-50 h-auto"
+          />
         </div>
         <div className="mt-2 w-full max-w-xs overflow-hidden rounded-full">
           <div className="h-2 rounded-full">
