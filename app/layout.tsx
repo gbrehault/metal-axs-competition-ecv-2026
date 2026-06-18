@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Geist_Mono } from 'next/font/google';
 import './globals.css';
 // import Header from "@/app/components/Header"; // ancienne nav conservée
-import Header from '@/app/components/HeaderV2';
+import Header from '@/app/components/Header';
 import { PageTransitionProvider } from '@/app/components/ui/PageTransition';
 
 const geistMono = Geist_Mono({
