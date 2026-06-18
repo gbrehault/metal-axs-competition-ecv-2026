@@ -14,8 +14,7 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
   const sectionTitle = activeTab === 'besoins' ? 'Leurs besoins' : 'Les aménagements';
 
   return (
-    <main className="bg-[#f2f2f2] min-h-screen pt-36">
-      {/* Breadcrumb */}
+    <div className="bg-bg min-h-screen pt-36">
       <div className="px-6 md:px-16 pt-8 pb-4">
         <nav className="flex items-center gap-2 text-sm text-secondary/60 font-secondary">
           <Link
@@ -25,11 +24,16 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
             Handicaps
           </Link>
           <span aria-hidden="true">›</span>
-          <span className="text-secondary font-semibold" aria-current="page">Handicap {handicap.label}</span>
+          <span className="text-secondary font-semibold" aria-current="page">
+            Handicap {handicap.label}
+          </span>
         </nav>
       </div>
 
-      <section aria-label={`Présentation du handicap ${handicap.label}`} className="px-6 md:px-16 pb-0">
+      <section
+        aria-label={`Présentation du handicap ${handicap.label}`}
+        className="px-6 md:px-16 pb-0"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Image */}
           <div className="relative flex items-center justify-center aspect-square max-w-[480px] w-full mx-auto md:mx-0">
@@ -44,8 +48,12 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
 
           <div className="flex flex-col gap-6">
             <h1 className="font-primary text-[clamp(2.5rem,6vw,5rem)] leading-none flex flex-col gap-2">
-              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-secondary">Handicap</span>
-              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">{handicap.label}</span>
+              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-secondary">
+                Handicap
+              </span>
+              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">
+                {handicap.label}
+              </span>
             </h1>
 
             <div className="flex flex-col gap-3">
@@ -130,7 +138,14 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
 
 function EyeIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
       <path
         d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
         stroke="currentColor"
