@@ -59,17 +59,8 @@ export default function HandicapSection() {
   const iconRefs = useRef<(HTMLDivElement | null)[]>([]);
   const entranceEls = useRef<(HTMLElement | null)[]>([]);
   const activeIndexRef = useRef(0);
-  const stRef = useRef<ScrollTrigger | null>(null);
-  const pinStartRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-
-  const scrollToProfile = (index: number) => {
-    const totalDistance = PROFILES.length * window.innerHeight * 0.1;
-    const segmentSize = totalDistance / PROFILES.length;
-    const target = pinStartRef.current + index * segmentSize + segmentSize * 0.5;
-    window.scrollTo({ top: target, behavior: 'smooth' });
-  };
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -82,15 +73,12 @@ export default function HandicapSection() {
     if (isMobile) return;
 
     const ctx = gsap.context(() => {
-      stRef.current = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: innerRef.current,
         start: 'top top',
         end: `+=${PROFILES.length * window.innerHeight * 0.1}`,
         pin: true,
         pinSpacing: true,
-        onRefresh: (self) => {
-          pinStartRef.current = self.start;
-        },
         onUpdate: (self) => {
           const idx = Math.min(Math.floor(self.progress * PROFILES.length), PROFILES.length - 1);
           if (idx !== activeIndexRef.current) {
@@ -99,7 +87,6 @@ export default function HandicapSection() {
           }
         },
       });
-      pinStartRef.current = stRef.current.start;
     });
 
     return () => ctx.revert();
@@ -249,7 +236,7 @@ export default function HandicapSection() {
 
           {/* CTAs */}
           <div className="flex flex-col gap-3 items-start">
-            <Button variant="outline" href={`/handicaps/${profile.id}`}>
+            <Button variant="outline" href={`/handicaps#handicap-${profile.id}`}>
               CONSULTER L&apos;HANDICAP {profile.id.toUpperCase()}
             </Button>
             <Button variant="outline" href="/handicaps">
@@ -304,7 +291,7 @@ export default function HandicapSection() {
                   {p.description}
                 </p>
                 <div className="flex flex-col gap-3 items-start">
-                  <Button variant="outline" href={`/handicaps/${p.id}`}>
+                  <Button variant="outline" href={`/handicaps#handicap-${p.id}`}>
                     CONSULTER L&apos;HANDICAP {p.id.toUpperCase()}
                   </Button>
                   <Button variant="outline" href="/handicaps">
@@ -344,13 +331,14 @@ export default function HandicapSection() {
           </div>
 
           {/* Right: vertical navigation */}
-          <nav aria-label="Navigation des profils de handicap">
+          <nav aria-label="Navigation des profils de handicap" className="relative z-50">
             <ul className="flex flex-col justify-center items-end gap-5 h-full list-none">
               {PROFILES.map((p, i) => (
                 <li key={p.id}>
                   <button
-                    onClick={() => scrollToProfile(i)}
-                    aria-label={`Aller au profil : ${p.nav}`}
+                    type="button"
+                    onClick={() => { activeIndexRef.current = i; setActiveIndex(i); }}
+                    aria-label={`Profil : ${p.nav}`}
                     aria-current={i === activeIndex ? 'true' : undefined}
                     className="flex items-center gap-2 transition-opacity duration-300 text-right cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary rounded-sm"
                     style={{ opacity: navOpacity(i) }}
