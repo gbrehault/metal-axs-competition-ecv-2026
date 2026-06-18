@@ -13,7 +13,7 @@ const PROFILES = [
   {
     id: 'moteur',
     nav: 'Handicap moteur',
-    title: 'Handicap Moteur',
+    title: 'Moteur',
     description:
       'Toute difficulté à se déplacer ou à effectuer certains gestes du quotidien, que ce soit en fauteuil roulant ou pour des mouvements plus précis.',
     image: '/handicaps/moteur.svg',
@@ -21,7 +21,7 @@ const PROFILES = [
   {
     id: 'visuel',
     nav: 'Handicap visuel',
-    title: 'Handicap Visuel',
+    title: 'Visuel',
     description:
       "Une perte partielle ou totale de la vision, qu'il s'agisse de malvoyance légère ou de cécité complète, impactant la lecture, l'orientation et la navigation.",
     image: '/handicaps/visuel.svg',
@@ -29,7 +29,7 @@ const PROFILES = [
   {
     id: 'auditif',
     nav: 'Handicap auditif',
-    title: 'Handicap Auditif',
+    title: 'Auditif',
     description:
       "Une perte d'audition partielle ou totale, de la surdité légère à profonde, nécessitant des adaptations pour l'accès à l'information sonore.",
     image: '/handicaps/auditif.svg',
@@ -37,7 +37,7 @@ const PROFILES = [
   {
     id: 'cognitif',
     nav: 'Handicap cognitif/mental',
-    title: 'Handicap Cognitif / Mental',
+    title: 'Cognitif / Mental',
     description:
       'Des troubles affectant les fonctions cognitives : mémoire, concentration, compréhension, incluant les troubles DYS, TDAH, trisomie ou déficience intellectuelle.',
     image: '/handicaps/cognitif.svg',
@@ -45,7 +45,7 @@ const PROFILES = [
   {
     id: 'invisible',
     nav: 'Handicaps invisibles / troubles psychiques',
-    title: 'Handicaps Invisibles',
+    title: 'Invisibles',
     description:
       'Des maladies chroniques, troubles psychiques ou douleurs qui ne se voient pas mais impactent profondément le quotidien : épilepsie, troubles anxieux, fibromyalgie.',
     image: '/handicaps/Invisible-psychique.svg',
@@ -63,7 +63,7 @@ export default function HandicapSection() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -172,8 +172,8 @@ export default function HandicapSection() {
         {/* Content */}
         <div className="relative flex-1 flex flex-col justify-between">
           <div aria-live="polite" aria-atomic="true">
-            <h3 className="text-white text-xl uppercase font-bold mb-3">{profile.title}</h3>
-            <p className="text-white/60 text-sm leading-relaxed">{profile.description}</p>
+            <h3 className="inline-block bg-white px-2 py-1 text-primary text-xl uppercase font-bold mb-3">{profile.title}</h3>
+            <p className="text-white/60 text-base leading-relaxed">{profile.description}</p>
           </div>
 
           {/* Navigation dots */}
@@ -262,15 +262,15 @@ export default function HandicapSection() {
           <Image src={LogoHero} alt="" className="w-auto h-auto scale-150  opacity-20" />
         </div>
         {/* Section title */}
-        <div className="px-16 pt-36 flex-shrink-0">
-          <h2 id="handicap-title-desktop" className="text-white text-3xl max-w-xl leading-snug">
+        <div className="px-8 xl:px-16 pt-20 xl:pt-36 flex-shrink-0">
+          <h3 id="handicap-title-desktop" className="text-white max-w-2/3 leading-snug">
             Voici les cinq profils que nous prenons en compte dans notre démarche.
-          </h2>
+          </h3>
         </div>
 
         {/* Main 3-col grid */}
         <div
-          className="flex-1 grid grid-cols-3 gap-8 px-16 pb-16 relative min-h-0"
+          className="flex-1 grid grid-cols-3 gap-4 xl:gap-8 px-8 xl:px-16 pb-8 xl:pb-16 relative min-h-0"
           aria-live="polite"
           aria-atomic="true"
         >
@@ -286,8 +286,17 @@ export default function HandicapSection() {
                 style={{ opacity: i === 0 ? 1 : 0 }}
                 aria-hidden={i !== activeIndex}
               >
-                <h3 className="text-white text-2xl uppercase font-bold mb-4">{p.title}</h3>
-                <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-xs">
+                <h3 className="font-primary  text-secondary uppercase flex flex-col gap-2 leading-none mb-3">
+                  <span className="block leading-none">
+                    <span className="inline-block bg-white px-2 py-1">
+                     Handicap
+                    </span>
+                  </span>
+                  <span className="block leading-none">
+                    <span className="inline-block bg-white text-primary px-2 py-1">{p.title}</span>
+                  </span>
+                </h3>
+                <p className="text-white/60 text-base leading-relaxed mb-8 max-w-xs">
                   {p.description}
                 </p>
                 <div className="flex flex-col gap-3 items-start">
@@ -305,8 +314,7 @@ export default function HandicapSection() {
           {/* Center: fixed frame + crossfading images */}
           <div className="flex items-center justify-center" aria-hidden="true">
             <div
-              className="border border-white flex items-center justify-center relative"
-              style={{ width: 300, height: 300 }}
+              className="border border-white flex items-center justify-center relative w-[220px] h-[220px] xl:w-[300px] xl:h-[300px]"
             >
               {PROFILES.map((p, i) => (
                 <div
@@ -323,7 +331,7 @@ export default function HandicapSection() {
                     width={300}
                     height={300}
                     className="w-full h-full object-contain"
-                    sizes="300px"
+                    sizes="(max-width: 1279px) 220px, 300px"
                   />
                 </div>
               ))}
