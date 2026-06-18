@@ -294,40 +294,155 @@ const SCROLL_KEYFRAMES: ScrollKeyframe[] = [
   },
 ];
 
-function getScrollState(progress: number): ScrollKeyframe {
-  const segmentCount = SCROLL_KEYFRAMES.length - 1;
+const SCROLL_KEYFRAMES_MOBILE: ScrollKeyframe[] = [
+  {
+    positionX: 0,
+
+    positionY: 1.2,
+
+    scale: 0.28,
+
+    rotationX: 1.8,
+
+    rotationY: 0,
+
+    rotationZ: -0.35,
+  },
+
+  {
+    positionX: 0.15,
+
+    positionY: 0.2,
+
+    scale: 0.12,
+
+    rotationX: 0.8,
+
+    rotationY: -0.4,
+
+    rotationZ: -0.15,
+  },
+
+  {
+    positionX: -0.15,
+
+    positionY: -0.1,
+
+    scale: 0.13,
+
+    rotationX: 1,
+
+    rotationY: 0.1,
+
+    rotationZ: 0.2,
+  },
+
+  {
+    positionX: 0.15,
+
+    positionY: -0.65,
+
+    scale: 0.14,
+
+    rotationX: 1.4,
+
+    rotationY: -0.2,
+
+    rotationZ: -0.08,
+  },
+
+  {
+    positionX: 0,
+
+    positionY: -1.4,
+
+    scale: 0.24,
+
+    rotationX: 1.8,
+
+    rotationY: 0,
+
+    rotationZ: 0,
+  },
+];
+
+function getScrollState(
+  progress: number,
+
+  isMobile: boolean,
+): ScrollKeyframe {
+  const keyframes = isMobile ? SCROLL_KEYFRAMES_MOBILE : SCROLL_KEYFRAMES;
+
+  const segmentCount = keyframes.length - 1;
+
   const scaledProgress = THREE.MathUtils.clamp(progress, 0, 1) * segmentCount;
-  const segmentIndex = Math.min(Math.floor(scaledProgress), segmentCount - 1);
-  const currentKeyframe = SCROLL_KEYFRAMES[segmentIndex];
-  const nextKeyframe = SCROLL_KEYFRAMES[segmentIndex + 1];
+
+  const segmentIndex = Math.min(
+    Math.floor(scaledProgress),
+
+    segmentCount - 1,
+  );
+
+  const currentKeyframe = keyframes[segmentIndex];
+
+  const nextKeyframe = keyframes[segmentIndex + 1];
+
   const localProgress = scaledProgress - segmentIndex;
-  const easedProgress = THREE.MathUtils.smootherstep(localProgress, 0, 1);
+
+  const easedProgress = THREE.MathUtils.smootherstep(
+    localProgress,
+
+    0,
+
+    1,
+  );
 
   return {
     positionX: THREE.MathUtils.lerp(
       currentKeyframe.positionX,
+
       nextKeyframe.positionX,
+
       easedProgress,
     ),
+
     positionY: THREE.MathUtils.lerp(
       currentKeyframe.positionY,
+
       nextKeyframe.positionY,
+
       easedProgress,
     ),
-    scale: THREE.MathUtils.lerp(currentKeyframe.scale, nextKeyframe.scale, easedProgress),
+
+    scale: THREE.MathUtils.lerp(
+      currentKeyframe.scale,
+
+      nextKeyframe.scale,
+
+      easedProgress,
+    ),
+
     rotationX: THREE.MathUtils.lerp(
       currentKeyframe.rotationX,
+
       nextKeyframe.rotationX,
+
       easedProgress,
     ),
+
     rotationY: THREE.MathUtils.lerp(
       currentKeyframe.rotationY,
+
       nextKeyframe.rotationY,
+
       easedProgress,
     ),
+
     rotationZ: THREE.MathUtils.lerp(
       currentKeyframe.rotationZ,
+
       nextKeyframe.rotationZ,
+
       easedProgress,
     ),
   };
@@ -458,7 +573,11 @@ function AnimatedModel({ scrollProgressRef, layoutMetricsRef, layoutMetrics }: A
     );
 
     const scrollProgress = smoothScrollRef.current;
-    const scrollState = getScrollState(scrollProgress);
+    const scrollState = getScrollState(
+      scrollProgress,
+
+      layoutMetricsRef.current.isMobile,
+    );
     const layoutMetrics = layoutMetricsRef.current;
     const hoverY =
       interactionsEnabled && isHovered
