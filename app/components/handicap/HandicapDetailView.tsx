@@ -24,35 +24,29 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
           >
             Handicaps
           </Link>
-          <span>›</span>
-          <span className="text-secondary font-semibold">Handicap {handicap.label}</span>
+          <span aria-hidden="true">›</span>
+          <span className="text-secondary font-semibold" aria-current="page">Handicap {handicap.label}</span>
         </nav>
       </div>
 
-      {/* Hero */}
-      <section className="px-6 md:px-16 pb-0">
+      <section aria-label={`Présentation du handicap ${handicap.label}`} className="px-6 md:px-16 pb-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Image */}
           <div className="relative flex items-center justify-center aspect-square max-w-[480px] w-full mx-auto md:mx-0">
             <Image
               src={handicap.image}
-              alt={`Handicap ${handicap.label}`}
+              alt={`Illustration handicap ${handicap.label}`}
               width={400}
               height={400}
               className="w-3/4 h-3/4 object-contain mix-blend-luminosity opacity-90"
             />
           </div>
 
-          {/* Text */}
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <h1 className="font-primary text-[clamp(2.5rem,6vw,5rem)] leading-none text-secondary">
-                <span className="inline-block bg-white px-6 py-3">Handicap</span>
-              </h1>
-              <h2 className="font-primary text-[clamp(2.5rem,6vw,5rem)] leading-none text-primary">
-                <span className="inline-block bg-white px-6 py-3">{handicap.label}</span>
-              </h2>
-            </div>
+            <h1 className="font-primary text-[clamp(2.5rem,6vw,5rem)] leading-none flex flex-col gap-2">
+              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-secondary">Handicap</span>
+              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">{handicap.label}</span>
+            </h1>
 
             <div className="flex flex-col gap-3">
               {handicap.description.map((p, i) => (
@@ -62,11 +56,18 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
               ))}
             </div>
 
-            {/* Tabs */}
-            <div className="flex items-stretch mt-2">
+            <div
+              role="tablist"
+              aria-label="Informations sur ce profil"
+              className="flex flex-wrap items-stretch mt-2 gap-1"
+            >
               <button
+                role="tab"
+                id="tab-besoins"
+                aria-selected={activeTab === 'besoins'}
+                aria-controls="tabpanel-content"
                 onClick={() => setActiveTab('besoins')}
-                className={`flex items-center gap-3 px-5 py-3 text-sm font-secondary font-semibold uppercase tracking-wide transition-colors duration-200 ${
+                className={`flex items-center gap-2 px-3 py-2.5 md:px-5 md:py-3 text-xs md:text-sm font-secondary font-semibold uppercase tracking-wide transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
                   activeTab === 'besoins'
                     ? 'bg-secondary text-white'
                     : 'bg-white text-secondary hover:bg-secondary/10'
@@ -76,8 +77,12 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
                 <EyeIcon />
               </button>
               <button
+                role="tab"
+                id="tab-amenagements"
+                aria-selected={activeTab === 'amenagements'}
+                aria-controls="tabpanel-content"
                 onClick={() => setActiveTab('amenagements')}
-                className={`flex items-center gap-3 px-5 py-3 text-sm font-secondary font-semibold uppercase tracking-wide transition-colors duration-200 ${
+                className={`flex items-center gap-2 px-3 py-2.5 md:px-5 md:py-3 text-xs md:text-sm font-secondary font-semibold uppercase tracking-wide transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
                   activeTab === 'amenagements'
                     ? 'bg-secondary text-white'
                     : 'bg-white text-secondary hover:bg-secondary/10'
@@ -91,19 +96,21 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
         </div>
       </section>
 
-      {/* Content section */}
-      <section className="noise mt-16 px-6 md:px-16 pb-24">
-        <h3 className="font-primary text-[clamp(1.8rem,4vw,3rem)] text-secondary mb-12 inline-block bg-white px-6 py-3">
+      <section
+        id="tabpanel-content"
+        role="tabpanel"
+        aria-labelledby={activeTab === 'besoins' ? 'tab-besoins' : 'tab-amenagements'}
+        className="noise mt-16 px-6 md:px-16 pb-24"
+      >
+        <h2 className="font-primary text-[clamp(1.8rem,4vw,3rem)] text-secondary mb-12 inline-block bg-white px-4 py-2 md:px-6 md:py-3">
           {sectionTitle}
-        </h3>
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
-          {/* Intro */}
           <p className="text-secondary/70 text-base leading-relaxed font-secondary self-start">
             {section.intro}
           </p>
 
-          {/* Bullet list */}
           <ul className="flex flex-col gap-3">
             {section.items.map((item, i) => (
               <li
@@ -117,13 +124,13 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
           </ul>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 
 function EyeIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
       <path
         d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
         stroke="currentColor"
