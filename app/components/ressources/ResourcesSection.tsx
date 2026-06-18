@@ -1,24 +1,8 @@
-'use client';
-
-import { useState } from 'react';
 import Image from 'next/image';
 import LogoMetal from '@/app/assets/Logo-Hero.svg';
 import { RESSOURCES_DATA, type RessourceData } from '@/app/data/ressources/resourcesData';
 
-/* ── Icons ─────────────────────────────────────────────── */
-
-const PlusIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false">
-    <line x1="9" y1="2" x2="9" y2="16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-    <line x1="2" y1="9" x2="16" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
-
-const MinusIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false">
-    <line x1="2" y1="9" x2="16" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
+/* ── Icons d'action ─────────────────────────────────────── */
 
 const DownloadIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
@@ -33,7 +17,7 @@ const ExternalLinkIcon = () => (
   </svg>
 );
 
-/* ── Icons par ressource ────────────────────────────────── */
+/* ── Icônes par ressource ───────────────────────────────── */
 
 const RESOURCE_ICONS: Record<string, React.ReactNode> = {
   'guide-pratique': (
@@ -59,91 +43,48 @@ const RESOURCE_ICONS: Record<string, React.ReactNode> = {
 /* ── Card ───────────────────────────────────────────────── */
 
 function ResourceCard({ resource }: { resource: RessourceData }) {
-  const [open, setOpen] = useState(false);
-  const contentId = `res-content-${resource.id}`;
   const icon = RESOURCE_ICONS[resource.id];
 
   return (
     <article className="flex flex-col">
-      <button
-        aria-expanded={open}
-        aria-controls={contentId}
-        onClick={() => setOpen((v) => !v)}
-        className={`relative w-full p-8 md:p-10 flex flex-col items-center gap-5 transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
-          open
-            ? 'bg-secondary'
-            : 'bg-white border border-secondary/10 hover:border-secondary/30'
-        }`}
-      >
-        {/* Picto +/− — indicateur d'interactivité */}
-        <span
-          aria-hidden="true"
-          className={`absolute top-4 right-4 transition-colors duration-300 ${
-            open ? 'text-white/50' : 'text-secondary/30'
-          }`}
-        >
-          {open ? <MinusIcon /> : <PlusIcon />}
-        </span>
-
-        {/* Icône SVG — masquée à l'ouverture */}
+      {/* Zone haute — icône + titre */}
+      <div className="bg-white border border-secondary/10 p-8 md:p-10 flex flex-col items-center gap-5">
         {icon && (
-          <div
-            aria-hidden="true"
-            className={`flex items-center justify-center w-24 h-24 transition-opacity duration-200 ${
-              open ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'
-            }`}
-          >
+          <div aria-hidden="true" className="flex items-center justify-center w-24 h-24">
             {icon}
           </div>
         )}
-
-        {/* Titre */}
-        <p
-          className={`font-primary text-xl font-semibold text-center transition-colors duration-300 ${
-            open ? 'text-white' : 'text-secondary'
-          }`}
-        >
+        <h3 className="font-primary text-secondary text-xl font-semibold text-center">
           {resource.title}
-        </p>
-      </button>
+        </h3>
+      </div>
 
-      {/* Contenu expandable — animation grid-rows */}
-      <div
-        id={contentId}
-        role="region"
-        aria-label={`Détails : ${resource.title}`}
-        className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${
-          open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
-        }`}
-      >
-        <div className="overflow-hidden bg-secondary">
-          <div className="px-8 md:px-10 pb-8 md:pb-10 flex flex-col items-center gap-6">
-            <p className="font-secondary text-white/80 text-sm leading-relaxed text-center max-w-xs">
-              {resource.description}
-            </p>
-            <div className="flex flex-col gap-3 w-full max-w-[220px]">
-              <a
-                href={resource.downloadHref}
-                aria-label={`Télécharger ${resource.title}`}
-                className="inline-flex gap-1 items-stretch font-secondary font-semibold uppercase text-sm focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
-              >
-                <span className="bg-black text-white px-5 py-3 flex-1 text-center tracking-wide">Télécharger</span>
-                <span aria-hidden="true" className="bg-primary text-black flex items-center justify-center px-4">
-                  <DownloadIcon />
-                </span>
-              </a>
-              <a
-                href={resource.consultHref}
-                aria-label={`Consulter ${resource.title} en ligne`}
-                className="inline-flex gap-1 items-stretch font-secondary font-semibold uppercase text-sm focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
-              >
-                <span className="bg-black text-white px-5 py-3 flex-1 text-center tracking-wide">Consulter</span>
-                <span aria-hidden="true" className="bg-primary text-black flex items-center justify-center px-4">
-                  <ExternalLinkIcon />
-                </span>
-              </a>
-            </div>
-          </div>
+      {/* Zone basse — description + actions */}
+      <div className="bg-secondary p-8 md:p-10 flex flex-col items-center gap-6 flex-1">
+        <p className="font-secondary text-white/80 text-sm leading-relaxed text-center max-w-xs">
+          {resource.description}
+        </p>
+        <div className="flex flex-col gap-3 w-full max-w-[220px] mt-auto">
+          <a
+            href={resource.downloadHref}
+            aria-label={`Télécharger ${resource.title}`}
+            className="inline-flex gap-1 items-stretch font-secondary font-semibold uppercase text-sm focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+          >
+            <span className="bg-black text-white px-5 py-3 flex-1 text-center tracking-wide">Télécharger</span>
+            <span aria-hidden="true" className="bg-primary text-black flex items-center justify-center px-4">
+              <DownloadIcon />
+            </span>
+          </a>
+          <a
+            href={resource.consultHref}
+            aria-label={`Consulter ${resource.title} en ligne`}
+            className="inline-flex gap-1 items-stretch font-secondary font-semibold uppercase text-sm focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+          >
+            <span className="bg-black text-white px-5 py-3 flex-1 text-center tracking-wide">Consulter</span>
+            <span aria-hidden="true" className="bg-primary text-black flex items-center justify-center px-4">
+              <ExternalLinkIcon />
+            </span>
+          </a>
         </div>
       </div>
     </article>
