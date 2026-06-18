@@ -93,7 +93,7 @@ function MobileDrawer({
 }) {
   return (
     <div
-      className={`md:hidden overflow-hidden flex flex-col transition-all duration-300 bg-white ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
+      className={`w-auto md:hidden overflow-hidden flex flex-col transition-all duration-300 bg-tertiary ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
     >
       <ul className="flex flex-col gap-5 px-6 py-6">
         {NAV_LINKS.map(({ label, href }) => (
@@ -155,20 +155,12 @@ export default function Header() {
           hidden ? '-translate-y-[calc(100%+2rem)]' : 'translate-y-0'
         }`}
       >
-        <nav aria-label="Navigation principale" className="flex items-center bg-white px-6 py-4 gap-6">
-          <NavLogo />
-
-          <ul className="hidden md:flex items-center gap-6 flex-1">
-            {NAV_LINKS.map(({ label, href }) => (
-              <NavLink key={href} label={label} href={href} active={pathname === href} />
-            ))}
-          </ul>
-        <div className="flex flex-col md:flex-row items-center gap-2 justify-center p-4">
-          <div className="flex items-center bg-white w-full md:w-auto p-2 md:p-4 h-[stretch]">
+        <div className="flex flex-col w-full md:flex-row items-center gap-2 justify-center py-4">
+          <div className="flex items-center justify-center bg-white w-full md:w-auto p-2 md:p-4 h-[stretch]">
             <NavLogo />
           </div>
 
-          <nav className="flex items-center w-full md:w-auto bg-white p-2 md:p-4 gap-8">
+          <nav className="flex items-center justify-between w-full md:w-auto bg-white gap-8 p-4">
             <div className="hidden md:flex flex-1 items-center">
               <ul className="flex items-center gap-6">
                 {NAV_LINKS.map(({ label, href }) => (
