@@ -6,6 +6,7 @@ import Image from 'next/image';
 import TransitionLink from '@/app/components/ui/TransitionLink';
 import Button from '@/app/components/ui/Button';
 import CardFond from '@/app/assets/Card-fond.png';
+import statsImg from '@/app/assets/homepage/Desktop - 16.jpg';
 import { HANDICAP_CARDS_BASE } from '@/app/data/handicaps/cardsData';
 
 const CARDS = HANDICAP_CARDS_BASE.map((card, i) => ({
@@ -175,7 +176,7 @@ export default function BonnesPratiquesSection() {
       <div className="flex justify-center items-center mt-20 w-full h-80"></div>
       <div className="flex p-4 overflow-hidden">
         <Image
-          src={statsimg}
+          src={statsImg}
           className="h-auto w-full object-cover"
           alt="Illustration des bonnes pratiques"
         />

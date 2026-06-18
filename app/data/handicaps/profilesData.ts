@@ -13,7 +13,7 @@ export const HANDICAP_PROFILES: HandicapProfile[] = [
     title: 'Moteur',
     description:
       'Toute difficulté à se déplacer ou à effectuer certains gestes du quotidien, que ce soit en fauteuil roulant ou pour des mouvements plus précis.',
-    image: '/handicaps/moteur.svg',
+    image: '/handicaps/chrome/Moteur1.png',
   },
   {
     id: 'visuel',
@@ -21,7 +21,7 @@ export const HANDICAP_PROFILES: HandicapProfile[] = [
     title: 'Visuel',
     description:
       "Une perte partielle ou totale de la vision, qu'il s'agisse de malvoyance légère ou de cécité complète, impactant la lecture, l'orientation et la navigation.",
-    image: '/handicaps/visuel.svg',
+    image: '/handicaps/chrome/Visuel1.svg',
   },
   {
     id: 'auditif',
@@ -29,7 +29,7 @@ export const HANDICAP_PROFILES: HandicapProfile[] = [
     title: 'Auditif',
     description:
       "Une perte d'audition partielle ou totale, de la surdité légère à profonde, nécessitant des adaptations pour l'accès à l'information sonore.",
-    image: '/handicaps/auditif.svg',
+    image: '/handicaps/chrome/Auditif1.png',
   },
   {
     id: 'cognitif',
@@ -37,7 +37,7 @@ export const HANDICAP_PROFILES: HandicapProfile[] = [
     title: 'Cognitif / Mental',
     description:
       'Des troubles affectant les fonctions cognitives : mémoire, concentration, compréhension, incluant les troubles DYS, TDAH, trisomie ou déficience intellectuelle.',
-    image: '/handicaps/cognitif.svg',
+    image: '/handicaps/chrome/Mental1.png',
   },
   {
     id: 'invisible',
@@ -45,6 +45,6 @@ export const HANDICAP_PROFILES: HandicapProfile[] = [
     title: 'Invisibles',
     description:
       'Des maladies chroniques, troubles psychiques ou douleurs qui ne se voient pas mais impactent profondément le quotidien : épilepsie, troubles anxieux, fibromyalgie.',
-    image: '/handicaps/Invisible-psychique.svg',
+    image: '/handicaps/chrome/Invisible1.png',
   },
 ];

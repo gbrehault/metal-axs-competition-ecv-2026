@@ -7,6 +7,7 @@ import Button from '@/app/components/ui/Button';
 import Image from 'next/image';
 import LogoHero from '@/app/assets/Logo-Hero.svg';
 import { HANDICAP_PROFILES } from '@/app/data/handicaps/profilesData';
+import srcImage from '@/app/assets/homepage/Frame_2121318157.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -327,7 +328,7 @@ export default function HandicapSection() {
       <div>
         <Image
           src={srcImage}
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className="absolute inset-0 z w-full h-full object-cover object-center"
           alt=""
         />
       </div>
