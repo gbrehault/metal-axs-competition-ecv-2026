@@ -123,7 +123,11 @@ export default function HandicapListSection() {
       </nav>
 
       {/* Contenu */}
-      <section aria-label="Les différents types de handicap" className="bg-secondary noise">
+      <section
+        aria-label="Les différents types de handicap"
+        className="noise"
+        style={{ background: 'linear-gradient(to bottom, #090909, #6F6F6F)' }}
+      >
         {HANDICAPS.map((h, i) => {
           const imageLeft = i % 2 === 0;
           return (
@@ -132,19 +136,28 @@ export default function HandicapListSection() {
               id={`handicap-${h.id}`}
               ref={(el) => { articleRefs.current[i] = el; }}
               className="grid grid-cols-1 md:grid-cols-2 border-b border-white/10 last:border-b-0"
+              style={i % 2 !== 0 ? { backgroundColor: '#191919' } : undefined}
             >
               {/* Image — masquée sur mobile, visible desktop */}
               <div
                 className={`hidden md:flex items-center justify-center md:p-20 ${imageLeft ? 'md:order-1' : 'md:order-2'}`}
                 aria-hidden="true"
               >
-                <Image
-                  src={h.image}
-                  alt=""
-                  width={400}
-                  height={400}
-                  className="w-full max-w-[420px] h-auto object-contain"
-                />
+                <div
+                  className="flex items-center justify-center p-10"
+                  style={{
+                    backgroundColor: '#262626',
+                    boxShadow: '0 8px 40px 0 rgba(0,0,0,0.6)',
+                  }}
+                >
+                  <Image
+                    src={h.image}
+                    alt=""
+                    width={400}
+                    height={400}
+                    className="w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
               </div>
 
               {/* Texte */}
@@ -153,7 +166,12 @@ export default function HandicapListSection() {
               >
                 {/* Icône visible uniquement mobile */}
                 <div className="flex md:hidden justify-center mb-2" aria-hidden="true">
-                  <Image src={h.image} alt="" width={120} height={120} className="w-28 h-28 object-contain" />
+                  <div
+                    className="flex items-center justify-center p-6"
+                    style={{ backgroundColor: '#262626', boxShadow: '0 8px 40px 0 rgba(0,0,0,0.6)' }}
+                  >
+                    <Image src={h.image} alt="" width={120} height={120} className="w-28 h-28 object-contain" />
+                  </div>
                 </div>
 
                 <h2 className="font-primary text-[clamp(1.8rem,6vw,3.5rem)] leading-tight text-white">
