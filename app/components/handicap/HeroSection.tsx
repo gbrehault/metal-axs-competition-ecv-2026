@@ -22,11 +22,11 @@ export default function HandicapHeroSection() {
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 md:px-24">
         <h1 className="title-home font-primary leading-none tracking-tight text-secondary flex flex-col gap-2">
-          <span className="flex leading-none">
+          <span className="flex flex-wrap leading-none">
             <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3">Mieux</span>{' '}
             <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">comprendre</span>
           </span>
-          <span className="flex leading-none">
+          <span className="flex flex-wrap leading-none">
             <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3">pour mieux</span>{' '}
             <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">agir</span>
           </span>
