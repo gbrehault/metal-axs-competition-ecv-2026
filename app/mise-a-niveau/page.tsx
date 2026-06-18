@@ -147,7 +147,7 @@ export default function Audit() {
                   JSON.stringify(selectedAnswer),
                 );
 
-                router.push('/audit-resultat');
+                router.push('/mise-a-niveau-resultat');
 
                 return;
               }

@@ -93,7 +93,7 @@ function MobileDrawer({
 }) {
   return (
     <div
-      className={`md:hidden overflow-hidden flex flex-col transition-all duration-300 bg-white ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
+      className={`w-auto md:hidden overflow-hidden flex flex-col transition-all duration-300 bg-tertiary ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
     >
       <ul className="flex flex-col gap-5 px-6 py-6">
         {NAV_LINKS.map(({ label, href }) => (
@@ -122,11 +122,6 @@ export default function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const hidden = direction === 'down' && !open;
   const imageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setIsPopupOpen(false);
-    setOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -161,16 +156,16 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-200 transition-transform duration-300 ease-in-out mt-8 w-full${
+        className={`fixed top-0 left-0 right-0 z-200 items-center justify-center transition-transform duration-300 ease-in-out p-2 md:p-4 mt-8 w-full${
           hidden ? '-translate-y-[calc(100%+2rem)]' : 'translate-y-0'
         }`}
       >
-        <div className="flex flex-col md:flex-row items-center gap-2 justify-center p-4">
-          <div className="flex items-center bg-white w-full md:w-auto p-2 md:p-4 h-[stretch]">
+        <div className="flex flex-col w-full md:flex-row items-center gap-2 justify-center py-4">
+          <div className="flex items-center justify-center bg-white w-full md:w-auto p-2 md:p-4 h-[stretch]">
             <NavLogo />
           </div>
 
-          <nav className="flex items-center w-full md:w-auto bg-white p-2 md:p-4 gap-8">
+          <nav className="flex items-center justify-between w-full md:w-auto bg-white gap-8 p-4">
             <div className="hidden md:flex flex-1 items-center">
               <ul className="flex items-center gap-6">
                 {NAV_LINKS.map(({ label, href }) => (
@@ -178,32 +173,36 @@ export default function Header() {
                 ))}
               </ul>
             </div>
-
-            <Button
-              href="/mise-a-niveau"
-              variant="primary"
-              className="justify-center block md:hidden"
-              size="xs"
-              onClick={() => {
-                setOpen(false);
-                setIsPopupOpen(true);
-              }}
-            >
-              Réaliser une mise <br /> à niveau
-            </Button>
-            <Button
-              href="/mise-a-niveau"
-              variant="primary"
-              className="justify-center hidden md:flex"
-              size="xs"
-              onClick={() => {
-                setOpen(false);
-                setIsPopupOpen(true);
-              }}
-            >
-              Réaliser une mise à niveau
-            </Button>
-
+            <div className="justify-center flex md:hidden">
+              <Button
+                href="/mise-a-niveau"
+                variant="primary"
+                className="justify-center flex md:hidden"
+                size="xs"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(false);
+                  setIsPopupOpen(true);
+                }}
+              >
+                Réaliser une mise <br /> à niveau
+              </Button>
+            </div>
+            <div className="justify-center hidden md:flex">
+              <Button
+                href="/mise-a-niveau"
+                variant="primary"
+                className="justify-center hidden md:flex"
+                size="xs"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(false);
+                  setIsPopupOpen(true);
+                }}
+              >
+                Réaliser une mise à niveau
+              </Button>
+            </div>
             <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />
           </nav>
         </div>

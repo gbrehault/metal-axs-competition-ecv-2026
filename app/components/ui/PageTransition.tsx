@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useRef } from 'react';
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import gsap from 'gsap';
 
@@ -24,7 +24,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
   // null = not yet initialized, string = previous pathname
   const prevPathRef = useRef<string | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!overlayRef.current) return;
     gsap.set(overlayRef.current, { x: '-100%' });
   }, []);
@@ -52,6 +52,11 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
     (href: string) => {
       if (isAnimatingRef.current || href === pathname) return;
       isAnimatingRef.current = true;
+
+      if (!overlayRef.current) {
+        router.push(href);
+        return;
+      }
 
       gsap.killTweensOf(overlayRef.current);
       gsap.fromTo(

@@ -15,11 +15,13 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
 
   return (
     <main className="bg-[#f2f2f2] min-h-screen pt-36">
-
       {/* Breadcrumb */}
       <div className="px-6 md:px-16 pt-8 pb-4">
         <nav className="flex items-center gap-2 text-sm text-secondary/60 font-secondary">
-          <Link href="/handicaps" className="hover:text-primary transition-colors underline underline-offset-2">
+          <Link
+            href="/handicaps"
+            className="hover:text-primary transition-colors underline underline-offset-2"
+          >
             Handicaps
           </Link>
           <span>›</span>
@@ -30,12 +32,8 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
       {/* Hero */}
       <section className="px-6 md:px-16 pb-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-
           {/* Image */}
-          <div
-            className="relative flex items-center justify-center aspect-square max-w-[480px] w-full mx-auto md:mx-0"
-            style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #3a2010 60%, #d7541a 100%)' }}
-          >
+          <div className="relative flex items-center justify-center aspect-square max-w-[480px] w-full mx-auto md:mx-0">
             <Image
               src={handicap.image}
               alt={`Handicap ${handicap.label}`}
@@ -108,7 +106,10 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
           {/* Bullet list */}
           <ul className="flex flex-col gap-3">
             {section.items.map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-secondary/80 text-sm font-secondary leading-relaxed">
+              <li
+                key={i}
+                className="flex items-start gap-3 text-secondary/80 text-sm font-secondary leading-relaxed"
+              >
                 <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-primary" />
                 {item}
               </li>

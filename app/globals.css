@@ -39,11 +39,11 @@
   --color-tertiary: #f3f6f7;
   --color-bg: #ededed;
 
-  --font-size-h1: clamp(40px, 7.2vw, 70px);
-  --font-size-h2: clamp(28px, 4.4vw, 64px);
-  --font-size-h3: clamp(22px, 2.8vw, 40px);
-  --font-size-h4: clamp(20px, 2.2vw, 32px);
-  --font-size-h5: clamp(18px, 1.7vw, 24px);
+  --font-size-h1: clamp(2.5rem, 7vw, 4.375rem); /* 40px → 70px */
+  --font-size-h2: clamp(2rem, 5vw, 4rem); /* 32px → 64px */
+  --font-size-h3: clamp(1.5rem, 3vw, 2.5rem); /* 24px → 40px */
+  --font-size-h4: clamp(1.25rem, 2.4vw, 2rem); /* 20px → 32px */
+  --font-size-h5: clamp(1.125rem, 2vw, 1.5rem); /* 18px → 24px */
 }
 
 :root {
@@ -77,12 +77,28 @@
   }
 }
 
+@media (max-width: 768px) {
+  :root {
+    --font-size-h1: 2.5rem; /* 40px */
+    --font-size-h2: 2rem; /* 32px */
+    --font-size-h3: 1.5rem; /* 24px */
+    --font-size-h4: 1.25rem; /* 20px */
+    --font-size-h5: 1.125rem; /* 18px */
+  }
+}
+
 .title-home {
   display: flex;
   overflow: hidden;
   position: relative;
   width: auto;
   font-size: 104px;
+}
+
+@media (max-width: 768px) {
+  .title-home {
+    font-size: 38px;
+  }
 }
 
 .noise {

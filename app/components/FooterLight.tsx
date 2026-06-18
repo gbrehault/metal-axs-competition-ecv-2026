@@ -24,7 +24,7 @@ const LEGAL_LINKS = [
 
 export default function FooterLight() {
   return (
-    <footer className="bg-tertiary border-t border-secondary/10">
+    <footer id="federation" className="bg-tertiary border-t border-secondary/10">
       <div className="grid grid-cols-1 md:grid-cols-3 px-8 xl:px-20 pt-16 pb-12">
         {/* Left: nav + copyright */}
         <div className="flex flex-col justify-between gap-10 pb-10 md:pb-0 md:pr-12 border-b md:border-b-0 md:border-r border-secondary/15">
