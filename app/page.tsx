@@ -15,19 +15,15 @@ export default function Home() {
           id="section3"
           className="relative flex min-h-screen w-full items-center justify-center overflow-hidden -mt-190 md:-mt-204 px-6 py-20 md:px-16"
         >
-          <div className="relative z-1000 mx-auto flex max-w-4xl flex-col items-center gap-8 text-center">
-            <span className="bg-primary px-3 py-1 text-sm font-secondary font-bold uppercase tracking-[0.2em] text-secondary">
-              Section texte
-            </span>
-            <p className="font-primary text-2xl leading-tight text-tertiary md:text-5xl">
-              De plus en plus de festivals voient le jour chaque année, mais l&apos;accessibilité
-              pour les personnes en situation de handicap reste encore trop souvent oubliée.
-            </p>
-            <p className="max-w-2xl text-base leading-relaxed text-tertiary/80 md:text-lg">
-              [Metal Axs] accompagne les organisateurs qui veulent vraiment changer ça, du site
-              internet jusqu&apos;au jour de l&apos;événement, pour que chacun puisse vivre
-              l&apos;expérience pleinement.
-            </p>
+          <div className="relative z-1000 mx-auto flex w-full flex-col items-center gap-8 text-center">
+            <h2 className="font-primary text-2xl leading-tight text-tertiary md:text-5xl">
+              Chaque année, de nouveaux festivals émergent, mais l’accessibilité reste souvent
+              négligée.
+            </h2>
+            <h2 className="text-2xl leading-relaxed text-tertiary/80 md:text-5xl">
+              Metal Axs accompagne les organisateurs, du site web à l’événement, pour offrir une
+              expérience inclusive à tous.
+            </h2>
           </div>
         </div>
         <HandicapSection />
