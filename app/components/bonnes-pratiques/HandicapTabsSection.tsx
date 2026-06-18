@@ -1,19 +1,19 @@
 import Image from 'next/image';
-import { HANDICAPS_DATA } from '@/app/data/handicaps/handicapsData';
+import { BONNES_PRATIQUES_CARDS } from '@/app/data/bonnes-pratiques/bonnesPratiquesData';
 import Button from '@/app/components/ui/Button';
 
 export default function HandicapDetailSection() {
   return (
     <section
       aria-label="Les bonnes pratiques à adopter par type de handicap"
-      style={{ backgroundColor: '#f2f2f2' }}
+      className="bg-bg"
     >
-      {HANDICAPS_DATA.map((h, i) => {
+      {BONNES_PRATIQUES_CARDS.map((card, i) => {
         const imageLeft = i % 2 === 0;
         return (
           <div
-            key={h.id}
-            id={`pratiques-${h.id}`}
+            key={card.id}
+            id={`pratiques-${card.id}`}
             className={`grid grid-cols-1 md:grid-cols-2 border-b border-secondary/10 last:border-b-0 ${i % 2 !== 0 ? 'bg-white' : ''}`}
           >
             {/* Image */}
@@ -22,7 +22,7 @@ export default function HandicapDetailSection() {
               className={`flex items-center justify-center min-h-[260px] md:min-h-[480px] py-8 md:py-0 ${imageLeft ? 'md:order-1' : 'md:order-2'}`}
             >
               <Image
-                src={h.image}
+                src={card.icon}
                 alt=""
                 width={400}
                 height={400}
@@ -36,24 +36,22 @@ export default function HandicapDetailSection() {
             >
               <h2 className="font-primary text-[clamp(1.8rem,4vw,3rem)] leading-none text-secondary flex flex-col gap-2">
                 <span className="block leading-none">
-                  <span className="inline-block bg-white px-2 py-1">{h.practicesTitle.line1}</span>
+                  <span className="inline-block bg-white px-2 py-1">Les bonnes pratiques</span>
                 </span>
                 <span className="block leading-none">
-                  <span className="inline-block bg-white px-2 py-1">{h.practicesTitle.line2}</span>
+                  <span className="inline-block bg-white px-2 py-1">pour les</span>
                 </span>
                 <span className="block leading-none">
-                  <span className="inline-block bg-white px-2 py-1 text-primary">
-                    {h.practicesTitle.highlight}
-                  </span>
+                  <span className="inline-block bg-white px-2 py-1 text-primary">{card.title}</span>
                 </span>
               </h2>
 
               <p className="text-secondary/60 text-sm font-secondary leading-relaxed max-w-lg">
-                {h.amenagements.intro}
+                {card.intro}
               </p>
 
               <ul className="flex flex-col" role="list">
-                {h.amenagements.items.map((item, j) => (
+                {card.items.map((item, j) => (
                   <li
                     key={j}
                     className="flex items-start gap-3 py-4 border-b border-secondary/10 last:border-b-0 text-secondary/80 text-sm font-secondary leading-relaxed"
@@ -65,7 +63,7 @@ export default function HandicapDetailSection() {
               </ul>
 
               <div className="mt-2">
-                <Button href={`/handicaps/${h.id}`} variant="primary">
+                <Button href={`/handicaps/${card.id}`} variant="primary">
                   Voir tous les détails
                 </Button>
               </div>
