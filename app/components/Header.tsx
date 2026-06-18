@@ -106,8 +106,8 @@ function MobileDrawer({
           />
         ))}
         <li className="mt-2">
-          <Button href="/faire-un-audit" variant="primary" onClick={onClose}>
-            RÉALISER UN AUDIT
+          <Button href="/mise-a-niveau" variant="primary" onClick={onClose}>
+            RÉALISER UNE MISE À NIVEAU
           </Button>
         </li>
       </ul>
@@ -180,7 +180,7 @@ export default function Header() {
             </div>
 
             <Button
-              href="/faire-un-audit"
+              href="/mise-a-niveau"
               variant="primary"
               className="justify-center"
               onClick={() => {
@@ -241,7 +241,7 @@ export default function Header() {
                 futurs festivaliers au sein de votre évènement.
               </h5>
               <Button
-                href="/faire-un-audit"
+                href="/mise-a-niveau"
                 variant="primary"
                 className="w-full font-light justify-center"
                 onClick={() => setIsPopupOpen(false)}

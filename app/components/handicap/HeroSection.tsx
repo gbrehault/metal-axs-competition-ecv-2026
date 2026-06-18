@@ -35,10 +35,10 @@ export default function HandicapHeroSection() {
         </h1>
 
         <Link
-          href="/faire-un-audit"
+          href="/mise-a-niveau"
           className="inline-flex items-center gap-3 bg-secondary text-tertiary uppercase tracking-widest font-mono text-sm px-8 py-4 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
-          → RÉALISER UN AUDIT
+          Réaliser une mise à niveau
         </Link>
       </div>
 
