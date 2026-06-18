@@ -151,7 +151,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-200 items-center justify-center transition-transform duration-300 ease-in-out p-2 md:p-4 mt-8 w-full${
+        className={`fixed top-0 left-0 right-0 z-200 transition-transform duration-300 ease-in-out p-2 md:p-4 mt-8 w-full ${
           hidden ? '-translate-y-[calc(100%+2rem)]' : 'translate-y-0'
         }`}
       >
@@ -168,65 +168,32 @@ export default function Header() {
                 ))}
               </ul>
             </div>
-
-          <div className="hidden md:block ml-auto">
-            <Button
-              href="/mise-a-niveau"
-              variant="primary"
-              className="justify-center block md:hidden"
-              size="xs"
-              onClick={() => {
-                setOpen(false);
-                setIsPopupOpen(true);
-              }}
-            >
-              Réaliser une mise <br /> à niveau
-            </Button>
-            <Button
-              href="/mise-a-niveau"
-              variant="primary"
-              className="justify-center hidden md:block"
-              size="xs"
-              onClick={() => {
-                setOpen(false);
-                setIsPopupOpen(true);
-              }}
-            >
-              Réaliser une mise à niveau
-            </Button>
-          </div>
-
-          <nav className="flex items-center justify-between w-full md:w-auto bg-white gap-8 p-4">
-            <div className="hidden md:flex flex-1 items-center">
-              <ul className="flex items-center gap-6">
-                {NAV_LINKS.map(({ label, href }) => (
-                  <NavLink key={href} label={label} href={href} active={pathname === href} />
-                ))}
-              </ul>
-            </div>
-            <div className="justify-center flex md:hidden">
+            <div className="flex md:hidden">
               <Button
-                href="/mise-a-niveau"
                 variant="primary"
                 className="justify-center flex md:hidden"
                 size="xs"
                 onClick={(e) => {
                   e.preventDefault();
+
                   setOpen(false);
+
                   setIsPopupOpen(true);
                 }}
               >
                 Réaliser une mise <br /> à niveau
               </Button>
             </div>
-            <div className="justify-center hidden md:flex">
+            <div className="hidden md:flex">
               <Button
                 variant="primary"
                 className="justify-center hidden md:flex"
                 size="xs"
                 onClick={(e) => {
                   e.preventDefault();
+
                   setOpen(false);
+
                   setIsPopupOpen(true);
                 }}
               >
@@ -235,9 +202,9 @@ export default function Header() {
             </div>
             <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />
           </nav>
-        </div>
 
-        <MobileDrawer open={open} pathname={pathname} onClose={() => setOpen(false)} />
+          <MobileDrawer open={open} pathname={pathname} onClose={() => setOpen(false)} />
+        </div>
       </header>
       {isPopupOpen && (
         <div
