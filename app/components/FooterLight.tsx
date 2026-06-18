@@ -26,14 +26,13 @@ export default function FooterLight() {
   return (
     <footer className="bg-tertiary border-t border-secondary/10">
       <div className="grid grid-cols-1 md:grid-cols-3 px-8 xl:px-20 pt-16 pb-12">
-        {/* Left: nav + copyright */}
         <div className="flex flex-col justify-between gap-10 pb-10 md:pb-0 md:pr-12 border-b md:border-b-0 md:border-r border-secondary/15">
           <nav aria-label="Navigation principale" className="flex flex-col gap-4">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-secondary/70 hover:text-secondary transition-colors text-base"
+                className="text-secondary/70 hover:text-secondary transition-colors text-base focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
               >
                 {link.label}
               </Link>
@@ -42,44 +41,46 @@ export default function FooterLight() {
           <p className="text-secondary/40 text-sm">©2026 Musthane, tous droits réservés</p>
         </div>
 
-        {/* Center: initiative + social */}
         <div className="flex flex-col justify-between gap-10 py-10 md:py-0 md:px-12 border-b md:border-b-0 md:border-r border-secondary/15">
           <p className="text-secondary/70 text-base">
             Une initiative de la Fédération Musique Métallique
           </p>
-          <div className="flex flex-col gap-3">
+          <nav aria-label="Réseaux sociaux" className="flex flex-col gap-3">
             {SOCIAL_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-secondary/70 hover:text-secondary transition-colors text-base"
+                aria-label={`Metal AXS sur ${link.label}`}
+                className="text-secondary/70 hover:text-secondary transition-colors text-base focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
               >
                 {link.label}
               </a>
             ))}
-          </div>
+          </nav>
         </div>
 
-        {/* Right: FMM logo + legal */}
         <div className="flex flex-col justify-between gap-10 pt-10 md:pt-0 md:pl-12">
-          <div aria-label="Fédération Musique Métallique">
-            <Image src="/logo-FMM.svg" alt="Logo FMM" width={90} height={90} className="brightness-0" />
-          </div>
-          <div className="flex flex-col gap-3">
+          <Image
+            src="/logo-FMM.svg"
+            alt="Logo Fédération Musique Métallique"
+            width={90}
+            height={90}
+            className="brightness-0"
+          />
+          <nav aria-label="Liens légaux" className="flex flex-col gap-3">
             {LEGAL_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-secondary/70 hover:text-secondary transition-colors text-base"
+                className="text-secondary/70 hover:text-secondary transition-colors text-base focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
               >
                 {link.label}
               </a>
             ))}
-          </div>
+          </nav>
         </div>
       </div>
 
-      {/* Bottom: Metal AXS logo */}
       <div className="flex justify-center px-8 xl:px-20 pb-8 pt-4 overflow-hidden">
         <Image
           src={LogoMetalAxs}
