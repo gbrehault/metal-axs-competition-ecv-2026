@@ -69,23 +69,6 @@ function Hamburger({ open, onToggle }: { open: boolean; onToggle: () => void }) 
   );
 }
 
-function MobileDrawer({ open, pathname, onClose }: { open: boolean; pathname: string; onClose: () => void }) {
-  return (
-    <div className={`md:hidden overflow-hidden transition-all duration-300 bg-white ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
-      <ul className="flex flex-col gap-5 px-6 py-6">
-        {NAV_LINKS.map(({ label, href }) => (
-          <NavLink key={href} label={label} href={href} active={pathname === href} onClick={onClose} />
-        ))}
-        <li className="mt-2">
-          <Button href="/faire-un-audit" variant="primary" onClick={onClose}>
-            RÉALISER UN AUDIT
-          </Button>
-        </li>
-      </ul>
-    </div>
-  );
-}
-
 export default function Header() {
   const pathname = usePathname();
   const direction = useScrollDirection();
@@ -95,33 +78,47 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out mt-8 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out mt-4 md:mt-8 px-4 md:px-0 ${
         hidden ? '-translate-y-[calc(100%+2rem)]' : 'translate-y-0'
       }`}
     >
-      <div className="flex items-center gap-2 justify-center">
+      {/* Mobile : barre unique */}
+      <div className="flex md:hidden items-center justify-between bg-white px-4 py-3">
+        <NavLogo />
+        <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />
+      </div>
+
+      {/* Mobile drawer */}
+      <div className={`md:hidden overflow-hidden transition-all duration-300 bg-white border-t border-gray-100 ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
+        <ul className="flex flex-col gap-5 px-6 py-6">
+          {NAV_LINKS.map(({ label, href }) => (
+            <NavLink key={href} label={label} href={href} active={pathname === href} onClick={() => setOpen(false)} />
+          ))}
+          <li className="mt-2">
+            <Button href="/faire-un-audit" variant="primary" onClick={() => setOpen(false)}>
+              RÉALISER UN AUDIT
+            </Button>
+          </li>
+        </ul>
+      </div>
+
+      {/* Desktop : deux boîtes */}
+      <div className="hidden md:flex items-center gap-2 justify-center">
         <div className="flex items-center bg-white p-4 h-[stretch]">
           <NavLogo />
         </div>
 
         <nav className="flex items-center bg-white p-4 gap-8">
-          <div className="hidden md:flex flex-1 items-center">
-            <ul className="flex items-center gap-6">
-              {NAV_LINKS.map(({ label, href }) => (
-                <NavLink key={href} label={label} href={href} active={pathname === href} />
-              ))}
-            </ul>
-          </div>
-
-          <Button href="/faire-un-audit" variant="primary" className="hidden md:inline-flex shrink-0">
+          <ul className="flex items-center gap-6">
+            {NAV_LINKS.map(({ label, href }) => (
+              <NavLink key={href} label={label} href={href} active={pathname === href} />
+            ))}
+          </ul>
+          <Button href="/faire-un-audit" variant="primary" className="shrink-0">
             RÉALISER UN AUDIT
           </Button>
-
-          <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />
         </nav>
       </div>
-
-      <MobileDrawer open={open} pathname={pathname} onClose={() => setOpen(false)} />
     </header>
   );
 }
