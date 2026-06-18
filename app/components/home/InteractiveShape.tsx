@@ -7,11 +7,11 @@ import * as THREE from 'three';
 import Model from '@/app/components/home/Model';
 
 const SCROLL_START_Y = 0.8;
-const SCROLL_END_Y = -0.85;
+const SCROLL_END_Y = -1;
 const SCROLL_START_X = -0.18;
 const SCROLL_END_X = 0;
 const SCROLL_START_SCALE = 0.2;
-const SCROLL_END_SCALE = 0.32;
+const SCROLL_END_SCALE = 0.28;
 const SCROLL_START_ROTATION_X = 1.8;
 const SCROLL_END_ROTATION_X = 1.8;
 const SCROLL_START_ROTATION_Y = 0;
