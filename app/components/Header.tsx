@@ -190,7 +190,6 @@ export default function Header() {
             </div>
             <div className="justify-center hidden md:flex">
               <Button
-                href="/mise-a-niveau"
                 variant="primary"
                 className="justify-center hidden md:flex"
                 size="xs"
@@ -211,11 +210,11 @@ export default function Header() {
       </header>
       {isPopupOpen && (
         <div
-          className="fixed inset-0 z-10000 flex items-center justify-center bg-black/40 px-4"
+          className="fixed inset-0 z-10000 flex items-center justify-center bg-black/40 px-2 md:px-4"
           onClick={() => setIsPopupOpen(false)}
         >
           <div
-            className="relative h-auto b-10 w-1/2 overflow-hidden bg-tertiary text-secondary shadow-2xl"
+            className="relative h-auto w-1/1 md:w-1/2 overflow-hidden bg-tertiary text-secondary shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
