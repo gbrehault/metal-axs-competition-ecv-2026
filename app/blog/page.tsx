@@ -4,6 +4,7 @@ import { getApolloClient } from '@/app/lib/apolloClient';
 import ArticleCard, { type PostWithCategories } from '@/app/components/blog/ArticleCard';
 import FilterTabs from '@/app/components/blog/FilterTabs';
 import Pagination from '@/app/components/blog/Pagination';
+import BlogHeroSection from '@/app/components/blog/HeroSection';
 
 const GET_POSTS = gql`
   query GetPosts {
@@ -97,10 +98,9 @@ export default async function ArticlesPage({
   );
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 pt-36 pb-10">
-      <h1 className="font-primary text-secondary text-[clamp(1.8rem,4vw,3rem)] leading-none mb-8">
-        Blog
-      </h1>
+    <>
+      <BlogHeroSection />
+      <main className="mx-auto w-full max-w-6xl px-6 pt-16 pb-16">
       <FilterTabs
         tabs={FILTERS}
         active={filter}
@@ -121,5 +121,6 @@ export default async function ArticlesPage({
         />
       )}
     </main>
+    </>
   );
 }
