@@ -2,6 +2,11 @@ export type HandicapData = {
   id: string;
   label: string;
   image: string;
+  practicesTitle: {
+    line1: string;
+    line2: string;
+    highlight: string;
+  };
   description: string[];
   besoins: {
     intro: string;
@@ -18,6 +23,11 @@ export const HANDICAPS_DATA: HandicapData[] = [
     id: 'auditif',
     label: 'Auditif',
     image: '/handicaps/chrome/Auditif1.png',
+    practicesTitle: {
+      line1: 'Les bonnes pratiques',
+      line2: 'à adopter pour les',
+      highlight: 'handicaps auditifs',
+    },
     description: [
       "Le handicap auditif concerne toutes les personnes malentendantes ou sourdes. On imagine souvent qu'un festival de musique est par définition inaccessible pour elles — c'est faux. Mais les obstacles sont réels : annonces micro non sous-titrées, changes d'horaires affichés sur écran sonore, échanges compliqués dans un environnement bruyant.",
       'Pourtant, ressentir la musique est possible autrement : via des plateformes vibrantes, des boucles à induction magnétique, du surtitrage, une interprétation LSF, et des informations toujours disponibles en version écrite.',
@@ -55,6 +65,11 @@ export const HANDICAPS_DATA: HandicapData[] = [
     id: 'visuel',
     label: 'Visuel',
     image: '/handicaps/chrome/Visuel1.png',
+    practicesTitle: {
+      line1: 'Les bonnes pratiques',
+      line2: 'à adopter pour les',
+      highlight: 'handicaps visuels',
+    },
     description: [
       "Le handicap visuel touche toutes les personnes ayant des difficultés à voir, qu'elles soient malvoyantes ou non voyantes. Sur un festival, s'orienter sur un site inconnu, trouver les scènes, les toilettes ou les buvettes sans aide extérieure peut relever du défi.",
       "On pense rarement que les plans en image sont inutilisables avec un lecteur d'écran, que les entrées de chiens guides peuvent poser problème. Des réponses concrètes existent pourtant : bandes de guidage, plans tactiles, signalétique en grands caractères et accompagnateurs disponibles.",
@@ -92,6 +107,11 @@ export const HANDICAPS_DATA: HandicapData[] = [
     id: 'moteur',
     label: 'Moteur',
     image: '/handicaps/chrome/Moteur1.png',
+    practicesTitle: {
+      line1: 'Les bonnes pratiques',
+      line2: 'à adopter pour les',
+      highlight: 'handicaps moteurs',
+    },
     description: [
       'Le handicap moteur regroupe toutes les difficultés liées au mouvement et à la mobilité. En fauteuil roulant, avec des béquilles ou simplement avec une mobilité réduite, un festival peut vite devenir un parcours du combattant.',
       "On pense souvent aux rampes d'accès, mais on oublie les sols en gravier, les files d'attente debout, les comptoirs trop hauts, ou l'absence de visibilité sur scène pour une personne assise. Des solutions existent pour chaque étape du parcours.",
@@ -133,6 +153,11 @@ export const HANDICAPS_DATA: HandicapData[] = [
     id: 'cognitif',
     label: 'Cognitif',
     image: '/handicaps/chrome/Mental1.png',
+    practicesTitle: {
+      line1: 'Les bonnes pratiques',
+      line2: 'à adopter pour les',
+      highlight: 'handicaps cognitifs',
+    },
     description: [
       "Le handicap cognitif recouvre les difficultés de compréhension, de mémorisation ou de traitement de l'information, comme dans le cas de l'autisme, de la trisomie ou des troubles DYS.",
       "L'environnement festival concentre tout ce qui peut être difficile : foule, bruit permanent, lumières stroboscopiques, imprévus, signalétique confuse. Ne pas savoir à quoi s'attendre peut suffire à empêcher quelqu'un de venir.",
@@ -170,6 +195,11 @@ export const HANDICAPS_DATA: HandicapData[] = [
     id: 'invisible',
     label: 'Invisible',
     image: '/handicaps/chrome/Invisible1.png',
+    practicesTitle: {
+      line1: 'Les bonnes pratiques',
+      line2: 'à adopter pour les',
+      highlight: 'handicaps invisibles',
+    },
     description: [
       'Le handicap psychique regroupe les troubles durables de la santé mentale — anxiété sévère, troubles bipolaires, schizophrénie, dépression profonde. Il est souvent invisible, ce qui le rend particulièrement mal compris.',
       'Sur un festival, les défis sont nombreux : foule imprévisible, impossibilité de partir rapidement, agents de sécurité peu formés, honte de se justifier sans handicap visible. Des aménagements simples changent pourtant beaucoup de choses.',

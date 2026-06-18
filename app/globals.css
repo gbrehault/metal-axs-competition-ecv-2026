@@ -163,3 +163,10 @@ h4 {
 h5 {
   font-size: var(--font-size-h5);
 }
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
