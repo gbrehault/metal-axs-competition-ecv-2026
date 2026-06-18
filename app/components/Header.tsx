@@ -105,11 +105,6 @@ function MobileDrawer({
             onClick={onClose}
           />
         ))}
-        <li className="mt-2">
-          <Button href="/mise-a-niveau" variant="primary" onClick={onClose}>
-            RÉALISER UNE MISE À NIVEAU
-          </Button>
-        </li>
       </ul>
     </div>
   );
@@ -179,17 +174,19 @@ export default function Header() {
               </ul>
             </div>
 
-            <Button
-              href="/mise-a-niveau"
-              variant="primary"
-              className="justify-center"
-              onClick={() => {
-                setOpen(false);
-                setIsPopupOpen(true);
-              }}
-            >
-              Réaliser une mise à niveau
-            </Button>
+            <div className="hidden md:block">
+              <Button
+                href="/mise-a-niveau"
+                variant="primary"
+                className="justify-center"
+                onClick={() => {
+                  setOpen(false);
+                  setIsPopupOpen(true);
+                }}
+              >
+                Réaliser une mise à niveau
+              </Button>
+            </div>
 
             <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />
           </nav>
