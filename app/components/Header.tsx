@@ -185,7 +185,6 @@ export default function Header() {
               className="justify-center"
               onClick={() => {
                 setOpen(false);
-
                 setIsPopupOpen(true);
               }}
             >

@@ -1,9 +1,10 @@
 'use client';
 
 import TransitionLink from '@/app/components/ui/TransitionLink';
+import type { MouseEventHandler, ReactNode } from 'react';
 
 type ButtonBaseProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   variant?: 'primary' | 'secondary' | 'outline' | 'disabled';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
@@ -13,13 +14,13 @@ type ButtonBaseProps = {
 type ButtonAsButton = ButtonBaseProps & {
   href?: never;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
 type ButtonAsLink = ButtonBaseProps & {
   href: string;
   disabled?: never;
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
 };
 
 type ButtonProps = ButtonAsButton | ButtonAsLink;
@@ -71,16 +72,15 @@ function Arrow({ size = 'sm', variant = 'primary' }: { size?: string; variant?: 
   );
 }
 
-export default function Button({
-  children,
-  variant = 'primary',
-  size = 'sm',
-  className = '',
-  href,
-  disabled,
-  'aria-disabled': ariaDisabled,
-  onClick,
-}: ButtonProps) {
+export default function Button(props: ButtonProps) {
+  const {
+    children,
+    variant = 'primary',
+    size = 'sm',
+    className = '',
+    'aria-disabled': ariaDisabled,
+  } = props;
+
   const inner = (
     <>
       <span className={`${textVariants[variant]} ${sizeText[size]}`}>{children}</span>
@@ -88,7 +88,9 @@ export default function Button({
     </>
   );
 
-  if (href) {
+  if (typeof props.href === 'string') {
+    const { href, onClick } = props as ButtonAsLink;
+
     return (
       <TransitionLink href={href} className={`${wrapperBase} ${className}`} onClick={onClick}>
         {inner}
@@ -96,8 +98,11 @@ export default function Button({
     );
   }
 
+  const { disabled, onClick } = props as ButtonAsButton;
+
   return (
     <button
+      type="button"
       className={`${wrapperBase} ${className}`}
       disabled={disabled}
       aria-disabled={ariaDisabled ?? disabled}
