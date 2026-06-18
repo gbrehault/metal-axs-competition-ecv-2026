@@ -93,7 +93,7 @@ export default function ProfilsSection() {
   return (
     <section
       aria-labelledby="profils-titre"
-      className="noise relative w-full min-h-screen bg-[#F5F5F5] flex flex-col overflow-hidden px-4 md:px-16 py-20 pt-36 z-10"
+      className="noise relative w-full min-h-screen bg-tertiary flex flex-col overflow-hidden px-4 md:px-16 py-20 pt-36 z-10"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center z-0">
         <Image

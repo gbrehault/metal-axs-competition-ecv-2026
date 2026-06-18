@@ -14,7 +14,7 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
   const sectionTitle = activeTab === 'besoins' ? 'Leurs besoins' : 'Les aménagements';
 
   return (
-    <div className="bg-[#f2f2f2] min-h-screen pt-36">
+    <div className="bg-bg min-h-screen pt-36">
 
       <div className="px-6 md:px-16 pt-8 pb-4">
         <nav aria-label="Fil d'ariane" className="flex items-center gap-2 text-sm text-secondary/60 font-secondary">

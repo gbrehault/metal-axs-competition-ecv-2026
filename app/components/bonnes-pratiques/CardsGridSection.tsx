@@ -7,13 +7,13 @@ export default function CardsGridSection() {
     <section
       id="recommandations"
       aria-label="Les bonnes pratiques par type de handicap"
-      className="bg-[#f2f2f2] px-6 md:px-16 py-20"
+      className="bg-bg px-6 md:px-16 py-20"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-secondary/10 border border-secondary/10">
         {BONNES_PRATIQUES_CARDS.map((card) => (
           <article
             key={card.id}
-            className="bg-[#f2f2f2] p-6 md:p-8 flex flex-col gap-4 md:gap-5"
+            className="bg-bg p-6 md:p-8 flex flex-col gap-4 md:gap-5"
           >
             {/* Icon */}
             <div aria-hidden="true" className="w-20 h-20 md:w-24 md:h-24">
