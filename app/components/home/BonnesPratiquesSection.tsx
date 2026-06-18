@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import Image from 'next/image';
 import TransitionLink from '@/app/components/ui/TransitionLink';
 import Button from '@/app/components/ui/Button';
-import CardFond from '@/app/assets/Card-fond.png';
+import CardFond from '@/app/assets/Card.png';
 import statsImg from '@/app/assets/homepage/Desktop - 16.jpg';
 import { HANDICAP_CARDS_BASE } from '@/app/data/handicaps/cardsData';
 

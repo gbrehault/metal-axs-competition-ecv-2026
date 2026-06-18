@@ -194,7 +194,7 @@ export default function Header() {
             <Button
               href="/mise-a-niveau"
               variant="primary"
-              className="justify-center hidden md:block"
+              className="justify-center hidden md:flex"
               size="xs"
               onClick={() => {
                 setOpen(false);
