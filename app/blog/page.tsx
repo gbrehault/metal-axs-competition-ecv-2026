@@ -98,6 +98,9 @@ export default async function ArticlesPage({
 
   return (
     <main className="mx-auto w-full max-w-6xl px-6 pt-36 pb-10">
+      <h1 className="font-primary text-secondary text-[clamp(1.8rem,4vw,3rem)] leading-none mb-8">
+        Blog
+      </h1>
       <FilterTabs
         tabs={FILTERS}
         active={filter}
