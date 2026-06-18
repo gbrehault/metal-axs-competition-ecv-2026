@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import Image from 'next/image';
 import Logo from '@/app/assets/logo_metal_axs_2026.png';
 
 export default function HomeLoader() {
@@ -85,34 +84,12 @@ export default function HomeLoader() {
       role="status"
       aria-live="polite"
       aria-label="Chargement de la page d'accueil"
-      className="fixed inset-0 z-1000 flex items-center justify-center overflow-hidden bg-secondary"
+      className="fixed inset-0 z-1000 flex items-center justify-center overflow-hidden bg-[#1D1D1D]"
     >
-      <div
-        className="absolute inset-0 opacity-80"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 30%, rgba(238, 75, 0, 0.35) 0%, rgba(238, 75, 0, 0.08) 28%, rgba(22, 23, 23, 0) 62%)',
-        }}
-      />
-      <div
-        ref={glowRef}
-        className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(238, 75, 0, 0.55) 0%, rgba(238, 75, 0, 0.16) 48%, rgba(238, 75, 0, 0) 72%)',
-        }}
-      />
-
+      <div className="relative bg-[#1D1D1D]" />
       <div className="relative z-10 flex w-full max-w-xl flex-col items-center gap-5 px-6 text-center text-tertiary">
         <div ref={logoRef}>
-          <Image
-            src={Logo}
-            alt="Logo Metal AXS"
-            width={140}
-            height={140}
-            priority
-            style={{ width: '140px', height: 'auto' }}
-          />
+          <video src="/METAL_AXS_LOADER_2.mp4" autoPlay muted loop className="w-50 h-auto" />
         </div>
         <div className="mt-2 w-full max-w-xs overflow-hidden rounded-full">
           <div className="h-2 rounded-full">

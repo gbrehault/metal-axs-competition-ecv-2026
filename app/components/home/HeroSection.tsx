@@ -166,7 +166,7 @@ export default function HeroSection() {
 
           <div className="mt-8 flex z-10000 flex-wrap items-center gap-3">
             <Button href="/faire-un-audit" variant="secondary" size="lg">
-              → RÉALISER UN AUDIT
+              Réaliser une mise à niveau
             </Button>
           </div>
         </div>
