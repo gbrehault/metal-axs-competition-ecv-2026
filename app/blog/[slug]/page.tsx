@@ -145,172 +145,183 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     })
     .slice(0, POSTS_CARD);
 
-  const title = post.title;
-  const title1 = 'title1';
-  const title2 = 'title2';
-  const title3 = 'title3';
-  const date = post.date;
-  const introductionHtml = post.article?.texteIntroduction?.trim();
-  const section1Html = post.article?.texteSection1?.trim();
-  const section2Html = post.article?.texteSection2?.trim();
-  const section3Html = post.article?.texteSection3?.trim();
-  const title1Html = post.article?.titreSection1?.trim();
-  const title2Html = post.article?.titreSection2?.trim();
-  const title3Html = post.article?.titreSection3?.trim();
-  const imagesSection1 = post.article?.imagesSection1?.node;
-  const imagesSection2 = post.article?.imagesSection2?.node;
-  const imagesSection3 = post.article?.imagesSection3?.node;
+  const { title, date, article } = post;
+  const heroSrc = article?.imageDeMiseEnAvant?.node?.sourceUrl;
+  const heroAlt = article?.imageDeMiseEnAvant?.node?.altText ?? title;
+  const introductionHtml = article?.texteIntroduction?.trim();
+  const section1Html = article?.texteSection1?.trim();
+  const section2Html = article?.texteSection2?.trim();
+  const section3Html = article?.texteSection3?.trim();
+  const title1Html = article?.titreSection1?.trim();
+  const title2Html = article?.titreSection2?.trim();
+  const title3Html = article?.titreSection3?.trim();
+  const imagesSection1 = article?.imagesSection1?.node;
+  const imagesSection2 = article?.imagesSection2?.node;
+  const imagesSection3 = article?.imagesSection3?.node;
+
+  const tocLinks = [
+    { id: 'title1', label: title1Html },
+    { id: 'title2', label: title2Html },
+    { id: 'title3', label: title3Html },
+  ].filter((t) => t.label);
 
   return (
-    <section className="z-10 h-full w-full flex flex-col items-center justify-start gap-6 px-3 pt-30 md:px-6">
-      {/* Articles Header Hero */}
+    <main className="w-full">
 
-      <div className="w-full h-auto flex items-start justify-center bg-tertiary p-8">
-        <div className="h-auto w-1/2 flex flex-col items-stretch justify-between pt-10 gap-8">
-          <div className="mb-3 flex items-center gap-2 text-base">
-            <Link href="/blog" className="text-secondary/60 transition-colors hover:text-primary">
-              Blog
-            </Link>
-            <span className="text-secondary/30">/</span>
-            <span className="text-secondary/60">{title}</span>
+      {/* Hero */}
+      <div className="w-full bg-tertiary px-6 md:px-16 pt-28 md:pt-36 pb-0">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-end">
+
+          <div className="flex flex-col gap-4 pb-0 md:pb-12">
+            <nav aria-label="Fil d'ariane" className="flex items-center gap-2 text-sm text-secondary/60 font-secondary">
+              <Link href="/blog" className="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
+                Blog
+              </Link>
+              <span aria-hidden="true">/</span>
+              <span className="text-secondary/80 truncate" aria-current="page">{title}</span>
+            </nav>
+
+            <div className="flex flex-col gap-2">
+              <p className="text-sm font-secondary text-secondary/60">{formatDate(date)}</p>
+              <h1 className="font-primary text-secondary leading-snug text-[clamp(1.8rem,4vw,3rem)]">
+                {title}
+              </h1>
+            </div>
           </div>
-          <div>
-            <p className="text-sm text-secondary/60 pb-2">{formatDate(date)}</p>
-            <h2 className="mb-4 text-4xl font-regular font-primary text-secondary leading-snug">
-              {title}
-            </h2>
-          </div>
-        </div>
-        <div className="w-1/2 h-full flex flex-col items-center justify-center">
-          <Image
-            src={post.article?.imageDeMiseEnAvant?.node?.sourceUrl ?? ''}
-            alt={post.article?.imageDeMiseEnAvant?.node?.altText ?? title}
-            width={800}
-            height={500}
-            className="h-full w-full object-cover"
-          />
+
+          {heroSrc && (
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <Image
+                src={heroSrc}
+                alt={heroAlt}
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Articles textes */}
+      {/* Contenu */}
+      <div className="w-full bg-tertiary px-6 md:px-16 py-10 md:py-16">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[260px_1fr] gap-10 md:gap-20 items-start">
 
-      <div className="w-full h-auto flex items-start justify-center bg-tertiary gap-24 p-8">
-        <div className="relative self-stretch w-1/2 pt-10">
-          <div className="sticky top-30 flex h-fit flex-col items-start justify-start gap-4">
-            <h3 className="font-bold">Dans cet article</h3>
-            <div className="bg-bg h-0.5 w-full mt-4 mb-4"></div>
-            <div className="flex flex-col gap-2">
-              <div>
-                <Link
-                  href={`#${title1}`}
-                  className="text-secondary/60 transition-colors hover:text-primary"
-                >
-                  {post.article?.titreSection1}
-                </Link>
+          {/* Table des matières — masquée sur mobile */}
+          {tocLinks.length > 0 && (
+            <aside className="hidden md:block" aria-label="Table des matières">
+              <div className="sticky top-28 flex flex-col gap-4">
+                <p className="font-bold font-primary text-secondary">Dans cet article</p>
+                <div className="h-px w-full bg-secondary/10" />
+                <nav aria-label="Sections de l'article" className="flex flex-col gap-2">
+                  {tocLinks.map(({ id, label }) => (
+                    <Link
+                      key={id}
+                      href={`#${id}`}
+                      className="font-secondary text-secondary/60 hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </nav>
               </div>
-              <div>
-                <Link
-                  href={`#${title2}`}
-                  className="text-secondary/60 transition-colors hover:text-primary"
-                >
-                  {post.article?.titreSection2}
-                </Link>
-              </div>
-              <div>
-                <Link
-                  href={`#${title3}`}
-                  className="text-secondary/60 transition-colors hover:text-primary"
-                >
-                  {post.article?.titreSection3}
-                </Link>
-              </div>
+            </aside>
+          )}
+
+          {/* Contenu article */}
+          <article className="flex flex-col gap-8 min-w-0">
+            {introductionHtml && (
+              <div
+                className="gutenberg-content prose max-w-none text-secondary"
+                dangerouslySetInnerHTML={{ __html: introductionHtml }}
+              />
+            )}
+
+            {imagesSection1?.sourceUrl && (
+              <Image
+                src={imagesSection1.sourceUrl}
+                alt={imagesSection1.altText ?? ''}
+                width={800}
+                height={500}
+                className="h-auto w-full object-cover"
+              />
+            )}
+
+            {title1Html && (
+              <h2 className="font-primary text-2xl font-normal text-secondary" id="title1">
+                {title1Html}
+              </h2>
+            )}
+            {section1Html && (
+              <div
+                className="gutenberg-content prose max-w-none text-secondary"
+                dangerouslySetInnerHTML={{ __html: section1Html }}
+              />
+            )}
+
+            {imagesSection2?.sourceUrl && (
+              <Image
+                src={imagesSection2.sourceUrl}
+                alt={imagesSection2.altText ?? ''}
+                width={800}
+                height={500}
+                className="h-auto w-full object-cover"
+              />
+            )}
+
+            {title2Html && (
+              <h2 className="font-primary text-2xl font-normal text-secondary" id="title2">
+                {title2Html}
+              </h2>
+            )}
+            {section2Html && (
+              <div
+                className="gutenberg-content prose max-w-none text-secondary"
+                dangerouslySetInnerHTML={{ __html: section2Html }}
+              />
+            )}
+
+            {imagesSection3?.sourceUrl && (
+              <Image
+                src={imagesSection3.sourceUrl}
+                alt={imagesSection3.altText ?? ''}
+                width={800}
+                height={500}
+                className="h-auto w-full object-cover"
+              />
+            )}
+
+            {title3Html && (
+              <h2 className="font-primary text-2xl font-normal text-secondary" id="title3">
+                {title3Html}
+              </h2>
+            )}
+            {section3Html && (
+              <div
+                className="gutenberg-content prose max-w-none text-secondary"
+                dangerouslySetInnerHTML={{ __html: section3Html }}
+              />
+            )}
+          </article>
+        </div>
+      </div>
+
+      {/* Articles liés */}
+      {postsCards.length > 0 && (
+        <div className="w-full bg-tertiary px-6 md:px-16 pb-16 pt-8 border-t border-secondary/10">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="font-primary text-2xl font-normal text-secondary mb-8">
+              Nos autres articles
+            </h2>
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
+              {postsCards.map((cardPost) => (
+                <ArticleCard key={cardPost.id} post={cardPost} />
+              ))}
             </div>
           </div>
         </div>
-        <div className="w-1/1 h-full flex flex-col items-start justify-center gap-6">
-          {introductionHtml ? (
-            <div
-              className="gutenberg-content prose max-w-none text-secondary"
-              dangerouslySetInnerHTML={{ __html: introductionHtml }}
-            />
-          ) : null}
-          {imagesSection1 ? (
-            <Image
-              src={imagesSection1.sourceUrl ?? ''}
-              alt={imagesSection1.altText ?? ''}
-              width={800}
-              height={500}
-              className="h-auto w-full object-cover"
-            />
-          ) : null}
-          {title1Html ? (
-            <h3 className="text-2xl font-regular mb-4" id="title1">
-              {title1Html}
-            </h3>
-          ) : null}
-          {section1Html ? (
-            <div
-              className="gutenberg-content prose max-w-none text-secondary p-small"
-              dangerouslySetInnerHTML={{ __html: section1Html }}
-            />
-          ) : null}
-          {imagesSection2 ? (
-            <Image
-              src={imagesSection2.sourceUrl ?? ''}
-              alt={imagesSection2.altText ?? ''}
-              width={800}
-              height={500}
-              className="h-auto w-full object-cover"
-            />
-          ) : null}
-          {title2Html ? (
-            <h3 className="text-2xl font-regular mb-4" id="title2">
-              {title2Html}
-            </h3>
-          ) : null}
-          {section2Html ? (
-            <div
-              className="gutenberg-content prose max-w-none text-secondary p-small"
-              dangerouslySetInnerHTML={{ __html: section2Html }}
-            />
-          ) : null}
-          {imagesSection3 ? (
-            <Image
-              src={imagesSection3.sourceUrl ?? ''}
-              alt={imagesSection3.altText ?? ''}
-              width={800}
-              height={500}
-              className="h-auto w-full object-cover"
-            />
-          ) : null}
-          {title3Html ? (
-            <h3 className="text-2xl font-regular mb-4" id="title3">
-              {title3Html}
-            </h3>
-          ) : null}
-          {section3Html ? (
-            <div
-              className="gutenberg-content prose max-w-none text-secondary p-small  "
-              dangerouslySetInnerHTML={{ __html: section3Html }}
-            />
-          ) : null}
-        </div>
-      </div>
-      {/* Articles Grid all */}
-
-      {postsCards.length ? (
-        <div className="w-full bg-tertiary px-8 pb-12 pt-4">
-          <div className="mb-8 flex flex-col gap-3 pt-8">
-            <h2 className="text-2xl font-regular text-secondary">Nos autres articles</h2>
-          </div>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {postsCards.map((cardPost) => (
-              <ArticleCard key={cardPost.id} post={cardPost} />
-            ))}
-          </div>
-        </div>
-      ) : null}
-    </section>
+      )}
+    </main>
   );
 }
