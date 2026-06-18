@@ -5,6 +5,7 @@ import ArticleCard, { type PostWithCategories } from '@/app/components/blog/Arti
 import FilterTabs from '@/app/components/blog/FilterTabs';
 import Pagination from '@/app/components/blog/Pagination';
 import BlogHeroSection from '@/app/components/blog/HeroSection';
+import FooterLight from '@/app/components/FooterLight';
 
 const GET_POSTS = gql`
   query GetPosts {
@@ -121,6 +122,7 @@ export default async function ArticlesPage({
         />
       )}
     </main>
+    <FooterLight />
     </>
   );
 }

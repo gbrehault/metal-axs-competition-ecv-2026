@@ -6,6 +6,7 @@ import { connection } from 'next/server';
 import { getApolloClient } from '@/app/lib/apolloClient';
 import { formatDate } from '@/app/lib/utils';
 import ArticleCard, { type PostWithCategories } from '@/app/components/blog/ArticleCard';
+import FooterLight from '@/app/components/FooterLight';
 
 type ArticleImage = {
   node?: {
@@ -166,6 +167,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   ].filter((t) => t.label);
 
   return (
+    <>
     <main className="w-full">
 
       {/* Hero */}
@@ -323,5 +325,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </div>
       )}
     </main>
+    <FooterLight />
+    </>
   );
 }
