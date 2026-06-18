@@ -34,17 +34,16 @@
 }
 
 @theme {
-  --color-primary: #D7541A;
+  --color-primary: #d7541a;
   --color-secondary: #161717;
   --color-tertiary: #f3f6f7;
   --color-bg: #ededed;
 
-  --font-size-h1: clamp(40px, 7.2vw, 104px);
+  --font-size-h1: clamp(40px, 7.2vw, 70px);
   --font-size-h2: clamp(28px, 4.4vw, 64px);
   --font-size-h3: clamp(22px, 2.8vw, 40px);
   --font-size-h4: clamp(20px, 2.2vw, 32px);
   --font-size-h5: clamp(18px, 1.7vw, 24px);
-
 }
 
 :root {
@@ -69,8 +68,6 @@
   --tw-prose-code: var(--color-secondary);
 }
 
-
-
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -78,6 +75,14 @@
   100% {
     transform: translateX(-25%);
   }
+}
+
+.title-home {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  font-size: 104px;
 }
 
 .noise {
@@ -138,4 +143,3 @@ h4 {
 h5 {
   font-size: var(--font-size-h5);
 }
-
