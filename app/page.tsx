@@ -31,7 +31,6 @@ export default function Home() {
         {/* <div className="relative flex h-100 md:h-screen w-full items-center justify-center overflow-hidden px-6 py-20 md:px-16"></div> */}
         <Footer />
         <InteractiveShape />
-
       </section>
     </>
   );
