@@ -158,7 +158,7 @@ export default function HeaderV2() {
 
           <div className="bg-tertiary px-6 py-3">
             <Button
-              href="/faire-un-audit"
+              href="/mise-a-niveau"
               variant="primary"
               className="w-full justify-center"
               onClick={(e) => {
@@ -217,7 +217,7 @@ export default function HeaderV2() {
                 futurs festivaliers au sein de votre évènement.
               </h5>
               <Button
-                href="/faire-un-audit"
+                href="/mise-a-niveau"
                 variant="primary"
                 className="w-full font-light justify-center"
               >
