@@ -155,7 +155,7 @@ export default function HandicapSection() {
 
     return (
       <section
-        className="bg-secondary noise relative min-h-screen flex flex-col px-6 py-12 gap-8"
+        className="bg-secondary noise relative min-h-screen z-1000 flex flex-col px-6 py-12 gap-8"
         aria-labelledby="handicap-title-mobile"
       >
         <div
@@ -263,7 +263,7 @@ export default function HandicapSection() {
 
   // ─── Desktop pinned scroll ─────────────────────────────────────────────────
   return (
-    <div ref={outerRef} className="w-full min-h-screen -mt-4">
+    <div ref={outerRef} className="relative w-full min-h-screen z-10000 -mt-4">
       <div
         ref={innerRef}
         className="sticky top-0 h-screen w-full bg-secondary  overflow-hidden flex flex-col"
