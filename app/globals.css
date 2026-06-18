@@ -129,6 +129,10 @@
   font-family: var(--font-primary);
 }
 
+.font-secondary {
+  font-family: var(--font-secondary);
+}
+
 html {
   min-height: 100%;
 }
