@@ -103,23 +103,21 @@ export default function HandicapSection() {
 
     return (
       <section
-        className="bg-secondary noise relative min-h-screen z-1000 flex flex-col px-6 py-12 gap-8"
+        className="bg-secondary noise relative min-h-screen z-80 flex flex-col overflow-hidden px-6 py-12 gap-8"
         aria-labelledby="handicap-title-mobile"
       >
-        <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          aria-hidden="true"
-        >
-          <Image src={LogoHero} alt="" className="w-auto h-auto scale-150" />
+        <div aria-hidden className="absolute inset-0 z-0">
+          <Image src={srcImage} alt="" fill className="object-cover object-center" sizes="100vw" />
+          <div className="absolute inset-0 bg-secondary/75" />
         </div>
 
-        <h2 id="handicap-title-mobile" className="relative text-white text-2xl leading-snug">
+        <h2 id="handicap-title-mobile" className="relative z-10 text-white text-2xl leading-snug">
           Voici les cinq profils que nous prenons en compte dans notre démarche.
         </h2>
 
         {/* Icon frame */}
-        <div className="relative flex justify-center" aria-hidden="true">
-          <div className="border border-white w-48 h-48 flex items-center justify-center p-5">
+        <div className="relative z-10 flex justify-center" aria-hidden="true">
+          <div className="w-48 h-48 flex items-center justify-center p-5">
             <Image
               src={profile.image}
               alt={profile.title}
@@ -131,9 +129,9 @@ export default function HandicapSection() {
         </div>
 
         {/* Content */}
-        <div className="relative flex-1 flex flex-col justify-between">
+        <div className="relative z-10 flex-1 flex flex-col justify-between">
           <div aria-live="polite" aria-atomic="true">
-            <h3 className="inline-block bg-white px-2 py-1 text-primary text-xl uppercase font-bold mb-3">
+            <h3 className="inline-block px-2 py-1 text-tertiary text-xl uppercase font-bold mb-3">
               {profile.title}
             </h3>
             <p className="text-white/60 text-base leading-relaxed">{profile.description}</p>
@@ -199,10 +197,7 @@ export default function HandicapSection() {
 
           {/* CTAs */}
           <div className="flex flex-col gap-3 items-start">
-            <Button variant="outline" href={`/handicaps#handicap-${profile.id}`}>
-              CONSULTER L&apos;HANDICAP {profile.id.toUpperCase()}
-            </Button>
-            <Button variant="outline" href="/handicaps">
+            <Button variant="primary" href="/handicaps">
               CONSULTER LES 5 HANDICAPS
             </Button>
           </div>
@@ -218,12 +213,6 @@ export default function HandicapSection() {
         ref={innerRef}
         className="sticky z-100 top-0 h-screen w-full   overflow-hidden flex flex-col"
       >
-        <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          aria-hidden="true"
-        >
-          <Image src={LogoHero} alt="" className="w-auto h-auto scale-150  opacity-20" />
-        </div>
         {/* Section title */}
         <div className="px-8 xl:px-16 pt-20 xl:pt-36 flex-shrink-0">
           <h3 id="handicap-title-desktop" className="text-white max-w-2/3 leading-snug">
@@ -328,7 +317,7 @@ export default function HandicapSection() {
       <div>
         <Image
           src={srcImage}
-          className="absolute inset-0 z w-full h-full object-cover object-center"
+          className="absolute inset-0 w-full h-full object-cover object-center"
           alt=""
         />
       </div>

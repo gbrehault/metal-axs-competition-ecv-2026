@@ -21,7 +21,7 @@ export const HANDICAP_PROFILES: HandicapProfile[] = [
     title: 'Visuel',
     description:
       "Une perte partielle ou totale de la vision, qu'il s'agisse de malvoyance légère ou de cécité complète, impactant la lecture, l'orientation et la navigation.",
-    image: '/handicaps/chrome/Visuel1.svg',
+    image: '/handicaps/chrome/Visuel1.png',
   },
   {
     id: 'auditif',

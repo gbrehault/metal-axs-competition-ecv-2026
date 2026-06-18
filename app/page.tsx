@@ -15,7 +15,7 @@ export default function Home() {
           id="section3"
           className="relative flex min-h-screen w-1/1 items-center justify-center overflow-hidden -mt-190 md:-mt-204 px-6 py-20 md:px-16"
         >
-          <div className="relative z-10 mx-auto flex w-full flex-col items-center gap-8 p-30 text-center">
+          <div className="relative z-10 mx-auto flex w-full flex-col items-center gap-8 p-5 text-center">
             <h2 className="font-primary text-2xl leading-tight text-start text-tertiary md:text-5xl">
               “Chaque année, de nouveaux festivals émergent, mais l’accessibilité reste souvent
               négligée.”
