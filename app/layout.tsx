@@ -28,6 +28,7 @@ export default function RootLayout({
         <PageTransitionProvider>
           <Header />
           <div className="">{children}</div>
+         
         </PageTransitionProvider>
       </body>
     </html>
