@@ -65,7 +65,7 @@ function Hamburger({ open, onToggle }: { open: boolean; onToggle: () => void }) 
   return (
     <button
       onClick={onToggle}
-      className="md:hidden flex flex-col justify-center gap-[5px] w-8 h-8"
+      className="md:hidden flex flex-col justify-center items-center gap-[5px] w-8 h-8"
       aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
       aria-expanded={open}
     >
