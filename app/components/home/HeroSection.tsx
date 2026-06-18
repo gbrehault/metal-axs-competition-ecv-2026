@@ -147,7 +147,7 @@ export default function HeroSection() {
 
         <div
           ref={contentRef}
-          className="relative z-100 flex w-full flex-col items-start px-6 pt-28 md:ml-auto md:max-w-screen-2xl md:w-fit md:px-24 md:pt-56"
+          className="relative z-100 flex w-full flex-col items-start px-6 pt-28 md:ml-auto md:max-w-screen-2xl md:w-fit md:px-24 md:pt-36"
         >
           <h1 className="font-primary text-[clamp(2.5rem,8vw,6rem)] text-secondary flex flex-col gap-2 leading-none">
             <span className="block leading-none">
@@ -165,9 +165,7 @@ export default function HeroSection() {
           </h1>
 
           <div className="mt-8 flex z-10000 flex-wrap items-center gap-3">
-            <Button variant="disabled" size="lg" disabled>
-              CTA 2
-            </Button>
+        
             <Button href="/faire-un-audit" variant="secondary" size="lg">
               → RÉALISER UN AUDIT
             </Button>

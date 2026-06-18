@@ -3,6 +3,7 @@ import { Geist_Mono } from 'next/font/google';
 import './globals.css';
 // import Header from "@/app/components/Header"; // ancienne nav conservée
 import Header from '@/app/components/HeaderV2';
+import Footer from '@/app/components/Footer';
 import { PageTransitionProvider } from '@/app/components/ui/PageTransition';
 
 const geistMono = Geist_Mono({
@@ -27,6 +28,7 @@ export default function RootLayout({
         <PageTransitionProvider>
           <Header />
           <div className="">{children}</div>
+          <Footer />
         </PageTransitionProvider>
       </body>
     </html>

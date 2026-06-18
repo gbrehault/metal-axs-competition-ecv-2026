@@ -167,7 +167,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
       <div className="w-full h-auto flex items-start justify-center bg-tertiary p-8">
         <div className="h-auto w-1/2 flex flex-col items-stretch justify-between pt-10 gap-8">
-          <div className="mb-3 flex items-center gap-2 text-sm">
+          <div className="mb-3 flex items-center gap-2 text-base">
             <Link href="/blog" className="text-secondary/60 transition-colors hover:text-primary">
               Blog
             </Link>
@@ -176,9 +176,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
           <div>
             <p className="text-sm text-secondary/60 pb-2">{formatDate(date)}</p>
-            <h1 className="mb-4 text-4xl font-regular font-primary text-secondary leading-snug">
+            <h2 className="mb-4 text-4xl font-regular font-primary text-secondary leading-snug">
               {title}
-            </h1>
+            </h2>
           </div>
         </div>
         <div className="w-1/2 h-full flex flex-col items-center justify-center">
@@ -244,13 +244,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             />
           ) : null}
           {title1Html ? (
-            <h2 className="text-2xl font-regular mb-4" id="title1">
+            <h3 className="text-2xl font-regular mb-4" id="title1">
               {title1Html}
-            </h2>
+            </h3>
           ) : null}
           {section1Html ? (
             <div
-              className="gutenberg-content prose max-w-none text-secondary"
+              className="gutenberg-content prose max-w-none text-secondary p-small"
               dangerouslySetInnerHTML={{ __html: section1Html }}
             />
           ) : null}
@@ -264,13 +264,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             />
           ) : null}
           {title2Html ? (
-            <h2 className="text-2xl font-regular mb-4" id="title2">
+            <h3 className="text-2xl font-regular mb-4" id="title2">
               {title2Html}
-            </h2>
+            </h3>
           ) : null}
           {section2Html ? (
             <div
-              className="gutenberg-content prose max-w-none text-secondary"
+              className="gutenberg-content prose max-w-none text-secondary p-small"
               dangerouslySetInnerHTML={{ __html: section2Html }}
             />
           ) : null}
@@ -284,13 +284,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             />
           ) : null}
           {title3Html ? (
-            <h2 className="text-2xl font-regular mb-4" id="title3">
+            <h3 className="text-2xl font-regular mb-4" id="title3">
               {title3Html}
-            </h2>
+            </h3>
           ) : null}
           {section3Html ? (
             <div
-              className="gutenberg-content prose max-w-none text-secondary"
+              className="gutenberg-content prose max-w-none text-secondary p-small  "
               dangerouslySetInnerHTML={{ __html: section3Html }}
             />
           ) : null}
