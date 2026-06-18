@@ -13,7 +13,7 @@ const PROFILES = [
   {
     id: 'moteur',
     nav: 'Handicap moteur',
-    title: 'Handicap Moteur',
+    title: 'Moteur',
     description:
       'Toute difficulté à se déplacer ou à effectuer certains gestes du quotidien, que ce soit en fauteuil roulant ou pour des mouvements plus précis.',
     image: '/handicaps/moteur.svg',
@@ -21,7 +21,7 @@ const PROFILES = [
   {
     id: 'visuel',
     nav: 'Handicap visuel',
-    title: 'Handicap Visuel',
+    title: 'Visuel',
     description:
       "Une perte partielle ou totale de la vision, qu'il s'agisse de malvoyance légère ou de cécité complète, impactant la lecture, l'orientation et la navigation.",
     image: '/handicaps/visuel.svg',
@@ -29,7 +29,7 @@ const PROFILES = [
   {
     id: 'auditif',
     nav: 'Handicap auditif',
-    title: 'Handicap Auditif',
+    title: 'Auditif',
     description:
       "Une perte d'audition partielle ou totale, de la surdité légère à profonde, nécessitant des adaptations pour l'accès à l'information sonore.",
     image: '/handicaps/auditif.svg',
@@ -37,7 +37,7 @@ const PROFILES = [
   {
     id: 'cognitif',
     nav: 'Handicap cognitif/mental',
-    title: 'Handicap Cognitif / Mental',
+    title: 'Cognitif / Mental',
     description:
       'Des troubles affectant les fonctions cognitives : mémoire, concentration, compréhension, incluant les troubles DYS, TDAH, trisomie ou déficience intellectuelle.',
     image: '/handicaps/cognitif.svg',
@@ -45,7 +45,7 @@ const PROFILES = [
   {
     id: 'invisible',
     nav: 'Handicaps invisibles / troubles psychiques',
-    title: 'Handicaps Invisibles',
+    title: 'Invisibles',
     description:
       'Des maladies chroniques, troubles psychiques ou douleurs qui ne se voient pas mais impactent profondément le quotidien : épilepsie, troubles anxieux, fibromyalgie.',
     image: '/handicaps/Invisible-psychique.svg',
@@ -59,20 +59,11 @@ export default function HandicapSection() {
   const iconRefs = useRef<(HTMLDivElement | null)[]>([]);
   const entranceEls = useRef<(HTMLElement | null)[]>([]);
   const activeIndexRef = useRef(0);
-  const stRef = useRef<ScrollTrigger | null>(null);
-  const pinStartRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  const scrollToProfile = (index: number) => {
-    const totalDistance = PROFILES.length * window.innerHeight * 0.1;
-    const segmentSize = totalDistance / PROFILES.length;
-    const target = pinStartRef.current + index * segmentSize + segmentSize * 0.5;
-    window.scrollTo({ top: target, behavior: 'smooth' });
-  };
-
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -82,15 +73,12 @@ export default function HandicapSection() {
     if (isMobile) return;
 
     const ctx = gsap.context(() => {
-      stRef.current = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: innerRef.current,
         start: 'top top',
         end: `+=${PROFILES.length * window.innerHeight * 0.1}`,
         pin: true,
         pinSpacing: true,
-        onRefresh: (self) => {
-          pinStartRef.current = self.start;
-        },
         onUpdate: (self) => {
           const idx = Math.min(Math.floor(self.progress * PROFILES.length), PROFILES.length - 1);
           if (idx !== activeIndexRef.current) {
@@ -99,7 +87,6 @@ export default function HandicapSection() {
           }
         },
       });
-      pinStartRef.current = stRef.current.start;
     });
 
     return () => ctx.revert();
@@ -185,8 +172,8 @@ export default function HandicapSection() {
         {/* Content */}
         <div className="relative flex-1 flex flex-col justify-between">
           <div aria-live="polite" aria-atomic="true">
-            <h3 className="text-white text-xl uppercase font-bold mb-3">{profile.title}</h3>
-            <p className="text-white/60 text-sm leading-relaxed">{profile.description}</p>
+            <h3 className="inline-block bg-white px-2 py-1 text-primary text-xl uppercase font-bold mb-3">{profile.title}</h3>
+            <p className="text-white/60 text-base leading-relaxed">{profile.description}</p>
           </div>
 
           {/* Navigation dots */}
@@ -249,7 +236,7 @@ export default function HandicapSection() {
 
           {/* CTAs */}
           <div className="flex flex-col gap-3 items-start">
-            <Button variant="outline" href={`/handicaps/${profile.id}`}>
+            <Button variant="outline" href={`/handicaps#handicap-${profile.id}`}>
               CONSULTER L&apos;HANDICAP {profile.id.toUpperCase()}
             </Button>
             <Button variant="outline" href="/handicaps">
@@ -275,15 +262,15 @@ export default function HandicapSection() {
           <Image src={LogoHero} alt="" className="w-auto h-auto scale-150  opacity-20" />
         </div>
         {/* Section title */}
-        <div className="px-16 pt-36 flex-shrink-0">
-          <h2 id="handicap-title-desktop" className="text-white text-3xl max-w-xl leading-snug">
+        <div className="px-8 xl:px-16 pt-20 xl:pt-36 flex-shrink-0">
+          <h3 id="handicap-title-desktop" className="text-white max-w-2/3 leading-snug">
             Voici les cinq profils que nous prenons en compte dans notre démarche.
-          </h2>
+          </h3>
         </div>
 
         {/* Main 3-col grid */}
         <div
-          className="flex-1 grid grid-cols-3 gap-8 px-16 pb-16 relative min-h-0"
+          className="flex-1 grid grid-cols-3 gap-4 xl:gap-8 px-8 xl:px-16 pb-8 xl:pb-16 relative min-h-0"
           aria-live="polite"
           aria-atomic="true"
         >
@@ -299,12 +286,21 @@ export default function HandicapSection() {
                 style={{ opacity: i === 0 ? 1 : 0 }}
                 aria-hidden={i !== activeIndex}
               >
-                <h3 className="text-white text-2xl uppercase font-bold mb-4">{p.title}</h3>
-                <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-xs">
+                <h3 className="font-primary  text-secondary uppercase flex flex-col gap-2 leading-none mb-3">
+                  <span className="block leading-none">
+                    <span className="inline-block bg-white px-2 py-1">
+                     Handicap
+                    </span>
+                  </span>
+                  <span className="block leading-none">
+                    <span className="inline-block bg-white text-primary px-2 py-1">{p.title}</span>
+                  </span>
+                </h3>
+                <p className="text-white/60 text-base leading-relaxed mb-8 max-w-xs">
                   {p.description}
                 </p>
                 <div className="flex flex-col gap-3 items-start">
-                  <Button variant="outline" href={`/handicaps/${p.id}`}>
+                  <Button variant="outline" href={`/handicaps#handicap-${p.id}`}>
                     CONSULTER L&apos;HANDICAP {p.id.toUpperCase()}
                   </Button>
                   <Button variant="outline" href="/handicaps">
@@ -318,8 +314,7 @@ export default function HandicapSection() {
           {/* Center: fixed frame + crossfading images */}
           <div className="flex items-center justify-center" aria-hidden="true">
             <div
-              className="border border-white flex items-center justify-center relative"
-              style={{ width: 300, height: 300 }}
+              className="border border-white flex items-center justify-center relative w-[220px] h-[220px] xl:w-[300px] xl:h-[300px]"
             >
               {PROFILES.map((p, i) => (
                 <div
@@ -336,7 +331,7 @@ export default function HandicapSection() {
                     width={300}
                     height={300}
                     className="w-full h-full object-contain"
-                    sizes="300px"
+                    sizes="(max-width: 1279px) 220px, 300px"
                   />
                 </div>
               ))}
@@ -344,13 +339,14 @@ export default function HandicapSection() {
           </div>
 
           {/* Right: vertical navigation */}
-          <nav aria-label="Navigation des profils de handicap">
+          <nav aria-label="Navigation des profils de handicap" className="relative z-50">
             <ul className="flex flex-col justify-center items-end gap-5 h-full list-none">
               {PROFILES.map((p, i) => (
                 <li key={p.id}>
                   <button
-                    onClick={() => scrollToProfile(i)}
-                    aria-label={`Aller au profil : ${p.nav}`}
+                    type="button"
+                    onClick={() => { activeIndexRef.current = i; setActiveIndex(i); }}
+                    aria-label={`Profil : ${p.nav}`}
                     aria-current={i === activeIndex ? 'true' : undefined}
                     className="flex items-center gap-2 transition-opacity duration-300 text-right cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary rounded-sm"
                     style={{ opacity: navOpacity(i) }}
