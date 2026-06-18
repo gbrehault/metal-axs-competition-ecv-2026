@@ -20,7 +20,7 @@ export default function Home() {
               Chaque année, de nouveaux festivals émergent, mais l’accessibilité reste souvent
               négligée.
             </h2>
-            <h2 className="text-2xl leading-relaxed text-tertiary/80 md:text-5xl">
+            <h2 className="text-2xl z-1000 leading-relaxed text-tertiary md:text-5xl">
               Metal Axs accompagne les organisateurs, du site web à l’événement, pour offrir une
               expérience inclusive à tous.
             </h2>

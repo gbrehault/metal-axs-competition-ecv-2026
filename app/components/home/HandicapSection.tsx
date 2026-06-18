@@ -263,7 +263,7 @@ export default function HandicapSection() {
 
   // ─── Desktop pinned scroll ─────────────────────────────────────────────────
   return (
-    <div ref={outerRef} className="relative w-full min-h-screen z-10000 -mt-4">
+    <div ref={outerRef} className="relative w-full min-h-screen z-80 -mt-4">
       <div
         ref={innerRef}
         className="sticky top-0 h-screen w-full bg-secondary  overflow-hidden flex flex-col"
