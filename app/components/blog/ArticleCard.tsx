@@ -36,7 +36,7 @@ export default function ArticleCard({ post }: { post: PostWithCategories }) {
   const category = post.categories?.nodes[0]?.name?.toUpperCase() ?? 'ARTICLE';
 
   return (
-    <Link href={`/blog/${post.slug}`} aria-label={title} className="group flex flex-col gap-3 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
+    <Link href={`/bonnes-pratiques/${post.slug}`} aria-label={title} className="group flex flex-col gap-3 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
       <div className="relative w-full aspect-[4/3] overflow-hidden bg-secondary/10 rounded-2xl">
         <Image
           src={img}
@@ -56,7 +56,7 @@ export default function ArticleCard({ post }: { post: PostWithCategories }) {
           {title}
         </h3>
         {texteIntroduction && (
-          <p className="text-sm text-secondary/40 line-clamp-2 leading-relaxed tracking-wide mt-1">
+          <p className="text-xl text-secondary/40 line-clamp-2 leading-relaxed tracking-wide mt-1">
             {texteIntroduction}
           </p>
         )}

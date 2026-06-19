@@ -210,7 +210,7 @@ export default function HandicapListSection() {
                 </h2>
                 <div className="flex flex-col gap-3">
                   {h.paragraphs.map((p, j) => (
-                    <p key={j} className="text-white/70 text-base leading-relaxed">
+                    <p key={j} className="text-white/70 text-xl leading-relaxed">
                       {p}
                     </p>
                   ))}

@@ -86,14 +86,14 @@ export default function CardsGridSection() {
             {SPECIAL_CARD.description}
           </p>
 
-          <a
+          <Button
             href={SPECIAL_CARD.downloadHref}
             download
-            className="inline-flex items-center justify-center gap-2 bg-primary text-white font-mono font-medium uppercase text-sm px-6 py-3 hover:bg-primary/90 transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+            variant="secondary"
             aria-label={`${SPECIAL_CARD.downloadLabel} le guide d'accessibilité`}
           >
             {SPECIAL_CARD.downloadLabel}
-          </a>
+          </Button>
         </article>
       </div>
 
@@ -105,13 +105,13 @@ export default function CardsGridSection() {
             <br />
             par type de handicap
           </h2>
-          <p className="text-secondary/70 font-secondary text-base leading-relaxed max-w-md">
+          <p className="text-secondary/70 font-secondary text-xl leading-relaxed max-w-md">
             Retrouvez ci-dessous nos exigences et conseils de conception pour rendre les plateformes
             numériques de vos festivals totalement inclusives.
           </p>
           <div className="mt-2">
             <Button href="/mise-a-niveau" variant="primary">
-              Réaliser un audit
+    Introduction à l’accessibilité
             </Button>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import src from '@/app/assets/homepage/section2.jpg';
+import src from '@/app/assets/homepage/fond-section.png';
 import Button from '@/app/components/ui/Button';
 import section1 from '@/app/assets/homepage/Frame_2121318156.jpg';
 
@@ -143,7 +143,7 @@ export default function HeroSection() {
             {
               scale: 1.45,
               xPercent: 0,
-              yPercent: -110,
+              yPercent: -115.5,
               bottom: 10,
               borderRadius: 0,
             },
@@ -255,11 +255,7 @@ export default function HeroSection() {
             </span>
           </h1>
 
-          <div className="mt-8 flex z-10000 flex-wrap items-center gap-3">
-            <Button href="/mise-a-niveau" variant="primary" size="lg">
-              Réaliser un diagnostic
-            </Button>
-          </div>
+          
         </div>
 
         <div

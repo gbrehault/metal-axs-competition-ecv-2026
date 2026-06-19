@@ -1,23 +1,20 @@
 import Image from 'next/image';
 import LogoMetal from '@/app/assets/Logo-Hero.svg';
+import Button from '@/app/components/ui/Button';
 import { RESSOURCES_DATA, type RessourceData } from '@/app/data/ressources/resourcesData';
 
-/* ── Icons d'action ─────────────────────────────────────── */
-
 const DownloadIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
     <path d="M8 2v8M4 7l4 4 4-4M2 13h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
 const ExternalLinkIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
     <path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     <path d="M10 2h4m0 0v4m0-4L8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
-
-/* ── Icônes par ressource ───────────────────────────────── */
 
 const RESOURCE_ICONS: Record<string, React.ReactNode> = {
   'guide-pratique': (
@@ -40,14 +37,11 @@ const RESOURCE_ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
-/* ── Card ───────────────────────────────────────────────── */
-
 function ResourceCard({ resource }: { resource: RessourceData }) {
   const icon = RESOURCE_ICONS[resource.id];
 
   return (
     <article className="flex flex-col">
-      {/* Zone haute — icône + titre */}
       <div className="bg-white border border-secondary/10 p-8 md:p-10 flex flex-col items-center gap-5">
         {icon && (
           <div aria-hidden="true" className="flex items-center justify-center w-24 h-24">
@@ -59,45 +53,40 @@ function ResourceCard({ resource }: { resource: RessourceData }) {
         </h3>
       </div>
 
-      {/* Zone basse — description + actions */}
-      <div className="bg-secondary p-8 md:p-10 flex flex-col items-center gap-6 flex-1">
-        <p className="font-secondary text-white/80 text-sm leading-relaxed text-center max-w-xs">
+      <div className="bg-white border border-secondary/10 border-t-0 p-8 md:p-10 flex flex-col items-center gap-6 flex-1">
+        <p className="font-secondary text-secondary/70 text-lg leading-relaxed text-center max-w-xs">
           {resource.description}
         </p>
         <div className="flex flex-col gap-3 w-full max-w-[220px] mt-auto">
-          <a
+          <Button
             href={resource.downloadHref}
+            download
+            variant="primary"
+            icon={<DownloadIcon />}
             aria-label={`Télécharger ${resource.title}`}
-            className="inline-flex gap-1 items-stretch font-secondary font-semibold uppercase text-sm focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
           >
-            <span className="bg-black text-white px-5 py-3 flex-1 text-center tracking-wide">Télécharger</span>
-            <span aria-hidden="true" className="bg-primary text-black flex items-center justify-center px-4">
-              <DownloadIcon />
-            </span>
-          </a>
-          <a
+            Télécharger
+          </Button>
+          <Button
             href={resource.consultHref}
+            target="_blank"
+            variant="primary"
+            icon={<ExternalLinkIcon />}
             aria-label={`Consulter ${resource.title} en ligne`}
-            className="inline-flex gap-1 items-stretch font-secondary font-semibold uppercase text-sm focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
           >
-            <span className="bg-black text-white px-5 py-3 flex-1 text-center tracking-wide">Consulter</span>
-            <span aria-hidden="true" className="bg-primary text-black flex items-center justify-center px-4">
-              <ExternalLinkIcon />
-            </span>
-          </a>
+            Consulter
+          </Button>
         </div>
       </div>
     </article>
   );
 }
 
-/* ── Section ────────────────────────────────────────────── */
-
 export default function ResourcesSection() {
   return (
     <section
       aria-labelledby="ressources-titre"
-      className="noise relative w-full min-h-screen bg-tertiary flex flex-col overflow-hidden px-4 md:px-16 py-20 pt-36 z-10"
+      className="noise relative w-full min-h-screen bg-white flex flex-col overflow-hidden px-4 md:px-16 py-20 pt-36 z-10"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center z-0">
         <Image src={LogoMetal} alt="" width={900} height={500} />
@@ -107,7 +96,7 @@ export default function ResourcesSection() {
         <h2 id="ressources-titre" className="font-primary text-secondary leading-tight max-w-2xl">
           Toutes les ressources pour passer à l&apos;action.
         </h2>
-        <p className="font-secondary text-secondary/70 text-base leading-relaxed max-w-xl">
+        <p className="font-secondary text-secondary/70 text-xl leading-relaxed max-w-xl">
           Des outils concrets, gratuits et prêts à l&apos;emploi pour vous aider à rendre votre festival accessible à tous.
         </p>
       </div>

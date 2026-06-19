@@ -97,7 +97,7 @@ export default function AuditResultat() {
                   <span className="mb-2 rounded-4xl border border-primary text-primary">
                     <QuestionMarkIcon size={20} />
                   </span>
-                  <h5 className="mb-2 text-lg font-regular text-secondary md:text-xl">
+                  <h5 className="mb-2 text-xl font-regular text-secondary md:text-xl">
                     {question.title}
                   </h5>
                   <p className="text-sm leading-relaxed text-secondary/80 md:text-base">
@@ -160,9 +160,7 @@ export default function AuditResultat() {
                 {activeQuestion.article.title}
               </h4>
 
-              <p className="mb-6 text-base leading-relaxed md:text-lg">
-                {activeQuestion.article.intro}
-              </p>
+              <p className="mb-6 text-lg leading-relaxed">{activeQuestion.article.intro}</p>
 
               {activeQuestion.article.sections.map((section) => (
                 <div key={section.title} className="mb-6">
@@ -170,7 +168,7 @@ export default function AuditResultat() {
                     {section.title}
                   </h4>
 
-                  <p className="text-base leading-relaxed md:text-lg">{section.content}</p>
+                  <p className="text-lg leading-relaxed">{section.content}</p>
                 </div>
               ))}
             </div>

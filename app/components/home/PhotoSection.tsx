@@ -13,7 +13,7 @@ export default function PhotoSection() {
       />
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <p className="w-2/3 text-white text-sm md:text-lg font-primary leading-tight">
+        <p className="w-2/3 text-white text-sm md:text-xl font-primary leading-tight">
           De plus en plus de festivals voient le jour chaque année, mais l&apos;accessibilité
           pour les personnes en situation de handicap reste encore trop souvent oubliée.
           [Metal Axs] accompagne les organisateurs qui veulent vraiment changer ça, du site

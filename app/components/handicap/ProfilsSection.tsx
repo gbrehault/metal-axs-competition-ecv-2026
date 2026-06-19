@@ -109,7 +109,7 @@ export default function ProfilsSection() {
         <h2 id="profils-titre" className="title-home font-primary text-secondary leading-none">
           <span className="bg-white px-3 py-1.5 md:px-6 md:py-3">Les 5 profils handicaps</span>
         </h2>
-        <p className="text-secondary/70 text-base leading-relaxed max-w-xl">
+        <p className="text-secondary/70 text-xl leading-relaxed max-w-xl">
           Découvrez les différents profils de handicap pris en compte dans notre démarche,
           les obstacles du quotidien auxquels ces personnes font face
         </p>

@@ -8,7 +8,9 @@ type ButtonBaseProps = {
   variant?: 'primary' | 'secondary' | 'outline' | 'disabled';
   size?: 'xs' | 'sm' | 'md' | 'lg';
   className?: string;
+  icon?: ReactNode;
   'aria-disabled'?: boolean | 'true' | 'false';
+  'aria-label'?: string;
 };
 
 type ButtonAsButton = ButtonBaseProps & {
@@ -19,6 +21,8 @@ type ButtonAsButton = ButtonBaseProps & {
 
 type ButtonAsLink = ButtonBaseProps & {
   href: string;
+  download?: boolean | string;
+  target?: string;
   disabled?: never;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
 };
@@ -45,38 +49,49 @@ const arrowVariants: Record<string, string> = {
 const sizeText: Record<string, string> = {
   xs: 'text-xs',
   sm: 'text-sm',
-  md: 'text-base',
-  lg: 'text-lg',
+  md: 'text-xl',
+  lg: 'text-xl',
 };
 
 const sizeArrow: Record<string, string> = {
   sm: 'text-sm',
-  md: 'text-base',
+  md: 'text-xl',
   lg: 'text-xl',
 };
 
-function Arrow({ size = 'sm', variant = 'primary' }: { size?: string; variant?: string }) {
+const DefaultArrow = () => (
+  <svg
+    width="1em"
+    height="1em"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      d="M1 8h14M9 2l6 6-6 6"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+function IconSlot({
+  size = 'sm',
+  variant = 'primary',
+  icon,
+}: {
+  size?: string;
+  variant?: string;
+  icon?: ReactNode;
+}) {
   return (
     <span
       className={`${arrowVariants[variant]} ${sizeArrow[size]} transition-transform duration-200 group-hover:translate-x-1`}
     >
-      <svg
-        className=""
-        width="1em"
-        height="1em"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M1 8h14M9 2l6 6-6 6"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      {icon ?? <DefaultArrow />}
     </span>
   );
 }
@@ -87,21 +102,45 @@ export default function Button(props: ButtonProps) {
     variant = 'primary',
     size = 'sm',
     className = '',
+    icon,
     'aria-disabled': ariaDisabled,
+    'aria-label': ariaLabel,
   } = props;
 
   const inner = (
     <>
       <span className={`${textVariants[variant]} ${sizeText[size]}`}>{children}</span>
-      <Arrow size={size} variant={variant} />
+      <IconSlot size={size} variant={variant} icon={icon} />
     </>
   );
 
   if (typeof props.href === 'string') {
-    const { href, onClick } = props as ButtonAsLink;
+    const { href, onClick, download, target } = props as ButtonAsLink;
+
+    // For downloads or external links, use a plain <a> to avoid transition interception
+    if (download || target) {
+      return (
+        <a
+          href={href}
+          download={download}
+          target={target}
+          rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+          aria-label={ariaLabel}
+          className={`${wrapperBase} ${className}`}
+          onClick={onClick as MouseEventHandler<HTMLAnchorElement>}
+        >
+          {inner}
+        </a>
+      );
+    }
 
     return (
-      <TransitionLink href={href} className={`${wrapperBase} ${className}`} onClick={onClick}>
+      <TransitionLink
+        href={href}
+        aria-label={ariaLabel}
+        className={`${wrapperBase} ${className}`}
+        onClick={onClick}
+      >
         {inner}
       </TransitionLink>
     );
@@ -112,6 +151,7 @@ export default function Button(props: ButtonProps) {
   return (
     <button
       type="button"
+      aria-label={ariaLabel}
       className={`${wrapperBase} ${className}`}
       disabled={disabled}
       aria-disabled={ariaDisabled ?? disabled}

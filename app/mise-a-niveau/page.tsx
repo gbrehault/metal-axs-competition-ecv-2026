@@ -104,9 +104,7 @@ export default function Audit() {
               {selectedAnswer[question.id] === option && <CheckIcon size={32} />}
             </div>
 
-            <span className="w-full text-base leading-snug font-medium md:text-center md:text-lg">
-              {option}
-            </span>
+            <span className="text-xl font-medium text-center -ml-6 w-full leading-snug font-medium md:text-center md:text-lg">{option}</span>
           </label>
         ))}
 
@@ -146,10 +144,8 @@ export default function Audit() {
             <QuestionMarkIcon size={20} />
           </span>
           <div className="flex flex-col">
-            <p className="mb-2 text-lg font-bold text-secondary">{question.title}</p>
-            <p className="text-sm leading-relaxed text-secondary/80 md:text-base">
-              {question.shortDescription}
-            </p>
+            <p className="text-lg font-bold text-secondary mb-2">{question.title}</p>
+            <p>{question.shortDescription}</p>
             <button
               type="button"
               onClick={() => setIsInfoOpen(true)}
@@ -187,7 +183,7 @@ export default function Audit() {
             <div className="p-4 md:p-6">
               <h5 className="mb-4 text-xl font-regular md:text-2xl">{question.article.title}</h5>
 
-              <p className="mb-6 text-base leading-relaxed md:text-lg">{question.article.intro}</p>
+              <p className="mb-6 text-lg leading-relaxed">{question.article.intro}</p>
 
               {question.article.sections.map((section, index) => (
                 <div key={index} className="mb-6">
@@ -195,7 +191,7 @@ export default function Audit() {
                     {section.title}
                   </h5>
 
-                  <p className="text-base leading-relaxed md:text-lg">{section.content}</p>
+                  <p className="text-lg leading-relaxed">{section.content}</p>
                 </div>
               ))}
             </div>

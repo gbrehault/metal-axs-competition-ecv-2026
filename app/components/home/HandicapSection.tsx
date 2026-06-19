@@ -134,7 +134,7 @@ export default function HandicapSection() {
             <h3 className="inline-block px-2 py-1 text-tertiary text-xl uppercase font-bold mb-3">
               {profile.title}
             </h3>
-            <p className="text-white/60 text-base leading-relaxed">{profile.description}</p>
+            <p className="text-white/60 text-xl leading-relaxed">{profile.description}</p>
           </div>
 
           {/* Navigation dots */}
@@ -243,7 +243,7 @@ export default function HandicapSection() {
                     <span className="inline-block text-tertiary">Handicap {p.title}</span>
                   </span>
                 </h3>
-                <p className="text-tertiary text-base leading-6 mb-8 max-w-xs">{p.description}</p>
+                <p className="text-tertiary text-xl leading-6 mb-8 max-w-lg">{p.description}</p>
                 <div className="flex flex-col gap-3 items-start">
                   <Button variant="primary" href="/handicaps">
                     CONSULTER LES 5 HANDICAPS
@@ -294,7 +294,7 @@ export default function HandicapSection() {
                     style={{ opacity: navOpacity(i) }}
                   >
                     <span
-                      className="text-lg tracking-wide leading-tight max-w-[200px]"
+                      className="text-xl tracking-wide leading-tight max-w-[200px]"
                       style={{ color: i === activeIndex ? 'var(--color-primary)' : 'white' }}
                     >
                       {p.nav}
