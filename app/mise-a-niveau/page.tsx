@@ -74,7 +74,7 @@ export default function Audit() {
         {question.options.map((option) => (
           <label
             key={option}
-            className={`flex w-full max-w-3xl cursor-pointer items-start gap-3 border p-3 text-left transition-all md:items-center md:p-4 ${
+            className={`flex w-150 max-w-3xl cursor-pointer items-start gap-3 p-3 text-left transition-all md:items-center md:p-4 ${
               selectedAnswer[question.id] === option
                 ? 'border-primary bg-primary/10'
                 : 'border-secondary/20 bg-secondary/5'
@@ -110,7 +110,7 @@ export default function Audit() {
           </label>
         ))}
 
-        <div className="mt-4 flex w-full max-w-3xl gap-4">
+        <div className="mt-4 flex w-full justify-center ite max-w-3xl gap-4">
           <button
             onClick={() => {
               const isLastQuestion = currentQuestion === DIAGNOSTIC_QUESTIONS.length - 1;
@@ -128,7 +128,7 @@ export default function Audit() {
               setCurrentQuestion((prev) => prev + 1);
             }}
             disabled={!selectedAnswer[question.id]}
-            className="w-full bg-secondary p-3 text-tertiary disabled:cursor-not-allowed disabled:opacity-40"
+            className="w-170 bg-secondary p-3 text-tertiary items-center justify-center disabled:cursor-not-allowed disabled:opacity-40"
           >
             {currentQuestion === DIAGNOSTIC_QUESTIONS.length - 1
               ? 'Voir mes résultats'
@@ -136,8 +136,8 @@ export default function Audit() {
           </button>
         </div>
       </div>
-      <main className="mt-2 flex w-full max-w-5xl flex-col gap-4 bg-tertiary p-4 md:mt-5 md:flex-row md:p-5">
-        <div className="relative min-h-[220px] w-full shrink-0 overflow-hidden md:min-h-0 md:w-56 lg:w-72">
+      <main className="mt-2 flex w-170 max-w-5xl flex-col gap-4 bg-tertiary p-4 md:mt-5 md:flex-row md:p-5">
+        <div className="relative w-full shrink-0 overflow-hidden md:min-h-0 md:w-56 lg:w-72">
           <Image src={question.imageSrc} alt={question.title} fill className="object-cover" />
           <div className="absolute inset-0 bg-black/30" />
         </div>
