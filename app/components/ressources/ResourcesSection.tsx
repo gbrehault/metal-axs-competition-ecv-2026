@@ -67,15 +67,6 @@ function ResourceCard({ resource }: { resource: RessourceData }) {
           >
             Télécharger
           </Button>
-          <Button
-            href={resource.consultHref}
-            target="_blank"
-            variant="primary"
-            icon={<ExternalLinkIcon />}
-            aria-label={`Consulter ${resource.title} en ligne`}
-          >
-            Consulter
-          </Button>
         </div>
       </div>
     </article>
