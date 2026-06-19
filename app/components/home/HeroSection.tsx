@@ -28,10 +28,10 @@ export default function HeroSection() {
     if (!section || !logo || !content || !image) {
       return;
     }
-
     const ctx = gsap.context(() => {
       gsap.set(image, { transformOrigin: 'left center' });
 
+      // Mobile
       media.add('(max-width: 767px)', () => {
         const timeline = gsap.timeline({
           defaults: { ease: 'none' },
@@ -77,7 +77,8 @@ export default function HeroSection() {
           );
       });
 
-      media.add('(min-width: 768px)', () => {
+      // Tablette + petits écrans desktop
+      media.add('(min-width: 768px) and (max-width: 1439px)', () => {
         const timeline = gsap.timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
@@ -94,19 +95,103 @@ export default function HeroSection() {
         timeline
           .to(
             image,
-
             {
               scale: 1.45,
-
               xPercent: 0,
-
               yPercent: -140,
-
               bottom: 10,
-
               borderRadius: 0,
             },
+            0,
+          )
+          .to(
+            content,
+            {
+              autoAlpha: 0,
+              yPercent: -18,
+            },
+            0.12,
+          )
+          .to(
+            logo,
+            {
+              autoAlpha: 0,
+              scale: 0.88,
+            },
+            0.32,
+          );
+      });
 
+      // MacBook Pro 16" / grands écrans
+      media.add('(min-width: 1440px) and (min-height: 900px)', () => {
+        const timeline = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: '+=155%',
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        timeline
+          .to(
+            image,
+            {
+              scale: 1.45,
+              xPercent: 0,
+              yPercent: -110,
+              bottom: 10,
+              borderRadius: 0,
+            },
+            0,
+          )
+          .to(
+            content,
+            {
+              autoAlpha: 0,
+              yPercent: -18,
+            },
+            0.12,
+          )
+          .to(
+            logo,
+            {
+              autoAlpha: 0,
+              scale: 0.88,
+            },
+            0.32,
+          );
+      });
+
+      // Desktop classique hors MacBook Pro 16"
+      media.add('(min-width: 1440px) and (max-height: 899px)', () => {
+        const timeline = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: '+=155%',
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        timeline
+          .to(
+            image,
+            {
+              scale: 1.45,
+              xPercent: 0,
+              yPercent: -140,
+              bottom: 10,
+              borderRadius: 0,
+            },
             0,
           )
           .to(
@@ -133,7 +218,6 @@ export default function HeroSection() {
       ctx.revert();
     };
   }, []);
-
   return (
     <section ref={sectionRef} data-hero className="relative h-screen w-full z-10">
       <div className="noise relative h-screen overflow-hidden">
@@ -184,13 +268,13 @@ export default function HeroSection() {
           data-hero-image
           className="sticky top-0 z-10000 h-screen md:h-[70%] w-[70%]"
         >
-          <div className=" z-100 h-full w-auto mt-120 md:mt-120 absolute inset-0" />
+          <div className=" z-100 h-full w-auto mt-120 md:mt-120 lg:mt-140 absolute inset-0" />
           {src ? (
             <Image
               src={src}
               alt="Concert festival Metal AXS"
               fill
-              className="object-cover mt-140 md:mt-120 object-center"
+              className="object-cover mt-140 md:mt-120 lg:mt-120 object-center"
               sizes="60vw"
               priority
             />

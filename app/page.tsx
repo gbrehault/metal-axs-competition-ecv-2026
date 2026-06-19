@@ -13,7 +13,7 @@ export default function Home() {
         <HeroSection />
         <div
           id="section3"
-          className="relative flex min-h-screen w-1/1 items-center justify-center overflow-hidden -mt-190 md:-mt-204 px-6 py-20 md:px-16"
+          className="relative flex min-h-screen w-1/1 items-center justify-center overflow-hidden -mt-190 md:-mt-250 lg:-mt-350 px-6 py-20 md:px-16"
         >
           <div className="relative z-10 mx-auto flex w-full flex-col items-center gap-8 p-5 text-center">
             <h2 className="font-primary text-2xl leading-tight text-start text-tertiary md:text-5xl">
