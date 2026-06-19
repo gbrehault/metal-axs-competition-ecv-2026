@@ -10,22 +10,17 @@ import { X, QuestionMarkIcon, DownloadSimpleIcon } from '@phosphor-icons/react';
 type AuditAnswers = Record<number, string>;
 
 export default function AuditResultat() {
-  const [answers, setAnswers] = useState<AuditAnswers>({});
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const question = DIAGNOSTIC_QUESTIONS[currentQuestion];
+  const [answers] = useState<AuditAnswers>(() => {
+    if (typeof window === 'undefined') return {};
+
+    const storedAnswers = window.localStorage.getItem('auditAnswers');
+    return storedAnswers ? (JSON.parse(storedAnswers) as AuditAnswers) : {};
+  });
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const [activeQuestion, setActiveQuestion] = useState<
     (typeof DIAGNOSTIC_QUESTIONS)[number] | null
   >(null);
-
-  useEffect(() => {
-    const storedAnswers = localStorage.getItem('auditAnswers');
-
-    if (storedAnswers) {
-      setAnswers(JSON.parse(storedAnswers));
-    }
-  }, []);
 
   const problemQuestions = DIAGNOSTIC_QUESTIONS.filter((question) => {
     const answer = answers[question.id];
@@ -64,31 +59,31 @@ export default function AuditResultat() {
 
   return (
     <>
-      <main className="min-h-screen bg-bg px-6 py-20 md:px-16 mt-20">
-        <div className="mx-auto flex max-w-3xl flex-col gap-6">
-          <h1 className="text-4xl text-secondary text-center">
+      <main className="mt-40 md:mt-20 min-h-screen bg-bg px-4 py-12 sm:px-6 md:px-10 md:py-20 lg:px-16">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 md:gap-8">
+          <h1 className="text-balance text-center text-3xl text-secondary md:text-4xl">
             Félicitations, vos premiers pas dans l’accessibilité sont terminés !
           </h1>
 
-          <h5 className="text-center text-2xl text-secondary/50">
+          <h5 className="text-balance text-center text-lg text-secondary/50 md:text-2xl">
             Vous êtes concernés par les notions <br /> d’accessibilité suivantes :
           </h5>
-          <div className="flex items-center justify-center w-full">
+          <div className="flex w-full items-center justify-center">
             <Link
               href="/faire-un-audit"
-              className="w-150 bg-secondary/5 text-secondary flex items-center justify-center mb-10 px-6 gap-2 py-4 text-center"
+              className="mb-4 flex w-full max-w-3xl items-center justify-center gap-2 bg-secondary/5 px-4 py-4 text-center text-secondary md:mb-6 md:px-6"
             >
               Télécharger votre résumé en PDF <DownloadSimpleIcon size={20} />
             </Link>
           </div>
           {problemQuestions.map((question) => (
             <article key={question.id} className="flex flex-col gap-4">
-              <p className="bg-secondary/5 text-secondary w-1/6 flex text-center items-center justify-center p-2 text-xl font-regular">
+              <p className="flex w-fit items-center justify-center bg-secondary/5 px-4 py-2 text-base font-regular text-secondary md:text-xl">
                 Question {question.id}
               </p>
 
-              <div className="flex w-full bg-tertiary p-4 gap-4">
-                <div className="relative h-auto w-50 overflow-hidden">
+              <div className="flex w-full flex-col gap-4 bg-tertiary p-4 md:flex-row md:p-5">
+                <div className="relative min-h-[220px] w-full shrink-0 overflow-hidden md:min-h-0 md:w-56 lg:w-72">
                   <Image
                     src={question.imageSrc}
                     alt={question.title}
@@ -98,12 +93,16 @@ export default function AuditResultat() {
                   <div className="absolute inset-0 bg-black/30" />
                 </div>
 
-                <div className="flex flex-col items-start justify-end">
-                  <span className="border-1 border-primary text-primary rounded-4xl mb-2">
+                <div className="flex flex-1 flex-col items-start justify-end">
+                  <span className="mb-2 rounded-4xl border border-primary text-primary">
                     <QuestionMarkIcon size={20} />
                   </span>
-                  <h5 className="text-lg font-regular text-secondary mb-2">{question.title}</h5>
-                  <p>{question.shortDescription}</p>
+                  <h5 className="mb-2 text-lg font-regular text-secondary md:text-xl">
+                    {question.title}
+                  </h5>
+                  <p className="text-sm leading-relaxed text-secondary/80 md:text-base">
+                    {question.shortDescription}
+                  </p>
 
                   <button
                     type="button"
@@ -123,7 +122,7 @@ export default function AuditResultat() {
           <Link
             href="/"
             onClick={() => localStorage.removeItem('auditAnswers')}
-            className="w-full bg-secondary px-6 py-4 text-tertiary text-center"
+            className="w-full bg-secondary px-6 py-4 text-center text-tertiary"
           >
             Revenir à l’accueil
           </Link>
@@ -131,38 +130,47 @@ export default function AuditResultat() {
       </main>
 
       {isInfoOpen && activeQuestion && (
-        <div className="fixed inset-0 z-10000 flex justify-end bg-black/40" onClick={closeModal}>
+        <div
+          className="fixed inset-0 z-10000 flex items-end justify-center bg-black/40 md:items-stretch md:justify-end"
+          onClick={closeModal}
+        >
           <div
             ref={modalRef}
-            className="h-full w-full max-w-lg bg-tertiary text-secondary shadow-2xl overflow-y-auto"
+            className="h-190 md:h-[88vh] w-full overflow-y-auto bg-tertiary text-secondary shadow-2xl md:h-full md:max-w-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
               src={activeQuestion.article.imageSrc}
               alt={activeQuestion.title}
               width={600}
-              height={100}
-              className="object-cover"
+              height={280}
+              className="h-52 w-full object-cover md:h-auto"
             />
 
             <button
               type="button"
               onClick={closeModal}
-              className="mb-8 text-secondary bg-tertiary p-2 underline absolute top-4 right-4"
+              className="absolute top-4 right-4 mb-8 bg-tertiary p-2 text-secondary underline"
             >
               <X size={24} weight="bold" />
             </button>
 
-            <div className="p-4">
-              <h4 className="mb-4 text-2xl font-regular">{activeQuestion.article.title}</h4>
+            <div className="p-4 md:p-6">
+              <h4 className="mb-4 text-xl font-regular md:text-2xl">
+                {activeQuestion.article.title}
+              </h4>
 
-              <p className="mb-6 text-lg leading-relaxed">{activeQuestion.article.intro}</p>
+              <p className="mb-6 text-base leading-relaxed md:text-lg">
+                {activeQuestion.article.intro}
+              </p>
 
               {activeQuestion.article.sections.map((section) => (
                 <div key={section.title} className="mb-6">
-                  <h4 className="mb-2 text-2xl text-secondary font-regular">{section.title}</h4>
+                  <h4 className="mb-2 text-xl font-regular text-secondary md:text-2xl">
+                    {section.title}
+                  </h4>
 
-                  <p className="text-lg leading-relaxed">{section.content}</p>
+                  <p className="text-base leading-relaxed md:text-lg">{section.content}</p>
                 </div>
               ))}
             </div>

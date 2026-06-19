@@ -15,24 +15,28 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
 
   return (
     <div className="bg-bg min-h-screen pt-36">
-
       <div className="px-6 md:px-16 pt-8 pb-4">
-        <nav aria-label="Fil d'ariane" className="flex items-center gap-2 text-sm text-secondary/60 font-secondary">
-          <Link href="/handicaps" className="hover:text-primary transition-colors underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
+        <nav className="flex items-center gap-2 text-sm text-secondary/60 font-secondary">
+          <Link
+            href="/handicaps"
+            className="hover:text-primary transition-colors underline underline-offset-2"
+          >
             Handicaps
           </Link>
           <span aria-hidden="true">›</span>
-          <span className="text-secondary font-semibold" aria-current="page">Handicap {handicap.label}</span>
+          <span className="text-secondary font-semibold" aria-current="page">
+            Handicap {handicap.label}
+          </span>
         </nav>
       </div>
 
-      <section aria-label={`Présentation du handicap ${handicap.label}`} className="px-6 md:px-16 pb-0">
+      <section
+        aria-label={`Présentation du handicap ${handicap.label}`}
+        className="px-6 md:px-16 pb-0"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-
-          <div
-            className="relative flex items-center justify-center aspect-square max-w-[480px] w-full mx-auto md:mx-0"
-            style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #3a2010 60%, #d7541a 100%)' }}
-          >
+          {/* Image */}
+          <div className="relative flex items-center justify-center aspect-square max-w-[480px] w-full mx-auto md:mx-0">
             <Image
               src={handicap.image}
               alt={`Illustration handicap ${handicap.label}`}
@@ -44,8 +48,12 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
 
           <div className="flex flex-col gap-6">
             <h1 className="font-primary text-[clamp(2.5rem,6vw,5rem)] leading-none flex flex-col gap-2">
-              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-secondary">Handicap</span>
-              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">{handicap.label}</span>
+              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-secondary">
+                Handicap
+              </span>
+              <span className="inline-block bg-white px-3 py-1.5 md:px-6 md:py-3 text-primary">
+                {handicap.label}
+              </span>
             </h1>
 
             <div className="flex flex-col gap-3">
@@ -113,8 +121,11 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
 
           <ul className="flex flex-col gap-3">
             {section.items.map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-secondary/80 text-sm font-secondary leading-relaxed">
-                <span aria-hidden="true" className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-primary" />
+              <li
+                key={i}
+                className="flex items-start gap-3 text-secondary/80 text-sm font-secondary leading-relaxed"
+              >
+                <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-primary" />
                 {item}
               </li>
             ))}
@@ -127,7 +138,14 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
 
 function EyeIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
       <path
         d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
         stroke="currentColor"

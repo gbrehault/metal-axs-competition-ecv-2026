@@ -24,7 +24,7 @@ const LEGAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="noise relative overflow-hidden bg-secondary pb-86">
+    <footer id="federation" className="noise relative overflow-hidden bg-secondary pb-86">
       {/* Gradient background image */}
       <div className="absolute inset-0 z-0" aria-hidden>
         <Image

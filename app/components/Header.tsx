@@ -67,7 +67,6 @@ function Hamburger({ open, onToggle }: { open: boolean; onToggle: () => void }) 
       onClick={onToggle}
       className="md:hidden flex flex-col justify-center items-center gap-[5px] w-8 h-8"
       aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
-
       aria-expanded={open}
     >
       <span
@@ -94,7 +93,7 @@ function MobileDrawer({
 }) {
   return (
     <div
-      className={`md:hidden overflow-hidden transition-all duration-300 bg-white ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
+      className={`w-full md:hidden overflow-hidden flex flex-col transition-all duration-300 bg-tertiary ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
     >
       <ul className="flex flex-col gap-5 px-6 py-6">
         {NAV_LINKS.map(({ label, href }) => (
@@ -118,11 +117,6 @@ export default function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const hidden = direction === 'down' && !open;
   const imageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setIsPopupOpen(false);
-    setOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -157,45 +151,68 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-1/2 -translate-x-1/2 z-200 transition-transform duration-300 ease-in-out mt-8 w-4/5 md:left-8 md:right-8 md:translate-x-0 md:w-3/4 mx-auto ${
+        className={`fixed top-0 left-0 right-0 z-200 transition-transform duration-300 ease-in-out p-2 md:p-4 mt-2 md:mt-8 w-full ${
           hidden ? '-translate-y-[calc(100%+2rem)]' : 'translate-y-0'
         }`}
       >
-        <nav aria-label="Navigation principale" className="flex items-center bg-white px-6 py-4 gap-6">
-          <NavLogo />
-
-          <ul className="hidden md:flex items-center gap-6 flex-1">
-            {NAV_LINKS.map(({ label, href }) => (
-              <NavLink key={href} label={label} href={href} active={pathname === href} />
-            ))}
-          </ul>
-
-          <div className="hidden md:block ml-auto">
-            <Button
-              href="/mise-a-niveau"
-              variant="primary"
-              className="justify-center"
-              onClick={() => {
-                setOpen(false);
-                setIsPopupOpen(true);
-              }}
-            >
-              Réaliser une mise à niveau
-            </Button>
+        <div className="flex flex-col w-full md:flex-row items-center gap-2 justify-center py-4">
+          <div className="flex items-center justify-center bg-white w-full md:w-auto p-2 md:p-5 h-auto">
+            <NavLogo />
           </div>
 
-          <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />
-        </nav>
+          <nav className="flex items-center justify-between w-full md:w-auto bg-white gap-8 p-4">
+            <div className="hidden md:flex flex-1 items-center">
+              <ul className="flex items-center gap-6">
+                {NAV_LINKS.map(({ label, href }) => (
+                  <NavLink key={href} label={label} href={href} active={pathname === href} />
+                ))}
+              </ul>
+            </div>
+            <div className="flex md:hidden">
+              <Button
+                variant="primary"
+                className="justify-center flex md:hidden"
+                size="xs"
+                onClick={(e) => {
+                  e.preventDefault();
 
-        <MobileDrawer open={open} pathname={pathname} onClose={() => setOpen(false)} />
+                  setOpen(false);
+
+                  setIsPopupOpen(true);
+                }}
+              >
+                Réaliser une mise <br /> à niveau
+              </Button>
+            </div>
+            <div className="hidden md:flex">
+              <Button
+                variant="primary"
+                className="justify-center hidden md:flex"
+                size="xs"
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  setOpen(false);
+
+                  setIsPopupOpen(true);
+                }}
+              >
+                Réaliser une mise à niveau
+              </Button>
+            </div>
+            <Hamburger open={open} onToggle={() => setOpen((v) => !v)} />
+          </nav>
+
+          <MobileDrawer open={open} pathname={pathname} onClose={() => setOpen(false)} />
+        </div>
       </header>
       {isPopupOpen && (
         <div
-          className="fixed inset-0 z-10000 flex items-center justify-center bg-black/40 px-4"
+          className="fixed inset-0 z-10000 flex items-center justify-center bg-black/40 px-2 md:px-4"
           onClick={() => setIsPopupOpen(false)}
         >
           <div
-            className="relative h-auto b-10 w-1/2 overflow-hidden bg-tertiary text-secondary shadow-2xl"
+            className="relative h-auto w-1/1 md:w-1/2 overflow-hidden bg-tertiary text-secondary shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
