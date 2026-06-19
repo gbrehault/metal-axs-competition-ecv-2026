@@ -67,7 +67,6 @@ function Hamburger({ open, onToggle }: { open: boolean; onToggle: () => void }) 
       onClick={onToggle}
       className="md:hidden flex flex-col justify-center items-center gap-[5px] w-8 h-8"
       aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
-
       aria-expanded={open}
     >
       <span
@@ -152,12 +151,12 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-200 transition-transform duration-300 ease-in-out p-2 md:p-4 mt-8 w-full ${
+        className={`fixed top-0 left-0 right-0 z-200 transition-transform duration-300 ease-in-out p-2 md:p-4 mt-2 md:mt-8 w-full ${
           hidden ? '-translate-y-[calc(100%+2rem)]' : 'translate-y-0'
         }`}
       >
         <div className="flex flex-col w-full md:flex-row items-center gap-2 justify-center py-4">
-          <div className="flex items-center justify-center bg-white w-full md:w-auto p-2 md:p-4 h-[stretch]">
+          <div className="flex items-center justify-center bg-white w-full md:w-auto p-2 md:p-5 h-auto">
             <NavLogo />
           </div>
 

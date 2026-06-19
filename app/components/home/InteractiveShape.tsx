@@ -354,7 +354,7 @@ const SCROLL_KEYFRAMES_MOBILE: ScrollKeyframe[] = [
   {
     positionX: 0,
 
-    positionY: -1.4,
+    positionY: -1.6,
 
     scale: 0.24,
 

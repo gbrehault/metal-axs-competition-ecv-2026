@@ -53,7 +53,7 @@ export default function HeroSection() {
               transformOrigin: 'left center',
               scale: 1.45,
               xPercent: 0,
-              yPercent: -70,
+              yPercent: -85,
               bottom: 10,
               borderRadius: 0,
             },
@@ -190,7 +190,7 @@ export default function HeroSection() {
               src={src}
               alt="Concert festival Metal AXS"
               fill
-              className="object-cover mt-120 md:mt-120 object-center"
+              className="object-cover mt-140 md:mt-120 object-center"
               sizes="60vw"
               priority
             />
