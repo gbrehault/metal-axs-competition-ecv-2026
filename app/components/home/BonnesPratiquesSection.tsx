@@ -89,7 +89,8 @@ export default function BonnesPratiquesSection() {
   };
 
   const renderCardContent = (card: (typeof CARDS)[number]) => (
-    <div
+    <TransitionLink
+      href={`/bonnes-pratiques?profil=${card.id}#recherche`}
       className="flex h-full w-full flex-col overflow-hidden border-2 border-white bg-secondary"
       style={{
         backgroundImage: `url(${CardFond.src})`,
@@ -114,19 +115,16 @@ export default function BonnesPratiquesSection() {
         />
       </div>
 
-      <TransitionLink
-        href={`/handicaps#handicap-${card.id}`}
-        className="bg-secondary/90 px-3 py-3 text-center text-xs font-secondary font-semibold uppercase tracking-wide text-white transition-colors duration-200 hover:bg-primary"
-      >
-        Découvrir les pré-requis
-      </TransitionLink>
-    </div>
+      <div className="bg-secondary/90 px-3 py-3 text-center text-xs font-secondary font-semibold uppercase tracking-wide text-white transition-colors duration-200 hover:bg-primary">
+        Voir les bonnes pratiques
+      </div>
+    </TransitionLink>
   );
 
   return (
     <section
       id="bonnes-pratiques"
-      className="relative w-full min-h-screen  noise flex flex-col -mt-4 overflow-hidden bg-secondary px-10 md:px-16 py-16 z-10 "
+      className="relative w-full min-h-screen  noise flex flex-col -mt-4 overflow-hidden bg-black px-10 md:px-16 py-16 z-10 "
     >
       {/* Header row */}
       <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-10 md:gap-20">
@@ -140,7 +138,7 @@ export default function BonnesPratiquesSection() {
         </h2>
 
         <div className="flex flex-col gap-6 max-w-lg">
-          <p className="text-tertiary text-base leading-relaxed">
+          <p className="text-tertiary text-xl leading-relaxed">
             Du site web à l&apos;expérience sur site, il existe des solutions concrètes pour chaque
             type de handicap. Nous avons réuni les bonnes pratiques essentielles pour vous
             accompagner dans cette démarche.
@@ -220,7 +218,7 @@ export default function BonnesPratiquesSection() {
                 innerRefs.current[i] = el;
               }}
               onMouseEnter={() => handleMouseEnter(i)}
-              className="w-full h-full cursor-pointer select-none"
+              className="w-full h-full select-none"
             >
               {renderCardContent(card)}
             </div>

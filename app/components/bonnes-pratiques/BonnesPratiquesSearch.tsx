@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   MagnifyingGlass,
   CaretDown,
@@ -28,8 +29,15 @@ const DOMAIN_ICONS: Record<string, React.ReactNode> = {
 };
 
 export default function BonnesPratiquesSearch() {
+  const searchParams = useSearchParams();
   const [query, setQuery] = useState('');
   const [profile, setProfile] = useState('');
+  const [openDomain, setOpenDomain] = useState<string | null>(null);
+
+  useEffect(() => {
+    const profil = searchParams.get('profil');
+    if (profil) setProfile(profil);
+  }, [searchParams]);
   const filteredDomains = useMemo(() => {
     return BP_DOMAINS.filter((domain) => {
       const recs = BP_RECOMMANDATIONS.filter((r) => r.domainId === domain.id);
@@ -51,6 +59,7 @@ export default function BonnesPratiquesSearch() {
 
   return (
     <section
+      id="recherche"
       aria-label="Rechercher une bonne pratique"
       className="bg-bg px-4 md:px-16 py-10 md:py-16"
     >
@@ -68,7 +77,7 @@ export default function BonnesPratiquesSearch() {
               placeholder="Rechercher une bonne pratique..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 min-w-0 bg-transparent outline-none text-secondary placeholder:text-secondary/40 font-secondary text-sm"
+              className="flex-1 min-w-0 bg-transparent outline-none text-secondary placeholder:text-secondary/40 font-secondary text-lg"
               aria-label="Rechercher"
             />
           </div>
@@ -77,7 +86,7 @@ export default function BonnesPratiquesSearch() {
             <select
               value={profile}
               onChange={(e) => setProfile(e.target.value)}
-              className="appearance-none bg-transparent outline-none text-secondary font-secondary text-sm pr-5 cursor-pointer"
+              className="appearance-none bg-transparent outline-none text-secondary font-secondary text-lg pr-5 cursor-pointer"
               aria-label="Filtrer par profil de handicap"
             >
               <option value="">Profil de handicap</option>
@@ -105,46 +114,65 @@ export default function BonnesPratiquesSearch() {
 
         {/* Results header */}
         <div className="flex items-center justify-between mb-4">
-          <p className="font-secondary text-sm text-secondary">
+          <p className="font-secondary text-lg text-secondary">
             <span className="font-semibold">{totalRecs}</span> bonnes pratiques trouvées
           </p>
 
-          <div className="relative flex items-center">
-            <select
-              className="appearance-none bg-transparent outline-none font-secondary text-sm text-secondary pr-6 cursor-pointer border border-secondary/20 pl-3 py-1.5"
-              aria-label="Trier les résultats"
-            >
-              <option>Trier par pertinence</option>
-              <option>Ordre alphabétique</option>
-            </select>
-            <CaretDown
-              size={12}
-              className="text-secondary/50 absolute right-2 pointer-events-none"
-              aria-hidden="true"
-            />
-          </div>
+          
         </div>
 
         {/* Accordion list */}
         <ul className="border-t border-secondary/10">
           {filteredDomains.length === 0 ? (
-            <li className="py-12 text-center text-secondary/50 font-secondary text-sm">
+            <li className="py-12 text-center text-secondary/50 font-secondary text-lg">
               Aucun résultat pour cette recherche.
             </li>
           ) : (
-            filteredDomains.map((domain) => (
-              <li key={domain.id} className="border-b border-secondary/10">
-                <div className="flex items-center gap-4 py-4 px-2">
-                  <span className="shrink-0 text-secondary" aria-hidden="true">
-                    {DOMAIN_ICONS[domain.id]}
-                  </span>
-                  <span className="flex-1 font-secondary font-medium text-secondary text-[0.95rem]">
-                    {domain.title}
-                  </span>
-                  <CaretDown size={15} className="text-secondary/40 shrink-0" aria-hidden="true" />
-                </div>
-              </li>
-            ))
+            filteredDomains.map((domain) => {
+              const recs = BP_RECOMMANDATIONS.filter((r) => {
+                if (r.domainId !== domain.id) return false;
+                if (profile && !r.profiles.includes(profile)) return false;
+                if (query.trim() && !r.description.toLowerCase().includes(query.toLowerCase())) return false;
+                return true;
+              });
+              const isOpen = openDomain === domain.id;
+
+              return (
+                <li key={domain.id} className="border-b border-secondary/10">
+                  <button
+                    type="button"
+                    onClick={() => setOpenDomain(isOpen ? null : domain.id)}
+                    className="flex w-full items-center gap-4 py-4 px-2 text-left"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="shrink-0 text-secondary" aria-hidden="true">
+                      {DOMAIN_ICONS[domain.id]}
+                    </span>
+                    <span className="flex-1 font-secondary font-medium text-secondary text-lg md:text-xl">
+                      {domain.title}
+                    </span>
+                    <CaretDown
+                      size={15}
+                      className={`text-secondary/40 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                      aria-hidden="true"
+                    />
+                  </button>
+
+                  {isOpen && (
+                    <ul className="pb-4 px-2 flex flex-col gap-3">
+                      {recs.map((rec) => (
+                        <li key={rec.id} className="flex items-start gap-3">
+                          <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
+                          <p className="font-secondary text-secondary/80 text-base leading-relaxed">
+                            {rec.description}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })
           )}
         </ul>
       </div>

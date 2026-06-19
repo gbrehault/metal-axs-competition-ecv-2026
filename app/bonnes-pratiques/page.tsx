@@ -1,7 +1,7 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import BonnesPratiquesHero from '@/app/components/bonnes-pratiques/HeroSection';
-import CardsGridSection from '@/app/components/bonnes-pratiques/CardsGridSection';
-import HandicapTabsSection from '@/app/components/bonnes-pratiques/HandicapTabsSection';
+import BonnesPratiquesSearch from '@/app/components/bonnes-pratiques/BonnesPratiquesSearch';
 import FooterLight from '@/app/components/FooterLight';
 
 export const metadata: Metadata = {
@@ -14,8 +14,9 @@ export default function BonnesPratiquesPage() {
   return (
     <main>
       <BonnesPratiquesHero />
-      <CardsGridSection />
-      <HandicapTabsSection />
+      <Suspense>
+        <BonnesPratiquesSearch />
+      </Suspense>
       <FooterLight />
     </main>
   );

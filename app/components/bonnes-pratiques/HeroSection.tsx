@@ -29,12 +29,9 @@ export default function BonnesPratiquesHero() {
         </h1>
       </div>
 
-      <div className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2 translate-y-1/2 flex flex-row gap-3">
-        <Button href="#recommandations" variant="outline">
-          Découvrir les recommandations
-        </Button>
+      <div className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2 translate-y-1/2">
         <Button href="/mise-a-niveau" variant="primary">
-          Réaliser un audit
+Introduction à l’accessibilité
         </Button>
       </div>
     </section>

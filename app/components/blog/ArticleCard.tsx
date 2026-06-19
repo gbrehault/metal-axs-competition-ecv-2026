@@ -56,7 +56,7 @@ export default function ArticleCard({ post }: { post: PostWithCategories }) {
           {title}
         </h3>
         {texteIntroduction && (
-          <p className="text-sm text-secondary/40 line-clamp-2 leading-relaxed tracking-wide mt-1">
+          <p className="text-xl text-secondary/40 line-clamp-2 leading-relaxed tracking-wide mt-1">
             {texteIntroduction}
           </p>
         )}

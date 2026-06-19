@@ -16,7 +16,7 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
   return (
     <div className="bg-bg min-h-screen pt-36">
       <div className="px-6 md:px-16 pt-8 pb-4">
-        <nav className="flex items-center gap-2 text-sm text-secondary/60 font-secondary">
+        <nav className="flex items-center gap-2 text-base text-secondary/60 font-secondary">
           <Link
             href="/handicaps"
             className="hover:text-primary transition-colors underline underline-offset-2"
@@ -58,7 +58,7 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
 
             <div className="flex flex-col gap-3">
               {handicap.description.map((p, i) => (
-                <p key={i} className="text-secondary/70 text-base leading-relaxed font-secondary">
+                <p key={i} className="text-secondary/70 text-xl leading-relaxed font-secondary">
                   {p}
                 </p>
               ))}
@@ -75,7 +75,7 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
                 aria-selected={activeTab === 'besoins'}
                 aria-controls="tabpanel-content"
                 onClick={() => setActiveTab('besoins')}
-                className={`flex items-center gap-2 px-3 py-2.5 md:px-5 md:py-3 text-xs md:text-sm font-secondary font-semibold uppercase tracking-wide transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
+                className={`flex items-center gap-2 px-3 py-2.5 md:px-5 md:py-3 text-base font-secondary font-semibold uppercase tracking-wide transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
                   activeTab === 'besoins'
                     ? 'bg-secondary text-white'
                     : 'bg-white text-secondary hover:bg-secondary/10'
@@ -90,7 +90,7 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
                 aria-selected={activeTab === 'amenagements'}
                 aria-controls="tabpanel-content"
                 onClick={() => setActiveTab('amenagements')}
-                className={`flex items-center gap-2 px-3 py-2.5 md:px-5 md:py-3 text-xs md:text-sm font-secondary font-semibold uppercase tracking-wide transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
+                className={`flex items-center gap-2 px-3 py-2.5 md:px-5 md:py-3 text-base font-secondary font-semibold uppercase tracking-wide transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
                   activeTab === 'amenagements'
                     ? 'bg-secondary text-white'
                     : 'bg-white text-secondary hover:bg-secondary/10'
@@ -115,7 +115,7 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
-          <p className="text-secondary/70 text-base leading-relaxed font-secondary self-start">
+          <p className="text-secondary/70 text-xl leading-relaxed font-secondary self-start">
             {section.intro}
           </p>
 
@@ -123,9 +123,9 @@ export default function HandicapDetailView({ handicap }: { handicap: HandicapDat
             {section.items.map((item, i) => (
               <li
                 key={i}
-                className="flex items-start gap-3 text-secondary/80 text-sm font-secondary leading-relaxed"
+                className="flex items-start gap-3 text-secondary/80 text-lg font-secondary leading-relaxed"
               >
-                <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-primary" />
+                <span className="mt-2.5 shrink-0 w-1.5 h-1.5 rounded-full bg-primary" />
                 {item}
               </li>
             ))}

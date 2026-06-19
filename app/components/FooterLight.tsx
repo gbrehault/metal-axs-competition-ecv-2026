@@ -32,7 +32,7 @@ export default function FooterLight() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-secondary/70 hover:text-secondary transition-colors text-base focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                className="text-secondary/70 hover:text-secondary transition-colors text-xl focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
               >
                 {link.label}
               </Link>
@@ -42,7 +42,7 @@ export default function FooterLight() {
         </div>
 
         <div className="flex flex-col justify-between gap-10 py-10 md:py-0 md:px-12 border-b md:border-b-0 md:border-r border-secondary/15">
-          <p className="text-secondary/70 text-base">
+          <p className="text-secondary/70 text-xl">
             Une initiative de la Fédération Musique Métallique
           </p>
           <nav aria-label="Réseaux sociaux" className="flex flex-col gap-3">
@@ -51,7 +51,7 @@ export default function FooterLight() {
                 key={link.label}
                 href={link.href}
                 aria-label={`Metal AXS sur ${link.label}`}
-                className="text-secondary/70 hover:text-secondary transition-colors text-base focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                className="text-secondary/70 hover:text-secondary transition-colors text-xl focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
               >
                 {link.label}
               </a>
@@ -72,7 +72,7 @@ export default function FooterLight() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-secondary/70 hover:text-secondary transition-colors text-base focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                className="text-secondary/70 hover:text-secondary transition-colors text-xl focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
               >
                 {link.label}
               </a>

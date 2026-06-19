@@ -35,7 +35,7 @@ export default function HandicapHeroSection() {
 
       <div className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2 translate-y-1/2">
         <Button href="/mise-a-niveau" variant="primary">
-          Réaliser un audit
+Introduction à l’accessibilité
         </Button>
       </div>
     </section>

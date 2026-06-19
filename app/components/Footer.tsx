@@ -48,7 +48,7 @@ export default function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-white/80 hover:text-white transition-colors text-base"
+                  className="text-white/80 hover:text-white transition-colors text-xl"
                 >
                   {link.label}
                 </Link>
@@ -59,7 +59,7 @@ export default function Footer() {
 
           {/* Center: initiative + social */}
           <div className="flex flex-col justify-between gap-10 py-10 md:py-0 md:px-12 border-b md:border-b-0 md:border-r border-white/20">
-            <p className="text-white/80 text-base">
+            <p className="text-white/80 text-xl">
               Une initiative de la Fédération Musique Métallique
             </p>
             <div className="flex flex-col gap-3">
@@ -67,7 +67,7 @@ export default function Footer() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-white/80 hover:text-white transition-colors text-base"
+                  className="text-white/80 hover:text-white transition-colors text-xl"
                 >
                   {link.label}
                 </a>
@@ -87,7 +87,7 @@ export default function Footer() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-white/80 hover:text-white transition-colors text-base"
+                  className="text-white/80 hover:text-white transition-colors text-xl"
                 >
                   {link.label}
                 </a>

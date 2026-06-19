@@ -175,7 +175,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-end">
 
           <div className="flex flex-col gap-4 pb-0 md:pb-12">
-            <nav aria-label="Fil d'ariane" className="flex items-center gap-2 text-sm text-secondary/60 font-secondary">
+            <nav aria-label="Fil d'ariane" className="flex items-center gap-2 text-xl text-secondary/60 font-secondary">
               <Link href="/blog" className="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
                 Blog
               </Link>
@@ -184,7 +184,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             </nav>
 
             <div className="flex flex-col gap-2">
-              <p className="text-sm font-secondary text-secondary/60">{formatDate(date)}</p>
+              <p className="text-xl font-secondary text-secondary/60">{formatDate(date)}</p>
               <h1 className="font-primary text-secondary leading-snug text-[clamp(1.8rem,4vw,3rem)]">
                 {title}
               </h1>

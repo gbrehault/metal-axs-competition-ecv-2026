@@ -79,7 +79,7 @@ export default function Pagination({
         item === '...' ? (
           <span
             key={`ellipsis-${i}`}
-            className="w-9 h-9 flex items-center justify-center text-secondary/40 text-lg"
+            className="w-9 h-9 flex items-center justify-center text-secondary/40 text-xl"
             aria-hidden="true"
           >
             &hellip;
