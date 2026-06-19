@@ -23,7 +23,9 @@ export default function ArticlesSection({ posts }: { posts: PostWithCategories[]
 
     if (profil !== 'all') {
       result = result.filter((p) =>
-        p.categories?.nodes.some((c) => c.slug === profil || c.name.toLowerCase() === profil),
+        p.categories?.nodes.some(
+          (c) => c.slug.includes(profil) || c.name.toLowerCase().includes(profil),
+        ),
       );
     }
 
