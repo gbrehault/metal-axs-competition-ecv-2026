@@ -173,19 +173,27 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <div className="w-full bg-tertiary px-6 md:px-16 pt-28 md:pt-36 pb-0">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-end">
             <div className="flex flex-col gap-4 pb-0 md:pb-12">
-              <nav aria-label="Fil d'ariane" className="flex items-center gap-2 text-xl text-secondary/60 font-secondary">
-                <Link href="/bonnes-pratiques" className="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
+              <nav
+                aria-label="Fil d'ariane"
+                className="flex items-center gap-2 text-sm text-secondary/60 font-secondary"
+              >
+                <Link
+                  href="/bonnes-pratiques"
+                  className="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                >
                   Bonnes pratiques
                 </Link>
                 <span aria-hidden="true">/</span>
-                <span className="text-secondary/80 truncate" aria-current="page">{title}</span>
+                <span className="text-secondary/80 truncate" aria-current="page">
+                  {title}
+                </span>
               </nav>
 
               <div className="flex flex-col gap-2">
-                <p className="text-xl font-secondary text-secondary/60">{formatDate(date)}</p>
-                <h1 className="font-primary text-secondary leading-snug text-[clamp(1.8rem,4vw,3rem)]">
+                <p className="text-sm font-secondary text-secondary/60">{formatDate(date)}</p>
+                <h3 className="font-primary text-secondary leading-snug text-[clamp(1.8rem,4vw,3rem)]">
                   {title}
-                </h1>
+                </h3>
               </div>
             </div>
 
@@ -246,13 +254,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               )}
 
               {title1Html && (
-                <h2 className="font-primary text-2xl font-normal text-secondary" id="title1">
+                <h3 className="font-primary font-normal text-secondary" id="title1">
                   {title1Html}
-                </h2>
+                </h3>
               )}
               {section1Html && (
                 <div
-                  className="gutenberg-content prose max-w-none text-secondary"
+                  className="prose text-lg! max-w-none text-secondary"
                   dangerouslySetInnerHTML={{ __html: section1Html }}
                 />
               )}
@@ -268,9 +276,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               )}
 
               {title2Html && (
-                <h2 className="font-primary text-2xl font-normal text-secondary" id="title2">
+                <h3 className="font-primary font-normal text-secondary" id="title2">
                   {title2Html}
-                </h2>
+                </h3>
               )}
               {section2Html && (
                 <div
@@ -290,9 +298,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               )}
 
               {title3Html && (
-                <h2 className="font-primary text-2xl font-normal text-secondary" id="title3">
+                <h3 className="font-primary font-normal text-secondary" id="title3">
                   {title3Html}
-                </h2>
+                </h3>
               )}
               {section3Html && (
                 <div
@@ -308,9 +316,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         {postsCards.length > 0 && (
           <div className="w-full bg-tertiary px-6 md:px-16 pb-16 pt-8 border-t border-secondary/10">
             <div className="max-w-6xl mx-auto">
-              <h2 className="font-primary text-2xl font-normal text-secondary mb-8">
-                Nos autres articles
-              </h2>
+              <h3 className="font-primary font-normal text-secondary mb-8">Nos autres articles</h3>
               <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
                 {postsCards.map((cardPost) => (
                   <ArticleCard key={cardPost.id} post={cardPost} />

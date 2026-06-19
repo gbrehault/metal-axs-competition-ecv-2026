@@ -16,11 +16,11 @@ export default function Home() {
           className="relative flex min-h-screen w-1/1 items-center justify-center overflow-hidden -mt-190 md:-mt-250 lg:-mt-350 px-6 py-20 md:px-16"
         >
           <div className="relative z-10 mx-auto flex w-full flex-col items-center gap-8 p-5 text-center">
-            <h2 className="font-primary text-2xl leading-tight text-start text-tertiary md:text-5xl">
+            <h2 className="font-primary text-2xl leading-tight text-start text-secondary md:text-5xl">
               “Chaque année, de nouveaux festivals émergent, mais l’accessibilité reste souvent
               négligée.”
             </h2>
-            <h3 className="text-2xl z-1000 leading-10  text-start text-tertiary md:text-5xl">
+            <h3 className="text-2xl z-1000 leading-10  text-start text-secondary  md:text-5xl">
               Metal Axs accompagne les organisateurs, du site web à l’événement, pour offrir une
               expérience inclusive à tous.
             </h3>

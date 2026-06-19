@@ -6,7 +6,7 @@ import Image from 'next/image';
 import TransitionLink from '@/app/components/ui/TransitionLink';
 import Button from '@/app/components/ui/Button';
 import CardFond from '@/app/assets/Card.png';
-import statsImg from '@/app/assets/homepage/fond-section_2.png';
+import statsImg from '@/app/assets/homepage/Desktop - 16.jpg';
 import { HANDICAP_CARDS_BASE } from '@/app/data/handicaps/cardsData';
 
 const CARDS = HANDICAP_CARDS_BASE.map((card, i) => ({
@@ -124,26 +124,26 @@ export default function BonnesPratiquesSection() {
   return (
     <section
       id="bonnes-pratiques"
-      className="relative w-full min-h-screen  noise flex flex-col -mt-4 overflow-hidden bg-black px-10 md:px-16 py-16 z-10 "
+      className="relative w-full min-h-screen  noise flex flex-col -mt-4 overflow-hidden bg-tertiary px-10 md:px-16 py-16 z-10 "
     >
       {/* Header row */}
       <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-10 md:gap-20">
         <h2 className="font-primary text-secondary flex flex-col gap-2 leading-none">
           <span className="block leading-none">
-            <span className="inline-block bg-white px-2 py-1">Bonnes</span>
+            <span className="inline-block bg-secondary/10 px-2 py-1">Bonnes</span>
           </span>
           <span className="block leading-none">
-            <span className="inline-block bg-white px-2 py-1">pratiques</span>
+            <span className="inline-block bg-secondary/10 px-2 py-1">pratiques</span>
           </span>
         </h2>
 
         <div className="flex flex-col gap-6 max-w-lg">
-          <p className="text-tertiary text-xl leading-relaxed">
+          <p className="text-secondary text-xl leading-relaxed">
             Du site web à l&apos;expérience sur site, il existe des solutions concrètes pour chaque
             type de handicap. Nous avons réuni les bonnes pratiques essentielles pour vous
             accompagner dans cette démarche.
           </p>
-          <Button variant="outline" href="/handicaps">
+          <Button variant="primary" href="/handicaps">
             Découvrir
           </Button>
         </div>
@@ -235,17 +235,17 @@ export default function BonnesPratiquesSection() {
         />
         <div />
         <div className=" absolute flex flex-col z-100 p-5 md:p-20">
-          <h3 className="text-tertiary mb-10 md:mb-0">Pensez votre évènement pour eux</h3>
+          <h3 className="text-secondary mb-10 md:mb-0">Pensez votre évènement pour eux</h3>
           <div className="flex flex-col md:flex-row gap-10 w-auto md:w-150">
             <div className="w-55 flex flex-col justify-start items-start">
-              <h2 className="text-tertiary">20%</h2>
-              <p className="text-tertiary/50">
+              <h2 className="text-secondary">20%</h2>
+              <p className="text-secondary/50">
                 Ne se rendent pas à un festival à cause de son manque d’accessibilité
               </p>
             </div>
             <div className="w-60 flex flex-col justify-start items-start">
-              <h2 className="text-tertiary">52%</h2>
-              <p className="text-tertiary/50">
+              <h2 className="text-secondary">52%</h2>
+              <p className="text-secondary/50">
                 Des personnes en situations de handicap trouve l&apos;accès à la cultutre diﬃcile
               </p>
             </div>

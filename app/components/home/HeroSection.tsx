@@ -4,9 +4,9 @@ import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import src from '@/app/assets/homepage/fond-section.png';
+import src from '@/app/assets/homepage/section2.jpg';
 import Button from '@/app/components/ui/Button';
-import section1 from '@/app/assets/homepage/Frame_2121318156.jpg';
+import section1 from '@/app/assets/homepage/section1.jpg';
 
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -221,7 +221,7 @@ export default function HeroSection() {
   return (
     <section ref={sectionRef} data-hero className="relative h-screen w-full z-10">
       <div className="noise relative h-screen overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 z-10 bg-black/10" />
+        <div className="pointer-events-none absolute inset-0 z-10" />
         <div>
           <Image
             src={section1}
@@ -254,8 +254,6 @@ export default function HeroSection() {
               <span className="ml-1 inline-block bg-white px-2 py-1">à tous</span>
             </span>
           </h1>
-
-          
         </div>
 
         <div

@@ -7,7 +7,7 @@ import Button from '@/app/components/ui/Button';
 import Image from 'next/image';
 import LogoHero from '@/app/assets/Logo-Hero.svg';
 import { HANDICAP_PROFILES } from '@/app/data/handicaps/profilesData';
-import srcImage from '@/app/assets/homepage/Frame_2121318157.jpg';
+import srcImage from '@/app/assets/homepage/section3.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -111,7 +111,10 @@ export default function HandicapSection() {
           <div className="absolute inset-0 bg-secondary/75" />
         </div>
 
-        <h2 id="handicap-title-mobile" className="relative z-10 text-white text-2xl leading-snug">
+        <h2
+          id="handicap-title-mobile"
+          className="relative z-10 text-secondary text-2xl leading-snug"
+        >
           Voici les cinq profils que nous prenons en compte dans notre démarche.
         </h2>
 
@@ -131,10 +134,10 @@ export default function HandicapSection() {
         {/* Content */}
         <div className="relative z-10 flex-1 flex flex-col justify-between">
           <div aria-live="polite" aria-atomic="true">
-            <h3 className="inline-block px-2 py-1 text-tertiary text-xl uppercase font-bold mb-3">
+            <h3 className="inline-block px-2 py-1 text-secondary text-xl uppercase font-bold mb-3">
               {profile.title}
             </h3>
-            <p className="text-white/60 text-xl leading-relaxed">{profile.description}</p>
+            <p className="text-secondary text-xl leading-relaxed">{profile.description}</p>
           </div>
 
           {/* Navigation dots */}
@@ -165,7 +168,7 @@ export default function HandicapSection() {
               onClick={prev}
               disabled={activeIndex === 0}
               aria-label="Profil précédent"
-              className="text-white transition-opacity disabled:opacity-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-secondary transition-opacity disabled:opacity-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
                 <path
@@ -181,7 +184,7 @@ export default function HandicapSection() {
               onClick={next}
               disabled={activeIndex === PROFILES.length - 1}
               aria-label="Profil suivant"
-              className="text-white transition-opacity disabled:opacity-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-secondary transition-opacity disabled:opacity-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
                 <path
@@ -215,7 +218,7 @@ export default function HandicapSection() {
       >
         {/* Section title */}
         <div className="px-8 xl:px-16 pt-20 xl:pt-36 flex-shrink-0">
-          <h3 id="handicap-title-desktop" className="text-white max-w-2/3 leading-snug">
+          <h3 id="handicap-title-desktop" className="text-secondary max-w-2/3 leading-snug">
             Voici les cinq profils que nous prenons en compte dans notre démarche.
           </h3>
         </div>
@@ -240,10 +243,10 @@ export default function HandicapSection() {
               >
                 <h3 className="font-primary  text-secondary uppercase flex flex-col gap-2 leading-none mb-3">
                   <span className="block leading-none">
-                    <span className="inline-block text-tertiary">Handicap {p.title}</span>
+                    <span className="inline-block text-secondary">Handicap {p.title}</span>
                   </span>
                 </h3>
-                <p className="text-tertiary text-xl leading-6 mb-8 max-w-lg">{p.description}</p>
+                <p className="text-secondary text-xl leading-6 mb-8 max-w-lg">{p.description}</p>
                 <div className="flex flex-col gap-3 items-start">
                   <Button variant="primary" href="/handicaps">
                     CONSULTER LES 5 HANDICAPS
@@ -279,7 +282,7 @@ export default function HandicapSection() {
 
           {/* Right: vertical navigation */}
           <nav aria-label="Navigation des profils de handicap" className="relative z-50">
-            <ul className="flex flex-col justify-center items-end gap-5 h-full list-none">
+            <ul className="flex flex-col justify-center text-secondary items-end gap-5 h-full list-none">
               {PROFILES.map((p, i) => (
                 <li key={p.id}>
                   <button
@@ -295,7 +298,10 @@ export default function HandicapSection() {
                   >
                     <span
                       className="text-xl tracking-wide leading-tight max-w-[200px]"
-                      style={{ color: i === activeIndex ? 'var(--color-primary)' : 'white' }}
+                      style={{
+                        color:
+                          i === activeIndex ? 'var(--color-primary)' : 'var(--color-secondary)',
+                      }}
                     >
                       {p.nav}
                     </span>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Degrade from '@/app/assets/Footer-bg.jpg';
+import Degrade from '@/app/assets/homepage/background-footer.jpg';
 
 const NAV_LINKS = [
   { href: '/', label: 'Accueil' },
@@ -27,13 +27,7 @@ export default function Footer() {
     <footer id="federation" className="noise relative overflow-hidden bg-secondary pb-86">
       {/* Gradient background image */}
       <div className="absolute inset-0 z-0" aria-hidden>
-        <Image
-          src={Degrade}
-          alt=""
-          fill
-          className="object-cover object-bottom"
-          sizes="100vw"
-        />
+        <Image src={Degrade} alt="" fill className="object-cover object-bottom" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-b from-secondary from-20% via-secondary/60 to-transparent" />
       </div>
 
@@ -97,7 +91,6 @@ export default function Footer() {
         </div>
 
         {/* Bottom: Metal AXS logo */}
-       
       </div>
     </footer>
   );
