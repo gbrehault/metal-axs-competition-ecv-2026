@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import LogoMetalAxs from '@/app/assets/logo_metal-axs_vertical.svg';
+import Logo3DFooter from '@/app/assets/Logo-3D-footer.png';
 
 const NAV_LINKS = [
   { href: '/', label: 'Accueil' },
@@ -24,7 +25,7 @@ const LEGAL_LINKS = [
 
 export default function FooterLight() {
   return (
-    <footer id="federation" className="bg-tertiary border-t border-secondary/10">
+    <footer id="federation" className="bg-tertiary border-t border-secondary/10 h-280 md:h-150 relative overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-3 px-8 xl:px-20 pt-16 pb-12">
         <div className="flex flex-col justify-between gap-10 pb-10 md:pb-0 md:pr-12 border-b md:border-b-0 md:border-r border-secondary/15">
           <nav aria-label="Navigation principale" className="flex flex-col gap-4">
@@ -81,13 +82,22 @@ export default function FooterLight() {
         </div>
       </div>
 
-      <div className="flex justify-center px-8 xl:px-20 pb-8 pt-4 overflow-hidden">
+      <div className="hidden">
         <Image
           src={LogoMetalAxs}
           alt="Metal AXS"
           width={220}
           height={60}
           className="brightness-0"
+        />
+      </div>
+
+      <div className="flex justify-center mt-[-60px]">
+        <Image
+          src={Logo3DFooter}
+          alt=""
+          width={560}
+          height={560}
         />
       </div>
     </footer>

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import TransitionLink from '@/app/components/ui/TransitionLink';
 import Button from '@/app/components/ui/Button';
 import CardFond from '@/app/assets/Card.png';
-import statsImg from '@/app/assets/homepage/Desktop - 16.jpg';
+import statsImg from '@/app/assets/homepage/fond-section_2.png';
 import { HANDICAP_CARDS_BASE } from '@/app/data/handicaps/cardsData';
 
 const CARDS = HANDICAP_CARDS_BASE.map((card, i) => ({
