@@ -103,12 +103,12 @@ export default function HandicapSection() {
 
     return (
       <section
-        className="bg-secondary noise relative min-h-screen z-80 flex flex-col overflow-hidden px-6 py-12 gap-8"
+        className="bg-tertiary noise relative min-h-screen z-80 flex flex-col overflow-hidden px-6 py-12 gap-8"
         aria-labelledby="handicap-title-mobile"
       >
         <div aria-hidden className="absolute inset-0 z-0">
           <Image src={srcImage} alt="" fill className="object-cover object-center" sizes="100vw" />
-          <div className="absolute inset-0 bg-secondary/75" />
+          <div className="absolute inset-0" />
         </div>
 
         <h2

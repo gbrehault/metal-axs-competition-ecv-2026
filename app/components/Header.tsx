@@ -94,11 +94,7 @@ function HandicapsDropdown({ pathname }: { pathname: string }) {
         aria-haspopup="true"
       >
         HANDICAPS
-        {open ? (
-          <CaretUpIcon size={12} weight="bold" />
-        ) : (
-          <CaretDownIcon size={12} weight="bold" />
-        )}
+        {open ? <CaretUpIcon size={12} weight="bold" /> : <CaretDownIcon size={12} weight="bold" />}
       </button>
       {open && (
         <ul className="absolute top-full left-0 mt-8 bg-white shadow-md min-w-[200px] z-50 py-1">
@@ -163,7 +159,11 @@ function MobileHandicapsAccordion({
           aria-expanded={open}
           aria-label="Afficher les types de handicaps"
         >
-          {open ? <CaretUpIcon size={12} weight="bold" /> : <CaretDownIcon size={12} weight="bold" />}
+          {open ? (
+            <CaretUpIcon size={12} weight="bold" />
+          ) : (
+            <CaretDownIcon size={12} weight="bold" />
+          )}
         </button>
       </div>
       {open && (
@@ -224,11 +224,23 @@ function MobileDrawer({
     >
       <ul className="flex flex-col gap-5 px-6 py-6">
         {NAV_LINKS.slice(0, 1).map(({ label, href }) => (
-          <NavLink key={href} label={label} href={href} active={pathname === href} onClick={onClose} />
+          <NavLink
+            key={href}
+            label={label}
+            href={href}
+            active={pathname === href}
+            onClick={onClose}
+          />
         ))}
         <MobileHandicapsAccordion pathname={pathname} onClose={onClose} />
         {NAV_LINKS.slice(1).map(({ label, href }) => (
-          <NavLink key={href} label={label} href={href} active={pathname === href} onClick={onClose} />
+          <NavLink
+            key={href}
+            label={label}
+            href={href}
+            active={pathname === href}
+            onClick={onClose}
+          />
         ))}
       </ul>
     </div>
@@ -300,7 +312,7 @@ export default function Header() {
             <div className="flex md:hidden">
               <Button
                 variant="primary"
-                className="justify-center flex md:hidden"
+                className="justify-center items-center text-start flex md:hidden"
                 size="xs"
                 onClick={(e) => {
                   e.preventDefault();
@@ -310,7 +322,7 @@ export default function Header() {
                   setIsPopupOpen(true);
                 }}
               >
-                Réaliser une mise <br /> à niveau
+                Introduction à l’accessibilité
               </Button>
             </div>
             <div className="hidden md:flex">
