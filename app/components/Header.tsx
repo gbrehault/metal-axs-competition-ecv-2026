@@ -93,7 +93,7 @@ function MobileDrawer({
 }) {
   return (
     <div
-      className={`w-auto md:hidden overflow-hidden flex flex-col transition-all duration-300 bg-tertiary ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
+      className={`w-full md:hidden overflow-hidden flex flex-col transition-all duration-300 bg-tertiary ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
     >
       <ul className="flex flex-col gap-5 px-6 py-6">
         {NAV_LINKS.map(({ label, href }) => (
